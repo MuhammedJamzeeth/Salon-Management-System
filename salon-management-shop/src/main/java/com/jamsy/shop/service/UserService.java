@@ -5,4 +5,5 @@ import com.jamsy.shop.model.UserModel;
 
 public interface UserService {
     User registerUser(UserModel userModel);
+
 }

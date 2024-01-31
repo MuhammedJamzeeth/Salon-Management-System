@@ -1,5 +1,6 @@
 package com.jamsy.shop.service;
 
+import com.jamsy.shop.entity.Role;
 import com.jamsy.shop.entity.User;
 import com.jamsy.shop.model.UserModel;
 import com.jamsy.shop.repository.UserRepository;
@@ -23,10 +24,13 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userModel.getEmail());
         user.setFirstName(userModel.getEmail());
         user.setLastName(userModel.getLastName());
-        user.setRole(userModel.getRole());
+        user.setRole(Role.valueOf(userModel.getRole()));
         user.setPassword(passwordEncoder.encode(userModel.getPassword()));
+        user.setPhoneNumber(userModel.getPhoneNumber());
         userRepository.save(user);
         return user;
     }
+
+
 }
 
