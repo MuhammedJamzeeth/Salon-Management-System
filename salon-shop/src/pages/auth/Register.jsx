@@ -103,9 +103,9 @@ const Register = () => {
             size="small"
             label="Address"
             type="text"
-            name="shopNo"
+            name="address"
             onChange={handleInput}
-            value={formInput.shopNo}
+            value={formInput.address}
           />
 
           <TextField

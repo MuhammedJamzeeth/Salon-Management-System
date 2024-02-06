@@ -23,11 +23,11 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 @Configuration
 @RequiredArgsConstructor
 @EnableMethodSecurity
+
 public class WebSecurityConfig{
     private static final String[] WHITE_LIST_URLS = {
             "/register",
             "/hello",
-            "financial",
             "/verifyRegistration*",
             "resendVerifyToken*",
             "/resetPassword*",

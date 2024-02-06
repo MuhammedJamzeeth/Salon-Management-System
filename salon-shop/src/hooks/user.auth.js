@@ -8,7 +8,8 @@ const useAuthHandler = (formInput) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { title, email, password, confirmPassword, phone, zip } = formInput;
+  const { title, email, password, confirmPassword, phone, zip, address } =
+    formInput;
 
   const [file, setFile] = useState(null);
   const handleFileChange = (event) => {
@@ -43,27 +44,37 @@ const useAuthHandler = (formInput) => {
     }
 
     const formData = new FormData();
-    formData.append("file", file);
     formData.append("email", email);
     formData.append("password", password);
-    formData.append("phone", phone);
+    formData.append("phoneNumber", phone);
     formData.append("title", title);
+    formData.append("address", address);
+    formData.append("zip", zip);
+
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:8080/api/v1/saloon/register",
+        "http://localhost:8080/api/v1/auth/register_shop",
         formData
       );
 
-      if (response.status === 201 || response.statusText === "OK") {
+      if (
+        response.status === 201 ||
+        response.status === 200 ||
+        response.statusText === "OK"
+      ) {
         localStorage.setItem("user", JSON.stringify(response.data));
         dispatch(setCurrentUser(response.data));
       }
+      const user = localStorage.getItem("user");
+      console.log(user);
+      console.log("user registered");
+      console.log(response.data.access_token);
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
-      // setError(error.response.data.message);
+      // console.log(error);
+      setError(error.response.data);
     }
   };
 

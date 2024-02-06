@@ -34,12 +34,15 @@ public class AuthenticationService {
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())
+                .address(request.getAddress())
+                .zip(request.getZip())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .build();
         var savedUser = userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
+        saveUserToken(savedUser, refreshToken);
         return AuthenticationResponse.builder().
                 accessToken(jwtToken).
                 build();

@@ -11,14 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping("/api/v1/auth")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AuthController {
 
     private final UserService userService;
@@ -45,17 +43,25 @@ public class AuthController {
 
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest){
-
-        if(registerRequest.getFirstName().isEmpty()){
-            return new ResponseEntity<>("First Name and Last Name cannot be empty", HttpStatus.BAD_REQUEST);
-        }
+//    @PostMapping("/register")
+//    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest){
+//
+//        if(registerRequest.getFirstName().isEmpty()){
+//            return new ResponseEntity<>("First Name and Last Name cannot be empty", HttpStatus.BAD_REQUEST);
+//        }
+//        if(userRepository.existsByEmail(registerRequest.getEmail())){
+//            return new ResponseEntity<>("Email Already Taken", HttpStatus.BAD_REQUEST);
+//        }
+//        if (registerRequest.getPassword().length() < 8) {
+//            return ResponseEntity.badRequest().body("Password must be at least 8 characters long");
+//        }
+//        return ResponseEntity.ok(authenticationService.register(registerRequest));
+//
+//    }
+    @PostMapping("/register_shop")
+    public ResponseEntity<?> registerUser(@ModelAttribute RegisterRequest registerRequest){
         if(userRepository.existsByEmail(registerRequest.getEmail())){
             return new ResponseEntity<>("Email Already Taken", HttpStatus.BAD_REQUEST);
-        }
-        if (registerRequest.getPassword().length() < 8) {
-            return ResponseEntity.badRequest().body("Password must be at least 8 characters long");
         }
         return ResponseEntity.ok(authenticationService.register(registerRequest));
 
