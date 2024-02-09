@@ -2,16 +2,16 @@ package com.jamsy.shop.controller;
 import com.jamsy.shop.auth.AuthenticationRequest;
 import com.jamsy.shop.auth.AuthenticationService;
 import com.jamsy.shop.auth.RegisterRequest;
-import com.jamsy.shop.model.UserModel;
+import com.jamsy.shop.entity.User;
 import com.jamsy.shop.repository.UserRepository;
 import com.jamsy.shop.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 
 @RestController
@@ -39,6 +39,12 @@ public class AuthController {
         }
         if(request.getPassword().isEmpty()){
             return new ResponseEntity<>("Password cannot be empty", HttpStatus.BAD_REQUEST);
+        }
+        if(!(userRepository.existsByEmail(request.getEmail()))){
+            return new ResponseEntity<>("Email not find register first", HttpStatus.BAD_REQUEST);
+        }
+        if(!(authenticationService.matchPassword(request.getEmail(), request.getPassword()))){
+            return new ResponseEntity<>("Incorrect password", HttpStatus.UNAUTHORIZED);
         }
 
         return ResponseEntity.ok(authenticationService.authenticate(request));

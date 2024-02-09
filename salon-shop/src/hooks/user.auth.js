@@ -94,7 +94,7 @@ const useAuthHandler = (formInput) => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:8080/api/v1/saloon/signin",
+        "http://localhost:8080/api/v1/auth/login",
         {
           ...formInput,
         }
@@ -106,7 +106,7 @@ const useAuthHandler = (formInput) => {
       }
       setLoading(false);
     } catch (error) {
-      setError(error.response.data.message);
+      setError(error.response.data);
       setLoading(false);
     }
   };
