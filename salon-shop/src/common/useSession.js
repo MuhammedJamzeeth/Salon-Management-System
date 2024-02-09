@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import Login from "../pages/auth/Login";
 
 const parseJWT = (token) => {
   try {
@@ -10,7 +9,7 @@ const parseJWT = (token) => {
   }
 };
 
-const AuthVerify = (props) => {
+const useSession = () => {
   const location = useLocation();
   const [sessionExpired, setSessionExpired] = useState(false);
 
@@ -20,24 +19,20 @@ const AuthVerify = (props) => {
     if (user) {
       const decodedJwt = parseJWT(user.access_token);
       console.log(decodedJwt);
-
       console.log(decodedJwt.exp * 1000);
       console.log(Date.now());
       if (decodedJwt.exp * 1000 < Date.now()) {
         setSessionExpired(true);
-      
-        props.LogOut();
       } else {
         setSessionExpired(false);
-        <Login
-          sessionExpired={sessionExpired}
-          setSessionExpired={setSessionExpired}
-        ></Login>;
       }
     }
     return;
-  }, [location, props, sessionExpired]);
-  return;
+  }, [location, sessionExpired]);
+  return {
+    sessionExpired,
+    setSessionExpired,
+  };
 };
 
-export default AuthVerify;
+export default useSession;

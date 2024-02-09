@@ -1,10 +1,9 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setCurrentUser } from "../actions/user.action";
-import  axios  from "axios";
 
-const useLogOut = () => {
+const useLogOut = (sessionExpired) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -12,7 +11,7 @@ const useLogOut = () => {
     dispatch(setCurrentUser(null));
 
     localStorage.removeItem("user");
-    
+
     navigate("/login");
   }, [navigate, dispatch]);
 
