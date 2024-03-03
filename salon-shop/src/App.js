@@ -9,6 +9,7 @@ import { setCurrentUser } from "./actions/user.action";
 import SharedLayOut from "./pages/Shared/ShardLayOut";
 import AuthVerify from "./common/AuthVerify";
 import DashBoard from "./pages/Dashboard/DashBoard";
+import Appointments from "./pages/Appoinments/Appoinment";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ function App() {
       type: "SET_CURRENT_PAGE",
       payload: pathname === "/" ? "dashboard" : pathname.split("/")[1],
     });
-    // dispatch never updates so we can ingore it in useEffect dependency array
+    // dispatch never updates so we can ignore it in useEffect dependency array
   }, [pathname, dispatch]);
 
   return (
@@ -33,7 +34,9 @@ function App() {
           element={!currentUserValue ? <Login /> : <SharedLayOut />}
         >
           <Route index element={<DashBoard />} path="dashboard" />
+          <Route path="/appointments" element={<Appointments />} />
         </Route>
+
         <Route
           element={!currentUserValue ? <Login /> : <Navigate to="/" />}
           path="login"

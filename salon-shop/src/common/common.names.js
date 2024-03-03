@@ -1,3 +1,3 @@
 export const commonNames = {
-  SALOON_NAME: "Monalisa Salon",
+  SALOON_NAME: "Corner Barber",
 };

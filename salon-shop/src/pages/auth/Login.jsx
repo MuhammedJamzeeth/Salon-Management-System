@@ -4,9 +4,7 @@ import Banners from "../../components/Banner/Banners";
 import useInputHandler from "../../hooks/InputHandler";
 import useAuthHandler from "../../hooks/user.auth";
 import { colors } from "../../styles/colors";
-
 import SaloonLogo from "../../assets/logo.webp";
-
 import { Link } from "react-router-dom";
 import { commonNames } from "../../common/common.names";
 import { bannerdata } from "./Banner";
@@ -18,6 +16,8 @@ import {
   FormContainer,
   Logo,
 } from "./auth.styles";
+import AuthVerify from "../../common/AuthVerify";
+import useSession from "../../common/useSession";
 
 const InitialState = {
   email: "",
@@ -27,7 +27,8 @@ const InitialState = {
 const Login = () => {
   const { handleInput, formInput } = useInputHandler(InitialState);
   const { login, loading, error, setError } = useAuthHandler(formInput);
-
+  const { sessionExpired, setSessionExpired } = useSession();
+  console.log(sessionExpired);
   return (
     <Container>
       <BannerContainer>
@@ -38,6 +39,11 @@ const Login = () => {
           <img src={SaloonLogo} alt="logo" />
         </Logo>
         <h3>Welcome to {commonNames.SALOON_NAME}</h3>
+        {sessionExpired && (
+          <Alert severity="warning" onClose={() => setSessionExpired(false)}>
+            Your session has expired. Please log in again.
+          </Alert>
+        )}
 
         {error && (
           <Alert
