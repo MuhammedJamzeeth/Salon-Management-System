@@ -6,7 +6,6 @@ import Statistics from "../../components/Statistics/Statistics";
 import { DashBoardContainer } from "../Dashboard/DashBoard.styles";
 
 const DashBoard = () => {
- 
   return (
     <DashBoardContainer>
       <Statistics />

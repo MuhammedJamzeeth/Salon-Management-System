@@ -40,7 +40,7 @@ const SideBar = ({ isOpen, toggleSideBar }) => {
           title={"DashBoard"}
         />
         <SideBarItems
-          to={"appoinments"}
+          to={"appointments"}
           title={"Appointments"}
           Icon={<CalendarMonthIcon />}
         />

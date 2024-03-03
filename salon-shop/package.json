@@ -11,8 +11,13 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.7",
+    "bootstrap": "^5.3.3",
+    "date-fns": "^3.3.1",
     "lottie-react": "^2.4.0",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.10.1",
+    "react-date-range": "^2.0.0-alpha.4",
+    "react-datepicker": "^6.1.0",
     "react-dom": "^18.2.0",
     "react-lottie": "^1.2.4",
     "react-redux": "^9.1.0",
@@ -35,7 +40,12 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "globals": {
+      "forwardRef": true,
+      "setHours": true,
+      "setMinutes": true
+    }
   },
   "browserslist": {
     "production": [
