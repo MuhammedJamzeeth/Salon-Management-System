@@ -33,7 +33,10 @@ public class WebSecurityConfig{
             "/resetPassword*",
             "/savePassword*",
             "/changePassword*",
-            "/login"
+            "/login",
+            "/employee",
+            "/employees",
+            "/employees/count"
     };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
