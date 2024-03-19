@@ -37,7 +37,15 @@ public class WebSecurityConfig{
             "/employee",
             "/employees",
             "/employees/count",
+<<<<<<< Updated upstream
             "/employee/{empId}"
+=======
+            "/addproduct",
+            "/getallproducts",
+            "/updateproduct*",
+            "/deleteproduct*",
+            "/getproductbyid*"
+>>>>>>> Stashed changes
     };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
