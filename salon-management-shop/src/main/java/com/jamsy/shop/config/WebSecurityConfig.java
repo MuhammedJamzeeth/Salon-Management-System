@@ -36,7 +36,8 @@ public class WebSecurityConfig{
             "/login",
             "/employee",
             "/employees",
-            "/employees/count"
+            "/employees/count",
+            "/employee/{empId}"
     };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;

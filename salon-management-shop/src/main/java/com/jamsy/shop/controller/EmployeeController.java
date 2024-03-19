@@ -35,5 +35,11 @@ public class EmployeeController {
         return employeeService.getEmployeeCount();
     }
 
+    @GetMapping("/employee/{empId}")
+    public Employee fetchEmployeeById(@PathVariable("empId")Long employeeId){
+        return employeeService.fetchEmployeeById(employeeId);
+
+    }
+
 
 }

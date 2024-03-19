@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employee {
-    private String empId;
+    private Long empId;
     private String empFirstName;
     private String empLastName;
     private String empIc;

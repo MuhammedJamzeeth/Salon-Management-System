@@ -10,4 +10,8 @@ public interface EmployeeService {
     public List<Employee> fatchEmployeeList();
 
     public long getEmployeeCount();
+
+   public Employee fetchEmployeeById(Long employeeId);
+
+
 }

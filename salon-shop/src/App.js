@@ -10,6 +10,9 @@ import SharedLayOut from "./pages/Shared/ShardLayOut";
 import AuthVerify from "./common/AuthVerify";
 import DashBoard from "./pages/Dashboard/DashBoard";
 import Appointments from "./pages/Appoinments/Appoinment";
+import Staff from "./pages/Staffs/Staff"
+// import AddStaff from "./components/Staff/Adddstaff";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +38,11 @@ function App() {
         >
           <Route index element={<DashBoard />} path="dashboard" />
           <Route path="/appointments" element={<Appointments />} />
+          <Route index element={<Staff />} path="staffs" />
         </Route>
+
+       
+
 
         <Route
           element={!currentUserValue ? <Login /> : <Navigate to="/" />}
