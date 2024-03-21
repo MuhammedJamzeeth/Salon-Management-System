@@ -37,7 +37,17 @@ public class WebSecurityConfig{
             "/employee",
             "/employees",
             "/employees/count",
-            "/employee/{empId}"
+            "/employee/{empId}",
+            "/addproduct",
+            "/getallproducts",
+            "/updateproduct*",
+            "/deleteproduct*",
+            "/getproductbyid*",
+            "/addservice",
+            "/getallservices",
+            "/deleteservice*",
+            "/getservicebyid*",
+            "/updateservice*"
     };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
