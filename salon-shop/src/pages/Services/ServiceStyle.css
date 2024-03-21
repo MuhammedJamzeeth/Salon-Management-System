@@ -174,13 +174,13 @@
     margin-left: 5px;
     display: flex;
     flex-wrap: wrap; /* Allow items to wrap to the next row */
-    justify-content: flex-start; /* Start from left */
-    gap: 20px; /* Space between items */
+    justify-content: center; /* Start from left */
+    gap: 50px; /* Space between items */
     width: 99%;
     
-  }
-  
-  .service-list-style {
+}
+
+.service-list-style {
     position: relative; 
     padding: 5px;
     border-radius: 10px;
@@ -189,19 +189,20 @@
     height: 150px;
     text-align: center;
     overflow: hidden;
+    box-shadow: 5px 5px 10px 2px rgba(86, 115, 221, 0.24);
     margin-bottom: 10px; /* Spacing at the bottom of each item */
     transition: all 0.3s ease; /* Add transition effect */
-  }
-  
-  .service-list-style:hover {
+}
+
+.service-list-style:hover {
     transform: translateY(-5px); /* Move up on hover */
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Add box shadow on hover */
-  }
-  
-  .service-list-style p {
+}
+
+.service-list-style p {
     margin: 0;
-  }
-  
+}
+
 .deleteButton{
     position: absolute;
     bottom: 5px; /* Adjust bottom spacing as needed */
