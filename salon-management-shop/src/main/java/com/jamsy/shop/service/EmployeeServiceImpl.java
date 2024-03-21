@@ -14,17 +14,17 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public Employee saveEmployee(Employee employee) {
-        Employee employees = new Employee();
-        employees.setEmpEmail(employee.getEmpEmail());
-        employees.setEmpGender(employee.getEmpGender());
-        employees.setEmpPhone(employee.getEmpPhone());
-        employees.setEmpIc(employee.getEmpIc());
-        employees.setEmpAddress(employee.getEmpAddress());
-        employees.setEmpFirstName(employee.getEmpFirstName());
-        employees.setEmpLastName(employee.getEmpLastName());
-        employeeRepository.save(employees);
+            Employee employees = new Employee();
+            employees.setEmpEmail(employee.getEmpEmail());
+            employees.setEmpGender(employee.getEmpGender());
+            employees.setEmpPhone(employee.getEmpPhone());
+            employees.setEmpIc(employee.getEmpIc());
+            employees.setEmpAddress(employee.getEmpAddress());
+            employees.setEmpFirstName(employee.getEmpFirstName());
+            employees.setEmpLastName(employee.getEmpLastName());
+            employeeRepository.save(employees);
 
-        return employees;
+        return employeeRepository.save(employee) ;
     }
 
     @Override

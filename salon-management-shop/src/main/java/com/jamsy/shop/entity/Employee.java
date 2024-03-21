@@ -24,7 +24,7 @@ public class Employee {
     private String empFirstName;
     private String empLastName;
     private String empIc;
-    @Column(unique = true,nullable = false)
+//    @Column(unique = true,nullable = false)
     private String empEmail;
     private String empAddress;
     private String empGender;

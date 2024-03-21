@@ -9,8 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(origins = "*")
+
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EmployeeController {
 
     @Autowired
@@ -19,7 +20,7 @@ public class EmployeeController {
     private EmployeeRepository employeeRepository;
 
     @PostMapping("/employee")
-    public Employee saveEmployee(@RequestBody Employee employee){
+    public Employee saveEmployee(@ModelAttribute Employee employee){
         System.out.println(employee);
         return employeeService.saveEmployee(employee);
     }
