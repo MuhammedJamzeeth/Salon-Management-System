@@ -36,7 +36,7 @@ const SideBar = ({ isOpen, toggleSideBar }) => {
 
       <SideBarItemWrapper className="">
         <SideBarItems
-          to={"mydashboard"}
+          to={"/"}
           Icon={<DashboardOutlinedIcon />}
           title={"DashBoard"}
         />
