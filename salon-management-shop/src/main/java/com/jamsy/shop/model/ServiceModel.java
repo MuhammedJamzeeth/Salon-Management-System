@@ -19,5 +19,5 @@ public class ServiceModel {
     private String serviceDescription;
     private double servicePrice;
     private boolean serviceStatus;
-    private byte[] imageData;
+    private String imageData;
 }
