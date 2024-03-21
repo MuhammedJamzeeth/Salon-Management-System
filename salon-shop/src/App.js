@@ -13,6 +13,7 @@ import Appointments from "./pages/Appoinments/Appoinment";
 import Staff from "./pages/Staffs/Staff"
 import Service from "./pages/Services/Service";
 import Inventory from "./pages/Inventory/Inventory";
+import MyDashboard from "./pages/MyDashboard/MyDashboard"
 // import AddStaff from "./components/Staff/Adddstaff";
 
 
@@ -43,6 +44,7 @@ function App() {
           <Route index element={<Staff />} path="staffs" />
           <Route path="services" element={<Service />} />
           <Route path="inventory" element={<Inventory />} />
+          <Route path="mydashboard" element={<MyDashboard />} />
         </Route>
 
 
