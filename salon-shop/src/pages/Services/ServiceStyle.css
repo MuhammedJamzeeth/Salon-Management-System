@@ -1,0 +1,155 @@
+.addButton {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    background-color: #007C42;
+    color: white;
+    border-radius: 45px;
+    padding: 10px 20px;
+    border: 4px solid transparent;
+    transition: border-color 1s ease;
+    font-size: larger;
+    height: auto;
+}
+
+.addButton:hover {
+    border-color: rgb(190, 84, 84); /* Change border color to green on hover */
+}
+
+.submitButton{
+    width: 20%;
+    height: 35px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    border-radius: 15px;
+    text-align: center;
+    margin-left: 25%;
+    background-color: #616161bc;
+    border-color: rgba(255, 255, 255, 0.256);
+    grid-column: span 2;
+    border: 4px solid transparent; /* Ensure there's a border initially */
+    transition: border-color 1s ease;
+}
+
+.submitButton:hover {
+    border-color: rgb(77, 248, 77); /* Change border color to green on hover */
+}
+
+.cancelButton{
+    width: 20%;
+    height: 35px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    border-radius: 15px;
+    text-align: center;
+    margin-left: 50%;
+    margin-top: -4%;
+    background-color: #616161bc;
+    border-color: rgba(255, 255, 255, 0.256);
+    grid-column: span 2;
+    border: 4px solid transparent; /* Ensure there's a border initially */
+    transition: border-color 1s ease;
+}
+
+.cancelButton:hover {
+    border-color: rgb(223, 59, 59); /* Change border color to green on hover */
+}
+
+.formContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* background-color: rgba(255, 255, 255, 0.6); */
+    background-color: #61616198;
+    z-index: 2;
+    padding: 20px;
+    border-radius: 25px;
+    width: 95%; /* Match the width of the parent container */
+    height: 90%; /* Match the height of the parent container */
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center; */
+} 
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
+    gap: 10px; /* Spacing between grid items */
+}
+
+.gridContainer > div {
+    grid-column: span 1; /* Each grid item spans one column */
+    margin-left: 15%;
+}
+
+.inputLabel {
+    font-weight: bold;
+    color: #ccc;
+}
+
+.bgimg{
+    width: 99%;
+    height:auto;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+
+.inputstyle {
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc; /* Default border color */
+    padding: 4px; /* Example padding, adjust as needed */
+    transition: border 0.3s ease; /* Smooth transition for border color change */
+}
+
+.inputstyle:hover,
+.inputstyle:focus {
+    border: 2px solid green; /* Change border to green on hover/focus */
+    outline: none; /* Remove the default focus outline */
+}
+
+.inputLabel {
+    display: flex;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.inputstyle, .inputstyle[type="file"] {
+    width: auto;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc; /* Example border styling */
+    padding: 8px; /* Padding for text and number inputs; might not apply to file input */
+    display: block; /* Ensure elements are block-level for consistent layout */ 
+}
+
+.inputstyle[type="file"]::file-selector-button {
+    border-radius: 10px;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0; /* Example styling; adjust as needed */
+    margin-right: 10px; /* Space between the button and file name */
+}
+
+  /* Adjust textarea specifically */
+.inputstyle[type="textarea"] {
+    height: auto; /* Override if you've set a specific height elsewhere */
+}
+
+.inputLabel, .inputstyle, .inputstyle[type="file"], textarea.inputstyle {
+    width: 50%; /* Ensures input fills the container div */
+}
+
+.services-list{
+    margin-top: 45px;
+    margin-left: 5px;
+    display: flex;
+    justify-content: left;
+    position: relative;
+    width: 99%;
+}
