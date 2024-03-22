@@ -1,0 +1,128 @@
+
+  
+  
+ 
+  .M-Container {
+    grid-area: main;
+    overflow-y: auto;
+    padding: 20px 20px;
+    color: rgb(255, 255, 255);
+    
+  }
+
+  .Mchart{
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    gap: 20px;
+    margin: 15px 0;
+  }
+
+  .mHeading{
+    color: rgb(98, 98, 98);
+  }
+
+  .pro{
+    color:rgb(255, 255, 255);
+   
+  }
+  
+  .M-Title {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .M-Cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    margin: 15px 0;
+    
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 1px 10px;
+    border-radius: 10px;
+  }
+
+  
+  .card:first-child {
+    background-color: #4c8cf0;
+  }
+  
+  .card:nth-child(2) {
+    background-color: #070b14;
+  }
+  
+  .card:nth-child(3) {
+    background-color: #ec74ac;
+  }
+  
+  .card:nth-child(4) {
+    background-color: #1ab7b7;
+  }
+
+  .card:nth-child(5) {
+    background-color: #1ab7b7;
+  }
+
+  .card:nth-child(6) {
+    background-color: #ec74ac;
+  }
+
+  .card:nth-child(7) {
+    background-color: #070b14;
+  }
+
+  .card:nth-child(8) {
+    background-color: #4c8cf0;
+  }
+
+ 
+
+  
+  .inner-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 65px;
+   
+  }
+
+  
+  
+  .inner-card > .inner-card {
+    font-size: 25px;d
+  }
+  
+  .charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 60px;
+    height: 300px;
+  }
+
+  
+  .chart{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 1px 15px;
+    border-radius: 5px;
+  }
+
+
+.inco{
+    color: rgb(98, 98, 98);
+    text-align: center;
+}
+  
+
+.line{
+    padding: 45px;
+}
+
+  
