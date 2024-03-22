@@ -124,13 +124,13 @@ const Register = () => {
             variant="contained"
             type="submit"
           >
-            {loading ? "Loading..." : "SIGNUP"}
+            {loading ? "Loading..." : "SIGN UP"}
           </Button>
         </Form>
         <BarberShopAddress style={{ margin: "10px" }}>
           Already a user?{" "}
           <Link style={{ color: colors.colorBlack }} to={"/login"}>
-            LOGIN
+            LOG IN
           </Link>
         </BarberShopAddress>
       </FormContainer>

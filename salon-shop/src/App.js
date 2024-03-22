@@ -10,6 +10,10 @@ import SharedLayOut from "./pages/Shared/ShardLayOut";
 import AuthVerify from "./common/AuthVerify";
 import DashBoard from "./pages/Dashboard/DashBoard";
 import Appointments from "./pages/Appoinments/Appoinment";
+import Staff from "./pages/Staffs/Staff"
+import Service from "./pages/Services/Service";
+import Inventory from "./pages/Inventory/Inventory";
+// import AddStaff from "./components/Staff/Adddstaff";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +39,9 @@ function App() {
         >
           <Route index element={<DashBoard />} path="dashboard" />
           <Route path="/appointments" element={<Appointments />} />
+          <Route index element={<Staff />} path="staffs" />
+          <Route path="services" element={<Service />} />
+          <Route path="inventory" element={<Inventory />} />
         </Route>
 
         <Route

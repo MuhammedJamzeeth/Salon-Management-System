@@ -81,13 +81,13 @@ const Login = () => {
             type="submit"
             fullWidth
           >
-            {loading ? "Loading..." : "SIGNIN"}
+            {loading ? "Loading..." : "LOG IN"}
           </Button>
         </Form>
         <BarberShopAddress style={{ margin: "10px" }}>
-          Already a user?{" "}
+          Don’t have an account?{" "}
           <Link style={{ color: colors.colorBlack }} to={"/register"}>
-            LOGIN
+            SIGN UP
           </Link>
         </BarberShopAddress>
       </FormContainer>

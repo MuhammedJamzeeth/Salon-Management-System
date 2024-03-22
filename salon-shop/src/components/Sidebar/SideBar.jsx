@@ -12,6 +12,7 @@ import React from "react";
 import SaloonLogo from "../../assets/logo.webp";
 import useLogOut from "../../hooks/user.logout";
 import Profile from "../Profile/Profile";
+import InventoryIcon from '@mui/icons-material/Inventory';
 
 import { commonNames } from "../../common/common.names";
 import {
@@ -49,7 +50,11 @@ const SideBar = ({ isOpen, toggleSideBar }) => {
           title={"Services"}
           Icon={<AddCircleIcon />}
         />
-
+        <SideBarItems
+          to={"inventory"}
+          title={"Inventory"}
+          Icon={<InventoryIcon />}
+        />
         <SideBarItems
           to={"clients"}
           title={"Clients"}
