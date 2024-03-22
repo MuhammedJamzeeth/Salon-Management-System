@@ -102,6 +102,7 @@ const useAuthHandler = (formInput) => {
 
       if (response.status === 200 || response.statusText === "OK") {
         localStorage.setItem("user", JSON.stringify(response.data));
+        console.log(localStorage.getItem("user"));
         dispatch(setCurrentUser(response.data));
       }
       setLoading(false);

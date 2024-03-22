@@ -7,7 +7,7 @@ export const AppointmentContainer = styled.div`
   padding: 10px;
   gap: 10px;
   width: 100%;
-  height: 80%;
+  height: 90%;
   @media screen and (max-width: 1000px) {
     flex-direction: column;
   }
@@ -46,6 +46,7 @@ export const AppointmentsListContainer = styled.div`
     position: relative;
     display: inline-block;
     border-radius: 0.25rem;
+    margin-left: 10px;
     padding-top: 2px;
     height: 30px;
     width: 200px;
@@ -107,5 +108,56 @@ export const CreateAppointment = styled.div`
     background-color: #212529; /* Your custom background color on hover */
     border-color: #212529; /* Your custom border color on hover */
     color: #ffffff; /* Your custom text color on hover */
+  }
+`;
+export const AppointmentsCards = styled.div`
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  height: calc(100vh - 200px);
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+export const ArrowDownWrapper = styled.div`
+  text-align: center;
+  /* height: 30px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 0;
+`;
+
+export const FinancialAppointmentWrapper = styled.div`
+  /* display: none;
+
+  @media screen and (max-width: 1100px) {
+    display: block;
+  } */
+`;
+export const ListOfData = styled.div`
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+  }
+  
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the track */
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar handle */
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #6810c0; /* Color of the scrollbar handle on hover */
   }
 `;

@@ -1,60 +1,79 @@
-.addButton {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    background-color: #007C42;
-    color: white;
-    border-radius: 45px;
-    padding: 10px 20px;
-    border: 4px solid transparent;
-    transition: border-color 1s ease;
-    font-size: larger;
-    height: auto;
-}
+    .addButton {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        background-color: #007C42;
+        color: white;
+        border-radius: 45px;
+        padding: 8px 16px; /* Adjust padding to make the button smaller */
+        border: 4px solid transparent;
+        transition: all 0.3s ease; /* Add transition for smooth animation */
+        font-size: medium; /* Adjust font size */
+    }
+    
+    .addButton:hover {
+        border-color: rgb(255, 255, 255); /* Change border color to red on hover */
+        background-color: #005738; /* Darken the background color on hover */
+        transform: translate(-50%, -50%) scale(0.95); /* Scale down the button on hover */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Add box shadow on hover */
+    }
+    
+    .submitButton {
+        width: 20%;
+        height: 35px;
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+        border-radius: 15px;
+        text-align: center;
+        margin-left: 25%;
+        background-color: #616161bc;
+        border-color: rgba(255, 255, 255, 0.256);
+        grid-column: span 2;
+        border: 4px solid transparent; /* Ensure there's a border initially */
+        transition: transform 0.5s ease; /* Add transition for scaling effect */
+    }
+    
+    .submitButton:hover {
+        transform: scale(1.05);
+        color: #00ff88;
+        border: 2px solid white; /* Scale up the button on hover */
+    }
 
-.addButton:hover {
-    border-color: rgb(190, 84, 84); /* Change border color to green on hover */
-}
+    .buttons-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding-left: 150px;
+        /* margin-left: 25%; */
+    }
+    
 
-.submitButton{
-    width: 20%;
-    height: 35px;
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    border-radius: 15px;
-    text-align: center;
-    margin-left: 25%;
-    background-color: #616161bc;
-    border-color: rgba(255, 255, 255, 0.256);
-    grid-column: span 2;
-    border: 4px solid transparent; /* Ensure there's a border initially */
-    transition: border-color 1s ease;
-}
-
-.submitButton:hover {
-    border-color: rgb(77, 248, 77); /* Change border color to green on hover */
+.deleteIcon{
+    width: 22px;
+    height: 22px;
 }
 
 .cancelButton{
-    width: 20%;
-    height: 35px;
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    border-radius: 15px;
-    text-align: center;
-    margin-left: 50%;
-    margin-top: -4%;
-    background-color: #616161bc;
-    border-color: rgba(255, 255, 255, 0.256);
-    grid-column: span 2;
-    border: 4px solid transparent; /* Ensure there's a border initially */
-    transition: border-color 1s ease;
+        width: 20%;
+        height: 35px;
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+        border-radius: 15px;
+        text-align: center;
+        margin-left: 25%;
+        background-color: #616161bc;
+        border-color: rgba(255, 255, 255, 0.256);
+        grid-column: span 2;
+        border: 4px solid transparent; /* Ensure there's a border initially */
+        transition: transform 0.3s ease; 
 }
 
 .cancelButton:hover {
-    border-color: rgb(223, 59, 59); /* Change border color to green on hover */
+    transform: scale(1.05);
+    color: #f53030;
+    border: 2px solid white; /* Change border color to green on hover */
 }
 
 .formContainer {
@@ -145,11 +164,69 @@
     width: 50%; /* Ensures input fills the container div */
 }
 
-.services-list{
+
+.service-list-style > p {
+    text-align: left;
+}
+
+.services-list {
     margin-top: 45px;
     margin-left: 5px;
     display: flex;
-    justify-content: left;
-    position: relative;
+    flex-wrap: wrap; /* Allow items to wrap to the next row */
+    justify-content: flex-start; /* Start from left */
+    gap: 20px; /* Space between items */
     width: 99%;
+    
+  }
+  
+  .service-list-style {
+    position: relative; 
+    padding: 5px;
+    border-radius: 10px;
+    border: 2px solid black;
+    width: 150px;
+    height: 150px;
+    text-align: center;
+    overflow: hidden;
+    margin-bottom: 10px; /* Spacing at the bottom of each item */
+    transition: all 0.3s ease; /* Add transition effect */
+  }
+  
+  .service-list-style:hover {
+    transform: translateY(-5px); /* Move up on hover */
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Add box shadow on hover */
+  }
+  
+  .service-list-style p {
+    margin: 0;
+  }
+  
+.deleteButton{
+    position: absolute;
+    bottom: 5px; /* Adjust bottom spacing as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 25px;
+    text-align: center;
+    width: 100px;
+    background-color: white;
+    color: #cc0000;
+    border-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    padding: 5px 10px;
+    border: 0.5px solid burlywood;
+}
+
+.deleteButton:hover {
+    background-color: #ff3030;
+    color: #ffffff; /* Darken the color on hover */
+}
+
+.deleteIcon {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-right: 5px;
 }
