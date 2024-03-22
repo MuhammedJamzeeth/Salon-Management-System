@@ -12,11 +12,11 @@ function ServiceComponent() {
   const [serviceName, setServiceName] = useState('');
   const [serviceDesc, setServiceDesc] = useState('');
   const [servicePrice, setServicePrice] = useState('');
-  const [serviceImg, setServiceImg] = useState(null);
+  //const [serviceImg, setServiceImg] = useState(null);
 
   const saveService = (e) => {
     e.preventDefault();
-    const service = {serviceName, serviceDesc, servicePrice,serviceImg}
+    const service = {serviceName, serviceDesc, servicePrice}
     setShowForm(false);
     
     // console.log(service);
@@ -47,7 +47,7 @@ function ServiceComponent() {
         setServiceName('');
         setServiceDesc('');
         setServicePrice('');
-        setServiceImg(null);
+        //setServiceImg(null);
     })
     .catch(error => {
         console.error('Error saving service:', error);
@@ -112,7 +112,7 @@ function ServiceComponent() {
             </div>
             <div>
               <label htmlFor="serviceDescription" className="inputLabel">Service Description</label>
-              <textarea 
+              <input 
                 placeholder="Describe the service" 
                 className='inputstyle' 
                 rows="2"
@@ -120,8 +120,8 @@ function ServiceComponent() {
                 type="text"
                 value={serviceDesc}
                 onChange={(e)=> setServiceDesc(e.target.value)}
-                > 
-              </textarea>
+                /> 
+              {/* </textarea> */}
             </div>
             <div>
               <label htmlFor="servicePrice" className="inputLabel">Service Price</label>
@@ -134,7 +134,7 @@ function ServiceComponent() {
                 onChange={(e)=> setServicePrice(e.target.value)}
               />
             </div>
-            <div>
+            {/* <div>
               <label htmlFor="serviceImage" className="inputLabel">Service Image</label>
               <input 
                 type='file'
@@ -144,7 +144,7 @@ function ServiceComponent() {
                 className='inputstyle'
                 onChange={(e)=> setServiceImg(e.target.files[0])}
               />
-            </div>
+            </div> */}
                          {/* Submit Button */}
             <div className='buttons-container'>
               <button type="submit" className="submitButton" onClick={(e)=> saveService(e)}>Submit</button>
@@ -158,11 +158,11 @@ function ServiceComponent() {
 
     <div className='services-list'>
       {services.map(service => (
-          <div key={service.id} className='service-list-style'>
-            <p>{}</p>
+          <div className='service-list-style'>
+            
             <br/>
             <p>{service.serviceName}</p>
-            <button type='submit' className="deleteButton">
+            <button type='submit' className="deleteButton" >
             <img src={DeleteIcon} className="deleteIcon" alt="Delete" style={{ marginRight: '5px' }} /> Delete</button>
           </div>
       ))}
