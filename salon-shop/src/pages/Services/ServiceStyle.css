@@ -43,12 +43,18 @@
 
     .buttons-container {
         display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         justify-content: left;
         width: 320px;
         padding-left: 10px;
         margin-top: 50px;
+        margin-bottom: 20px;
     }
-    
+    .buttons-container button {
+        width: 100%; /* Set width to fill the container */
+        margin-bottom: 20px; /* Add space between buttons */
+    }
 
 .deleteIcon{
     width: 22px;
@@ -62,7 +68,7 @@
         font-weight: bold;
         border-radius: 15px;
         text-align: center;
-        margin-left: 5%;
+        /* margin-left: 5%; */
         background-color: #616161bc;
         border-color: rgba(255, 255, 255, 0.256);
         grid-column: span 2;
