@@ -50,9 +50,35 @@ const Appointments = () => {
     },
   ]);
 
+  const getEmployee = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/employee");
+
+      console.log(response.data);
+
+      // if (response?.statusText === "OK") {
+      //   throw new Error("Something went wrong");
+      // } else {
+      //   // setLoading(false);
+      //   dispatch({
+      //     type: APPOINTMENT_ACTION_TYPES.SET_APPOINTMENT,
+      //     payload: response.data,
+      //   });
+      // }
+    } catch (error) {
+      // setLoading(false);
+      setError(
+        error.code !== "ERR_NETWORK"
+          ? error.response?.statusText
+          : error.message
+      );
+    }
+  };
+
   const dateRangeRef = useRef();
   useEffect(() => {
     getAllServices();
+
     const handleOutsideClick = (event) => {
       if (
         dateRangeRef.current &&
@@ -218,6 +244,7 @@ const Appointments = () => {
                 img={
                   "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1153&q=80"
                 }
+                employee={appointment.empName}
               >
                 <p style={{ fontSize: "12px", fontWeight: "600" }}>
                   {appointment.customerName}

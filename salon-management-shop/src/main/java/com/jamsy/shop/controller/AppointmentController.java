@@ -20,13 +20,13 @@ public class AppointmentController {
 
     @PostMapping("/save")
     public ResponseEntity<?> saveAppointment(@ModelAttribute Appointment appointment){
-        System.out.println(appointment);
+//        System.out.println(appointment);
         return ResponseEntity.ok(appointmentService.saveAppointment(appointment));
     }
     @GetMapping("/view")
     public ResponseEntity<List<Appointment>> getAllAppointment(){
         List<Appointment> appointment = appointmentService.findAllProduct();
-        System.out.println(appointment);
+//        System.out.println(appointment);
         return ResponseEntity.ok((appointment));
     }
 }

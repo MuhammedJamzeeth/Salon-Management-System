@@ -12,7 +12,7 @@ import {
 } from "./card.styles";
 import { set } from "date-fns";
 
-const Card = ({ id, img, children, backGround, loading }) => {
+const Card = ({ id, img, children, backGround, loading, employee }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const appointmentDetails = () => {
@@ -76,7 +76,7 @@ const Card = ({ id, img, children, backGround, loading }) => {
                   style={{ marginRight: 5 }}
                 />
               ) : (
-                <Avatar src={img} />
+                <Avatar />
               )}
             </Box>
             {loading ? (
@@ -99,7 +99,7 @@ const Card = ({ id, img, children, backGround, loading }) => {
                 </Skeleton>
               </Box>
             ) : (
-              <CardDetails>{children}</CardDetails>
+              <CardDetails>{employee}</CardDetails>
             )}
           </CardContainer>
           <ButtonContainer>
