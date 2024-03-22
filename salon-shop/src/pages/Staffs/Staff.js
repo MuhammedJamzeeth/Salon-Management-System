@@ -82,7 +82,7 @@ function EmployeeDetails() {
                             <p>Email: {selectedEmployee.empEmail}</p>
                             <p>Address: {selectedEmployee.empAddress} </p>
                             <p>Remainder: 11</p>
-                            {/* Add more details here */}
+                          
                         </div>
                     )}
                 </Modal.Body>
