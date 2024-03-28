@@ -46,6 +46,7 @@ public class WebSecurityConfig{
             "/addservice",
             "/getallservices",
             "/deleteservice*",
+            "/deleteservice/*",
             "/getservicebyid*",
             "/updateservice*"
     };

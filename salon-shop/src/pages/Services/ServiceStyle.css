@@ -163,28 +163,46 @@
 
 .service-list-style > p {
     text-align: center;
+    position: relative;
     margin-bottom: 10px;
+    color: black;
+    z-index: 1;
 }
 .service-list-style > h5 {
     text-align: center;
+    position: relative;
     color: black;
     margin-bottom: 20px;
+    z-index: 1;
 }
 
 .service-list-style {
     position: relative; 
     border-radius: 20px;
-    border: 2px solid black;
+    border: 1px solid burlywood;
     width: 150px;
     height: 220px;
     text-align: center;
-    box-shadow: 5px 5px 10px 2px rgba(86, 115, 221, 0.24);
+    box-shadow: 5px 5px 10px 2px rgba(120, 144, 231, 0.24);
     transition: all 0.5s ease; /* Add transition effect */
+    background: linear-gradient(45deg, #ff9eec, #81f9f1); /* Add gradient background */
+    overflow: clip; /* Hide overflow for blur effect */
+}
+
+.service-list-style::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: inherit;
+    filter: blur(10px);
 }
 
 .service-list-style:hover {
-    transform: translateY(-5px); /* Move up on hover */
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Add box shadow on hover */
+    transform: scale(1.05); /* Scale up on hover */
+    box-shadow: 8px 8px 16px 4px rgba(86, 115, 221, 0.3); /* Modify box-shadow on hover */
 }
 
 .deleteButton{
