@@ -3,7 +3,8 @@ import img1 from '../../assets/haircutting.jpg';
 import plusicon from '../../assets/plus1.png'
 import './ServiceStyle.css'
 import DeleteIcon from '../../assets/icon-delete.png'
-// import Swal from 'sweetalert2';
+import EditIcon from '../../assets/edit-icon.png'
+import Swal from 'sweetalert2';
 
 
 function ServiceComponent() {
@@ -12,14 +13,59 @@ function ServiceComponent() {
   const [serviceName, setServiceName] = useState('');
   const [serviceDesc, setServiceDesc] = useState('');
   const [servicePrice, setServicePrice] = useState('');
-  //const [serviceImg, setServiceImg] = useState(null);
+  const [serviceDate,setServiceDate] = useState('');
+  const [serviceState,setServiceState] = useState('Active');
+
+  const [serviceNameError, setServiceNameError] = useState('');
+  const [serviceDescError, setServiceDescError] = useState('');
+  const [servicePriceError, setServicePriceError] = useState('');
+  const [serviceDateError, setServiceDateError] = useState('');
+  const [serviceStateError, setServiceStateError] = useState('');
 
   const saveService = (e) => {
     e.preventDefault();
-    const service = {serviceName, serviceDesc, servicePrice}
+
+    if (serviceName.trim() === '') {
+      setServiceNameError('Service name is required');
+      return;
+    }else{
+      setServiceNameError('');
+    }
+
+    if (serviceDesc.trim() === '') {
+      setServiceDescError('Service Description is required');
+      return;
+    }else{
+      setServiceDescError('');
+    }
+
+    if (servicePrice.trim() === '') {
+      setServicePriceError('Service price is required');
+      return;
+    }else{
+      setServicePriceError('');
+    }
+
+    if (serviceState.trim() === '') {
+      setServiceStateError('Service state is required');
+      return;
+    }else{
+      setServiceStateError('');
+    }
+
+    if (serviceDate.trim() === '') {
+      setServiceDateError('Service date is required');
+      return;
+    }else{
+      setServiceDateError('Active');
+    }
+
+    const service = {serviceName, serviceDesc, servicePrice,serviceDate,serviceState}
+    
+    //Hide form
     setShowForm(false);
     
-    // console.log(service);
+    // form submission to backend
     fetch('http://localhost:8080/addservice', {
         method: 'POST',
         headers: {
@@ -36,22 +82,24 @@ function ServiceComponent() {
     .then(data => {
         console.log('Service saved successfully:', data);
 
-        // Swal.fire({
-        //   icon:'success',
-        //   title:'Saved',
-        //   text:'Service Added Successfully...',
-        //   showCloseButton:true
-        // })
+        Swal.fire({
+          icon:'success',
+          title:'Saved',
+          text:'Service Added Successfully...',
+          showCloseButton:true
+        })
         
         // Reset form fields to empty values
         setServiceName('');
         setServiceDesc('');
         setServicePrice('');
-        //setServiceImg(null);
+        setServiceDate('');
+        setServiceState('');
+        
     })
     .catch(error => {
         console.error('Error saving service:', error);
-        // You can add error handling here
+        // add error handling here
     });
   }
 
@@ -73,19 +121,10 @@ function ServiceComponent() {
 
   const handleAddServiceClick = () => {
     setShowForm(true);
-    
   };
 
   const handleFormSubmit = () => {
     setShowForm(false);
-    // if(!serviceDesc || !serviceName || !servicePrice){
-    //   return Swal.fire({
-    //     icon:"warning",
-    //     title:'error',
-    //     text:'Fill All The Fields',
-    //     showCloseButton:true
-    //   })
-    // }
   };
 
   return (
@@ -109,19 +148,19 @@ function ServiceComponent() {
                 className='inputstyle'
                 onChange={(e)=> setServiceName(e.target.value)}
               />
+              {serviceNameError && <p style={{ color: 'red' }}>{serviceNameError}</p>}
             </div>
             <div>
               <label htmlFor="serviceDescription" className="inputLabel">Service Description</label>
               <input 
                 placeholder="Describe the service" 
                 className='inputstyle' 
-                rows="2"
                 name='serviceDesc'
                 type="text"
                 value={serviceDesc}
                 onChange={(e)=> setServiceDesc(e.target.value)}
                 /> 
-              {/* </textarea> */}
+                {serviceDescError && <p style={{ color: 'red' }}>{serviceDescError}</p>}
             </div>
             <div>
               <label htmlFor="servicePrice" className="inputLabel">Service Price</label>
@@ -133,25 +172,37 @@ function ServiceComponent() {
                 className='inputstyle'
                 onChange={(e)=> setServicePrice(e.target.value)}
               />
+              {servicePriceError && <p style={{ color: 'red' }}>{servicePriceError}</p>}
             </div>
-            {/* <div>
-              <label htmlFor="serviceImage" className="inputLabel">Service Image</label>
-              <input 
-                type='file'
-                accept="image/*" 
-                name='serviceImg' 
-                value={serviceImg}
-                className='inputstyle'
-                onChange={(e)=> setServiceImg(e.target.files[0])}
-              />
-            </div> */}
-                         {/* Submit Button */}
-            <div className='buttons-container'>
-              <button type="submit" className="submitButton" onClick={(e)=> saveService(e)}>Submit</button>
-                          {/* Cancel Button */}
-              <button type="cancel" className="cancelButton">Cancel</button>
-              </div>
           </div>
+          <div  className="gridContainer" style={{ width: '100%' }}>
+            <div>
+              <label htmlFor="serviceAddDate" className="inputLabel">Service Added date</label>
+              <input 
+                type="Date" 
+                name='serviceDate' 
+                value={serviceDate} 
+                placeholder="Price" 
+                className='inputstyle'
+                onChange={(e)=> setServiceDate(e.target.value)}
+              />
+              {serviceDateError && <p style={{ color: 'red' }}>{serviceDateError}</p>}
+            </div>
+            <div>
+              <label htmlFor="serviceState" className="inputLabel">Service State</label>
+              <select id="service_state" name="serviceState" className='inputstyle' onChange={(e)=> setServiceState(e.target.value)}>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+              {serviceStateError && <p style={{ color: 'red' }}>{serviceStateError}</p>}
+            </div>
+          </div>
+              {/* Submit Button */}
+            <div>
+              <button type="submit" className="submitButton" onClick={(e)=> saveService(e)}>Submit</button>
+              {/* Cancel Button */}
+              <button type="cancel" className="cancelButton">Cancel</button>
+            </div>
         </form>
       )}
     </div>
@@ -159,15 +210,18 @@ function ServiceComponent() {
     <div className='services-list'>
       {services.map(service => (
           <div className='service-list-style'>
-            
             <br/>
             <p>{service.serviceName}</p>
+            <p>{service.servicePrice}</p>
+            <h5>{service.serviceState}</h5> 
+            <button type='submit' className="editButton" > 
+            <img src={EditIcon} className="editIcon" alt="Edit" style={{ marginRight: '5px' }} /> Edit </button>
             <button type='submit' className="deleteButton" >
             <img src={DeleteIcon} className="deleteIcon" alt="Delete" style={{ marginRight: '5px' }} /> Delete</button>
           </div>
       ))}
     </div>
-    </>
+  </>
   );
 }
 
