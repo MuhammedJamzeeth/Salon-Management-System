@@ -34,8 +34,8 @@ public class ServiceServiceImpl implements ServiceService{
         if (updatedService.getServiceDescription()!=null){
             existingService.setServiceDescription(updatedService.getServiceDescription());
         }
-        if(updatedService.isServiceStatus()){
-            existingService.setServiceStatus(true);
+        if(updatedService.getServiceState()!=null){
+            existingService.setServiceState(updatedService.getServiceState());
         }
         return serviceRepository.save(existingService);
     }
