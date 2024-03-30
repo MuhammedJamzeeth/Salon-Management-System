@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -18,6 +20,6 @@ public class ServiceModel {
     private String serviceName;
     private String serviceDescription;
     private double servicePrice;
-    private boolean serviceStatus;
-    private String imageData;
+    private String serviceState;
+    private Date serviceDate;
 }

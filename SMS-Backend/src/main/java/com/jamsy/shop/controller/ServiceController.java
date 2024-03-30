@@ -33,6 +33,7 @@ public class ServiceController {
     @DeleteMapping("/deleteservice/{id}")
     public void deleteService(@PathVariable Long id){
         serviceService.deleteService(id);
+        System.out.println("service deleted");
     }
 
     @GetMapping("/getservicebyid/{id}")
