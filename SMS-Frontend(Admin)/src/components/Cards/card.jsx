@@ -99,7 +99,11 @@ const Card = ({ id, img, children, backGround, loading, employee }) => {
                 </Skeleton>
               </Box>
             ) : (
-              <CardDetails>{employee}</CardDetails>
+              <CardDetails>
+                <p style={{ fontSize: "12px", fontWeight: "600" }}>
+                  {employee.employee.empLastName}
+                </p>
+              </CardDetails>
             )}
           </CardContainer>
           <ButtonContainer>

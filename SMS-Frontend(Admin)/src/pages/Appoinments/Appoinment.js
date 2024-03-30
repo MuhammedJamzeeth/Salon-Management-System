@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import DatePicker from "react-datepicker";
@@ -6,14 +6,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import { format, setHours, setMinutes } from "date-fns"; // Import setHours and setMinutes from date-fns
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import { DateRange, DateRangePicker } from "react-date-range";
+import { DateRangePicker } from "react-date-range";
 import { addDays } from "date-fns";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 import Card from "../../components/Cards/card";
 import { colors } from "../../styles/colors";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import useAppointments from "../../hooks/appointment/useAppointments";
 
 import {
@@ -22,7 +22,6 @@ import {
   CreateAppointment,
   ListOfData,
 } from "./Appointments.styles";
-import { List } from "@mui/icons-material";
 
 const Appointments = () => {
   const [loading, setLoading] = useState(false);
@@ -31,7 +30,8 @@ const Appointments = () => {
     (state) => state.appointments.current_appointment
   );
 
-  const { getAllServices } = useAppointments();
+  const { getAllAppointments, getEmployee, getAllServices, emp, services } =
+    useAppointments();
 
   const excludeSundays = (date) => {
     // Return false if the date is Sunday
@@ -50,35 +50,14 @@ const Appointments = () => {
     },
   ]);
 
-  const getEmployee = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/employee");
-
-      console.log(response.data);
-
-      // if (response?.statusText === "OK") {
-      //   throw new Error("Something went wrong");
-      // } else {
-      //   // setLoading(false);
-      //   dispatch({
-      //     type: APPOINTMENT_ACTION_TYPES.SET_APPOINTMENT,
-      //     payload: response.data,
-      //   });
-      // }
-    } catch (error) {
-      // setLoading(false);
-      setError(
-        error.code !== "ERR_NETWORK"
-          ? error.response?.statusText
-          : error.message
-      );
-    }
-  };
+  useEffect(() => {
+    getAllAppointments();
+    getEmployee();
+    getAllServices();
+  }, []);
 
   const dateRangeRef = useRef();
   useEffect(() => {
-    getAllServices();
-
     const handleOutsideClick = (event) => {
       if (
         dateRangeRef.current &&
@@ -94,7 +73,7 @@ const Appointments = () => {
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
-  }, [dateRangeRef, setOpenDate, getAllServices]);
+  }, [dateRangeRef, setOpenDate]);
 
   const handleClick = () => {
     setOpenDate((prev) => !prev);
@@ -169,7 +148,7 @@ const Appointments = () => {
       const formData = new FormData();
 
       formData.append("customerName", formInput.uname);
-      formData.append("empName", formInput.eName);
+      formData.append("employee", formInput.eName);
       formData.append("category", formInput.category);
       formData.append("dateAndTime", formInput.date);
       formData.append("customerEmail", formInput.email);
@@ -192,6 +171,7 @@ const Appointments = () => {
       }
       setLoading(false);
       setFormInput(InitiateState);
+      getAllAppointments();
     } catch (error) {
       setError(error.response.data);
       setLoading(false);
@@ -238,49 +218,33 @@ const Appointments = () => {
           />
         ) : (
           <ListOfData>
-            {appointments.map((appointment) => (
-              <Card
-                backGround={colors.colorGray}
-                img={
-                  "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1153&q=80"
-                }
-                employee={appointment.empName}
-              >
-                <p style={{ fontSize: "12px", fontWeight: "600" }}>
-                  {appointment.customerName}
-                </p>
-                <span style={{ fontSize: "11px", fontWeight: "500" }}>
-                  {appointment.category}
-                </span>
-                <span style={{ fontSize: "11px", fontWeight: "500" }}>
-                  {appointment.date}
-                </span>
-                <span style={{ fontSize: "11px", fontWeight: "500" }}>
-                  {appointment.time}
-                </span>
-              </Card>
-            ))}
-            {/* <Card
-              backGround={colors.colorGray}
-              img={
-                "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1153&q=80"
-              }
-            >
-              <p style={{ fontSize: "12px", fontWeight: "600" }}>Ea Tipene</p>
-              <span style={{ fontSize: "11px", fontWeight: "500" }}>
-                Haircut and Spa
-              </span>
-              <span style={{ fontSize: "11px", fontWeight: "500" }}>
-                10.30 - 11.00{" "}
-                <span
-                  style={{
-                    color: "orange",
-                  }}
+            {appointments.length > 0 ? (
+              appointments.map((appointment, index) => (
+                <Card
+                  key={index}
+                  backGround={colors.colorGray}
+                  img={
+                    "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1153&q=80"
+                  }
+                  employee={appointment}
                 >
-                  &#9733;
-                </span>
-              </span>
-            </Card> */}
+                  <p style={{ fontSize: "12px", fontWeight: "600" }}>
+                    {appointment.customerName}
+                  </p>
+                  <span style={{ fontSize: "11px", fontWeight: "500" }}>
+                    {appointment.category}
+                  </span>
+                  <span style={{ fontSize: "11px", fontWeight: "500" }}>
+                    {appointment.date}
+                  </span>
+                  <span style={{ fontSize: "11px", fontWeight: "500" }}>
+                    {appointment.time}
+                  </span>
+                </Card>
+              ))
+            ) : (
+              <div> not found </div>
+            )}
           </ListOfData>
         )}
       </AppointmentsListContainer>
@@ -329,9 +293,12 @@ const Appointments = () => {
               onChange={handleInputChange}
             >
               <option value=""></option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              {emp.length > 0 &&
+                emp.map((emp, index) => (
+                  <option key={index} value={emp.empId}>
+                    {emp.empLastName}
+                  </option>
+                ))}
             </Form.Select>
             {error.eName && (
               <Form.Text
@@ -354,9 +321,12 @@ const Appointments = () => {
               onChange={handleInputChange}
             >
               <option></option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              {emp.length > 0 &&
+                services.map((service, index) => (
+                  <option key={index} value={service.serviceId}>
+                    {service.serviceName}
+                  </option>
+                ))}
             </Form.Select>
             {error.category && (
               <Form.Text

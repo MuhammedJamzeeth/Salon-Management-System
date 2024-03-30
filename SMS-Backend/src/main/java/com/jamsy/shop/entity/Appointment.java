@@ -1,9 +1,6 @@
 package com.jamsy.shop.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +15,9 @@ public class Appointment {
     private Long id;
     private String customerName;
     private String customerEmail;
-    private String empName;
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
     private String category;
     private String date;
     private String time;

@@ -2,8 +2,6 @@ package com.jamsy.shop.controller;
 
 import com.jamsy.shop.entity.Appointment;
 import com.jamsy.shop.service.AppointmentService;
-import com.jamsy.shop.service.UserService;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +23,7 @@ public class AppointmentController {
     }
     @GetMapping("/view")
     public ResponseEntity<List<Appointment>> getAllAppointment(){
-        List<Appointment> appointment = appointmentService.findAllProduct();
+        List<Appointment> appointment = appointmentService.getAppointmentDetails();
 //        System.out.println(appointment);
         return ResponseEntity.ok((appointment));
     }

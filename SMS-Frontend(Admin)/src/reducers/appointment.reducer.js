@@ -24,6 +24,7 @@ export const appointmentReducer = (
         ...state,
         current_appointment: [...payload],
       };
+
     default:
       return state;
   }

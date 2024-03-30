@@ -1,12 +1,13 @@
 package com.jamsy.shop.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.jamsy.shop.entity.Appointment;
+import com.jamsy.shop.token.Token;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,5 +21,7 @@ public class Employee {
     private String empAddress;
     private String empGender;
     private String empPhone;
+    @OneToMany(mappedBy = "appointment")
+    private List<Appointment> appointments;
 
 }
