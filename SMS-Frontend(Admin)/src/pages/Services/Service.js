@@ -10,25 +10,27 @@ import Swal from 'sweetalert2';
 function ServiceComponent() {
   const [showForm, setShowForm] = useState(false);
   const [services, setServices] = useState([]);
+  const [editingService,setEditingService] = useState([]);
+
   const [serviceName, setServiceName] = useState('');
   const [serviceDesc, setServiceDesc] = useState('');
   const [servicePrice, setServicePrice] = useState('');
   const [serviceDate,setServiceDate] = useState('');
   const [serviceState,setServiceState] = useState('Active');
 
-  // for form validation
+  // FOR RORM VALIDATION
   const [serviceNameError, setServiceNameError] = useState('');
   const [serviceDescError, setServiceDescError] = useState('');
   const [servicePriceError, setServicePriceError] = useState('');
   const [serviceDateError, setServiceDateError] = useState('');
   const [serviceStateError, setServiceStateError] = useState('');
 
-
+  //DELETE THE SERVICE BY ID
   const deleteService = (serviceId) => {
     // delete service based on serviceId
     // after delete Update state to reflect the deletion
 
-    // Display confirmation dialog
+    // DISPLAY CONFIRMATION DIALOG
       Swal.fire({
         title: 'Do you want to delete?',
         icon: 'warning',
@@ -49,7 +51,7 @@ function ServiceComponent() {
                 // Remove the service from the state
                 const updatedServices = services.filter(service => service.id !== serviceId);
                 setServices(updatedServices);
-                // Show a success message
+                // Show a success messagse
                 Swal.fire({
                     icon: 'success',
                     title: 'Deleted',
@@ -72,6 +74,50 @@ function ServiceComponent() {
       });
   }
 
+    //UPDATE FORM DETAILS
+    const updateService = () => {
+      // Check if editingService is not null
+      if (editingService) {
+        // Update the service details in the backend
+        fetch(`http://localhost:8080/updateservice/${editingService.serviceId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({serviceName, serviceDesc, serviceState}),
+          
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Service updated successfully:', data);
+  
+            Swal.fire({
+              icon: 'success',
+              title: 'Updated',
+              text: 'Service Updated Successfully...',
+              showCloseButton: true
+            });
+  
+            // Reset form fields and editingService state
+            clearService();
+            setEditingService(null);
+  
+            // Refetch services after update
+            //fetchServices();
+          })
+          .catch(error => {
+            console.error('Error updating service:', error);
+            //error handling
+          });
+      }
+    };
+
+  // ADD NEW SERVICE OR SAVE SERVICE
   const saveService = (e) => {
     e.preventDefault();
 
@@ -167,7 +213,19 @@ function ServiceComponent() {
       }
     }
     fetchServices();
-  }, [saveService,deleteService]);
+  }, [saveService,deleteService,updateService]);
+
+// SET SERVICE DETAILS TO FORM FIELDS
+  const setFormDetails = (service) => {
+    setEditingService(service);
+    setShowForm(true);
+    // Set form fields with the details of the selected service
+    setServiceName(service.serviceName);
+    setServiceDesc(service.serviceDesc);
+    setServicePrice(service.servicePrice);
+    setServiceDate(service.serviceDate);
+    setServiceState(service.serviceState);
+  };
 
   const handleAddServiceClick = () => {
     setShowForm(true);
@@ -175,6 +233,8 @@ function ServiceComponent() {
 
   const handleFormSubmit = () => {
     setShowForm(false);
+    clearService();
+    setEditingService(null);
   };
 
   const clearService = () => {
@@ -184,7 +244,6 @@ function ServiceComponent() {
     setServiceDate('');
     setServiceState('');
   }
-
 
   return (
     <>
@@ -250,8 +309,8 @@ function ServiceComponent() {
               <div>
                 <label htmlFor="serviceState" className="inputLabel">Service State</label>
                 <select id="service_state" name="serviceState" className='inputstyle' onChange={(e)=> setServiceState(e.target.value)}>
-                  <option value="active">Active</option>
-                  <option value="inactive">Inactive</option>
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
                 </select>
                 {serviceStateError && <p style={{ color: 'red' }}>{serviceStateError}</p>}
               </div>
@@ -261,6 +320,8 @@ function ServiceComponent() {
                 <button type="submit" className="submitButton" onClick={(e)=> saveService(e)}>Submit</button>
                 {/* Cancel Button */}
                 <button type="cancel" className="cancelButton" onClick={clearService}>Cancel</button>
+                {/* Update Button */}
+                {editingService && <button type="update" className="updateButton" onClick={updateService}>Update</button>}
               </div>
           </form>
         )}
@@ -271,9 +332,9 @@ function ServiceComponent() {
             <div className='service-list-style'>
               <br/>
               <p>{service.serviceName}</p>
-              <p>{service.servicePrice}</p>
+              <p>Rs.{service.servicePrice}.00</p>
               <h5>{service.serviceState}</h5> 
-              <button type='submit' className="editButton" > 
+              <button type='submit' className="editButton" onClick={() => setFormDetails(service)}> 
               <img src={EditIcon} className="editIcon" alt="Edit" style={{ marginRight: '5px' }} /> Edit </button>
               <button type='submit' className="deleteButton" onClick={() => deleteService(service.serviceId)}>
               <img src={DeleteIcon} className="deleteIcon" alt="Delete" style={{ marginRight: '5px' }} /> Delete</button>

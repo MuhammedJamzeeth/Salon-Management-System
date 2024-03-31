@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static java.lang.Float.parseFloat;
+
 @Service
 public class ServiceServiceImpl implements ServiceService{
     @Autowired
@@ -36,6 +38,12 @@ public class ServiceServiceImpl implements ServiceService{
         }
         if(updatedService.getServiceState()!=null){
             existingService.setServiceState(updatedService.getServiceState());
+        }
+        if(updatedService.getServicePrice() != 0){
+            existingService.setServicePrice(updatedService.getServicePrice());
+        }
+        if(updatedService.getServiceDate() != null){
+            existingService.setServiceDate(updatedService.getServiceDate());
         }
         return serviceRepository.save(existingService);
     }

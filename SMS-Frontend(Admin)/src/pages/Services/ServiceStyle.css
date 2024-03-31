@@ -46,6 +46,29 @@
     height: 22px;
 }
 
+.updateButton{
+    /* position: relative; */
+    width: 30%;
+    height: 50px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: 2%;
+    margin-left: 4%;
+    background-color: #616161bc;
+    border-color: rgba(255, 255, 255, 0.256);
+    grid-column: span 2;
+    border: 2px solid #3054f5; /* Ensure there's a border initially */
+    transition: transform 0.5s ease; 
+}
+
+.updateButton:hover {
+    transform: scale(1.05);
+    color: #3054f5;
+    border: 2px solid white; /* Change border color to green on hover */
+}
+
 .cancelButton{
         width: 30%;
         height: 50px;
