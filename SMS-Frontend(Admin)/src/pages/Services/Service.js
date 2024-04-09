@@ -166,6 +166,7 @@ function ServiceComponent() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${access_token}`,
         },
         body: JSON.stringify(service),
     })
@@ -198,11 +199,19 @@ function ServiceComponent() {
         // add error handling here
     });
   }
+  const user = localStorage.getItem("user");
+
+  const { access_token } = JSON.parse(user);
 
   useEffect(() => {
     async function fetchServices() {
       try {
-        const response = await fetch("http://localhost:8080/getallservices");
+        const response = await fetch("http://localhost:8080/getallservices",
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch services');
         }
