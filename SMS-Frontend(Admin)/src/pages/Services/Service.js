@@ -84,7 +84,7 @@ function ServiceComponent() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({serviceName, serviceDesc, serviceState}),
+          body: JSON.stringify({serviceName, serviceDesc, serviceState, servicePrice, serviceDate}),
           
         })
           .then(response => {
@@ -153,7 +153,7 @@ function ServiceComponent() {
       setServiceDateError('Service date is required');
       return;
     }else{
-      setServiceDateError('Active');
+      setServiceDateError('Service state is required');
     }
 
     const service = {serviceName, serviceDesc, servicePrice,serviceDate,serviceState}
@@ -199,6 +199,7 @@ function ServiceComponent() {
         // add error handling here
     });
   }
+  
   const user = localStorage.getItem("user");
 
   const { access_token } = JSON.parse(user);
@@ -255,7 +256,7 @@ function ServiceComponent() {
   }
 
   return (
-    <>
+  <>
     <div className='cover-img' style={{ position: 'relative' }}>
       <img src={img1} alt='' className='bgimg'/>
         {!showForm && (
@@ -334,9 +335,9 @@ function ServiceComponent() {
               </div>
           </form>
         )}
-      </div>
+    </div>
         {/* Display service list */}
-      <div className='services-list'>
+    <div className='services-list'>
         {services.map(service => (
             <div className='service-list-style'>
               <br/>
@@ -349,7 +350,7 @@ function ServiceComponent() {
               <img src={DeleteIcon} className="deleteIcon" alt="Delete" style={{ marginRight: '5px' }} /> Delete</button>
             </div>
         ))}
-      </div>
+    </div>
   </>
   );
 }
