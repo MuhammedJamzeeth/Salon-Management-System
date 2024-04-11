@@ -1,5 +1,6 @@
 package com.jamsy.shop.controller;
 
+import com.jamsy.shop.entity.ServiceEntity;
 import com.jamsy.shop.model.ServiceModel;
 import com.jamsy.shop.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +16,18 @@ public class ServiceController {
      ServiceService serviceService;
 
     @PostMapping("/addservice")
-    public ServiceModel saveService(@RequestBody ServiceModel service){
-        System.out.println(service);
+    public ServiceEntity saveService(@RequestBody ServiceEntity service){
+//        System.out.println(service);
         return serviceService.addService(service);
     }
 
     @GetMapping("/getallservices")
-    public List<ServiceModel> getAllServices(){
+    public List<ServiceEntity> getAllServices(){
         return serviceService.getAllServices();
     }
 
     @PutMapping("/updateservice/{id}")
-    public ServiceModel updateService(@PathVariable Long id,@RequestBody ServiceModel service){
+    public ServiceEntity updateService(@PathVariable Long id,@RequestBody ServiceEntity service){
         return serviceService.updateService(id, service);
     }
 
@@ -37,7 +38,7 @@ public class ServiceController {
     }
 
     @GetMapping("/getservicebyid/{id}")
-    public ServiceModel getServiceById(@PathVariable Long id) {
+    public ServiceEntity getServiceById(@PathVariable Long id) {
         return serviceService.getServiceById(id);
     }
 }
