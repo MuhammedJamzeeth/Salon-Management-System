@@ -23,5 +23,4 @@ public class Employee {
     private String empPhone;
     @OneToMany(mappedBy = "appointment")
     private List<Appointment> appointments;
-
 }
