@@ -227,7 +227,7 @@ function ServiceComponent() {
 
 // SET SERVICE DETAILS TO FORM FIELDS
   const setFormDetails = (service) => {
-    setEditingService(service);
+    //setEditingService(service);
     setShowForm(true);
     // Set form fields with the details of the selected service
     setServiceName(service.serviceName);
