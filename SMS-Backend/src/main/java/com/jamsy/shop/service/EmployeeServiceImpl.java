@@ -22,7 +22,9 @@ public class EmployeeServiceImpl implements EmployeeService{
             employees.setEmpAddress(employee.getEmpAddress());
             employees.setEmpFirstName(employee.getEmpFirstName());
             employees.setEmpLastName(employee.getEmpLastName());
-            employeeRepository.save(employees);
+            employees.setEmpJoiningDate(employee.getEmpJoiningDate());
+            employees.setEmpDateOfBirth(employee.getEmpDateOfBirth());
+//            employeeRepository.save(employees);
 
         return employeeRepository.save(employee) ;
     }

@@ -21,6 +21,8 @@ public class Employee {
     private String empAddress;
     private String empGender;
     private String empPhone;
+    private String empJoiningDate;
+    private String empDateOfBirth;
     @OneToMany(mappedBy = "appointment")
     private List<Appointment> appointments;
 }

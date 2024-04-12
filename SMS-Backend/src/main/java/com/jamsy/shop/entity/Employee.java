@@ -29,5 +29,7 @@ public class Employee {
     private String empAddress;
     private String empGender;
     private String empPhone;
+    private String empJoiningDate;
+    private String empDateOfBirth;
 
 }

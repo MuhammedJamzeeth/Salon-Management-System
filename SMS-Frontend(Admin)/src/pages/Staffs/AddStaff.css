@@ -4,7 +4,7 @@
     align-items: center;
     margin: 0;
     background-color: #F6F6F8;
-    height: 500px;
+    /* height: 500px; */
     /* Adjust border properties */
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
     border-radius: 5px; /* Corrected typo from '5cap' to '5px' */
