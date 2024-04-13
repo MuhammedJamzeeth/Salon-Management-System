@@ -49,7 +49,10 @@ public class WebSecurityConfig{
             "/deleteservice/*",
             "/getservicebyid*",
             "/updateservice/*",
-            "/updateservice*"
+            "/updateservice*",
+            "/reviews",
+            "/addReview"
+
     };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
