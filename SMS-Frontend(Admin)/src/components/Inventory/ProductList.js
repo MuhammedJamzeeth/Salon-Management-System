@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './ProductList.css'; // Import CSS file
+import Swal from 'sweetalert2';
 
-const ProductList = ({ products, onEdit, onDelete }) => {
+const ProductList = ({ products, onDeleteProduct, onEdit }) => {
     const [searchTerm, setSearchTerm] = useState('');
 
     // Filter products based on search term
@@ -9,10 +10,27 @@ const ProductList = ({ products, onEdit, onDelete }) => {
         product.productName.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    //DELETE THE PRODUCT BY ID
+    const handleDeleteProduct = async (productId) => {
+    // DISPLAY CONFIRMATION DIALOG
+    Swal.fire({
+        title: 'Do you want to delete?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Call onDeleteProduct function passed from Inventory component
+            onDeleteProduct(productId);
+        } 
+    });
+}
+
     return (
         <>
         <div className="searchbar">
-            
             {/* Search bar */}
             <h4>Search: </h4>
                 <input
@@ -40,7 +58,7 @@ const ProductList = ({ products, onEdit, onDelete }) => {
                     </thead>
                     <tbody>
                         {filteredProducts.slice(0, 5).map((product) => (
-                            <tr key={product.productid}>
+                            <tr key={product.productId}>
                                 <td>{product.productId}</td>
                                 <td>{product.productName}</td>
                                 <td>{product.productQty}</td>
@@ -49,8 +67,8 @@ const ProductList = ({ products, onEdit, onDelete }) => {
                                 <td>{product.expirationDate}</td>
                                 <td>{product.productStatus}</td>
                                 <td>
-                                    <button className="edit-btn" onClick={() => onEdit(product.productid)}>Edit</button>
-                                    <button className="delete-btn" onClick={() => onDelete(product.productid)}>Delete</button>
+                                    <button className="edit-btn" onClick={() => onEdit(product.productId)}>Edit</button>
+                                    <button className="delete-btn" onClick={() => handleDeleteProduct(product.productId)}>Delete</button>
                                 </td>
                             </tr>
                         ))}

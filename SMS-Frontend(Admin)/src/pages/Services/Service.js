@@ -27,9 +27,6 @@ function ServiceComponent() {
 
   //DELETE THE SERVICE BY ID
   const deleteService = (serviceId) => {
-    // delete service based on serviceId
-    // after delete Update state to reflect the deletion
-
     // DISPLAY CONFIRMATION DIALOG
       Swal.fire({
         title: 'Do you want to delete?',
@@ -219,7 +216,7 @@ function ServiceComponent() {
         const data = await response.json();
         setServices(data);
       } catch (error) {
-        console.error(error);
+        console.error('Error fetching services:', error);
       }
     }
     fetchServices();
