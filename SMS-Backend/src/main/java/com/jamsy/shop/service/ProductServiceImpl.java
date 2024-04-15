@@ -18,11 +18,6 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll();
     }
 
-//    @Override
-//    public Product getProductById(Long id) {
-//        return productRepository.findById(id).get();
-//    }
-
     @Override
     public Product saveProduct(Product product) {
         Product p = new Product();
@@ -40,12 +35,14 @@ public class ProductServiceImpl implements ProductService {
     // Helper method to calculate productState based on productQuantity
     private String calculateProductState(int productQuantity) {
         // Logic to determine productState based on productQuantity
-        if (productQuantity <= 0) {
+        if (productQuantity >= 0 && productQuantity <= 5) {
             return "Out of Stock";
-        } else if (productQuantity < 10) {
+        } else if (productQuantity >= 6 && productQuantity <= 15) {
             return "Running Low";
-        } else {
+        } else if (productQuantity >= 16 && productQuantity <= 25) {
             return "Full";
+        }else {
+            return "Over Stock";
         }
     }
 
@@ -62,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
     public Product updateProduct(Long id, Product updatedProduct) {
         Product existingProduct = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("service with id " + id + " not found"));
         // Calculate productState based on updated productQuantity
-        String productState = calculateProductState(updatedProduct.getProductQty());
+        //String productState = calculateProductState(updatedProduct.getProductQty());
 
         if (updatedProduct.getProductName() != null) {
             existingProduct.setProductName(updatedProduct.getProductName());
@@ -81,7 +78,7 @@ public class ProductServiceImpl implements ProductService {
         }
         // Set productState based on calculation
         if (updatedProduct.getProductStatus() != null){
-            existingProduct.setProductStatus(productState);
+            existingProduct.setProductStatus(calculateProductState(updatedProduct.getProductQty()));
         }
 
         return productRepository.save(existingProduct);
