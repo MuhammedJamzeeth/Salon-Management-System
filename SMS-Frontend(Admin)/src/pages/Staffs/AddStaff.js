@@ -54,6 +54,20 @@ const AddStaff = () => {
             }
         }
 
+        // Validate Mobile Number
+        const isValidMobileNumber = /^[0-9]{10}$/.test(formInput.mNumber);
+        if (!isValidMobileNumber) {
+            newErrorState.mNumber = 'Please enter a valid 10-digit mobile number';
+            hasError = true;
+        }
+
+        // Validate NIC Number
+        const isValidNIC = /^[0-9]{9}[vVxX]$/.test(formInput.ic);
+        if (!isValidNIC) {
+            newErrorState.ic = 'Please enter a valid NIC number (e.g., 123456789V)';
+            hasError = true;
+        }
+
         if (hasError) {
             setError(newErrorState);
             return;
