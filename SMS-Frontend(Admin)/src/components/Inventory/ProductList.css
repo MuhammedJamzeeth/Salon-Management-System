@@ -1,5 +1,5 @@
 .product-list-container {
-    display:block;
+    display: block;
     justify-content: center;
     margin-top: 10px;
     margin-right: 10px;
@@ -7,16 +7,17 @@
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    max-height: 300px; /* Adjust max height as needed */
+    overflow-y: auto;
 }
 
 .product-table {
     width: 100%;
     border-collapse: collapse;
-    overflow-y: auto;
-    height: 300px;
 }
 
-.product-table th, .product-table td {
+.product-table th,
+.product-table td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: left;
@@ -24,7 +25,10 @@
 }
 
 .product-table th {
-    background-color: #baf6ffdc;
+    position: sticky;
+    top: 0;
+    background-color: #8b9bff;
+    z-index: 1;
 }
 
 /* Hover effect for table rows */
@@ -37,7 +41,8 @@
     transition: background-color 0.4s ease;
 }
 
-.edit-btn, .delete-btn {
+.edit-btn,
+.delete-btn {
     padding: 5px 10px;
     margin-right: 5px;
     border: none;
@@ -54,15 +59,15 @@
 
 .searchbar {
     display: flex;
-    align-items:center;
-    margin: 10px 10px 10px 10px; 
+    align-items: center;
+    margin: 10px 10px 10px 10px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(113, 181, 255, 0.5);
     width: 440px;
 }
 
 .searchbar h4 {
-    margin-right: 25px; 
+    margin-right: 25px;
     padding-left: 20px;
 }
 
@@ -97,5 +102,3 @@
     opacity: 0;
     transition: opacity 0.3s ease;
 }
-
-

@@ -57,7 +57,7 @@ const ProductList = ({ products, onDeleteProduct, onEdit }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredProducts.slice(0, 5).map((product) => (
+                        {filteredProducts.map((product) => (
                             <tr key={product.productId}>
                                 <td>{product.productId}</td>
                                 <td>{product.productName}</td>
