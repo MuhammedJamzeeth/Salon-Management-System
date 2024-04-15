@@ -2,10 +2,11 @@ import React, { useState,useEffect } from 'react';
 import '../Inventory/AddProductFormStyle.css';
 import Swal from 'sweetalert2';
 
-function AddProductForm ({ onAddProduct, productDetails, onEdit }) {
+function AddProductForm ({ onAddProduct, productDetails, onUpdateProduct }) {
     const [productName, setProductName] = useState('');
     const [productPrice, setProductPrice] = useState('');
     const [productQty, setProductQty] = useState('');
+    const [productStatus, setProductStatus] = useState('')
     const [productCategory, setProductCategory] = useState('');
     const [expirationDate, setExpirationDate] = useState('');
 
@@ -17,6 +18,7 @@ function AddProductForm ({ onAddProduct, productDetails, onEdit }) {
             setProductQty(productDetails.productQty);
             setProductCategory(productDetails.productCategory);
             setExpirationDate(productDetails.expirationDate);
+            setProductStatus(productDetails.productStatus);
         }else {
             // Clear form fields when no product is selected for editing
             setProductName('');
@@ -25,6 +27,7 @@ function AddProductForm ({ onAddProduct, productDetails, onEdit }) {
             setProductCategory('');
             setExpirationDate('');
         }
+        
     }, [productDetails]);
 
     //Add a new product
@@ -102,6 +105,7 @@ const handleUpdate = () => {
         productName,
         productPrice,
         productQty,
+        productStatus,
         productCategory,
         expirationDate,
     };
@@ -130,6 +134,10 @@ const handleUpdate = () => {
             showCloseButton: true
         });
 
+        
+        // Call the callback function to update products list
+        onUpdateProduct(data); // assuming 'data' contains the newly added product
+
         // Reset form fields after update
         setProductName('');
         setProductCategory('');
@@ -137,7 +145,6 @@ const handleUpdate = () => {
         setProductQty('');
         setExpirationDate('');
 
-        // Optionally, you can fetch updated data or perform any other necessary actions
     })
     .catch(error => {
         console.error('Error updating product:', error);
@@ -157,7 +164,7 @@ const { access_token } = JSON.parse(user);
     return (
         <div className='form-container'>
             <h3>Add New Product</h3>
-            <form onSubmit={handleSubmit}>
+            <form>
                 <div className='form-container-1'>
                     <label>Product Name </label>
                     <input type="text" value={productName} onChange={(e) => setProductName(e.target.value)} required />
@@ -176,9 +183,9 @@ const { access_token } = JSON.parse(user);
                     <input type="date" value={expirationDate} onChange={(e) => setExpirationDate(e.target.value)} />
                 </div>
                 <div className='button-container'>
-                    <button type="submit" className='Addbtn'>Add Product</button>
-                    <button type="cancel" className='Cancelbtn' onClick={handleCancel}>Cancel</button>
-                    <button type="submit" className='Updatebtn' onClick={handleUpdate}>Update</button>
+                    <button type="submit" className='Addbtn' onClick={handleSubmit}>Add Product</button>
+                    <button type="button" className='Cancelbtn' onClick={handleCancel}>Cancel</button>
+                    <button type="button" className='Updatebtn' onClick={handleUpdate}>Update</button>
                 </div>
             </form>
         </div>
