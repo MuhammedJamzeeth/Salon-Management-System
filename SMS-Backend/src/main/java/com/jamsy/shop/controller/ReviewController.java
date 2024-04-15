@@ -20,6 +20,12 @@ public class ReviewController {
         return reviewService.getAllReviews();
     }
 
+    @DeleteMapping("/review/{id}")
+    public String deleteReviewById(@PathVariable("id") Long id){
+        reviewService.deleteReviewById(id);
+        return "Successfully Deleted..!";
+    }
+
     @PostMapping("/addReview")
     public Review addReview(@ModelAttribute Review review) {
         return reviewService.addReview(review);

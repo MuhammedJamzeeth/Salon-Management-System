@@ -16,6 +16,10 @@ import Inventory from "./pages/Inventory/Inventory";
 // import AddStaff from "./components/Staff/Adddstaff";
 import MainDashBoard from "./pages/MyDashboard/MyDashboard";
 
+import TestimonialsPage from "./pages/Reviews/TestimonialsPage";
+
+
+
 function App() {
   const dispatch = useDispatch();
   const currentUserValue = useSelector(currentUser);
@@ -43,6 +47,10 @@ function App() {
           <Route index element={<Staff />} path="staffs" />
           <Route path="services" element={<Service />} />
           <Route path="inventory" element={<Inventory />} />
+          <Route path="reviews" element={<TestimonialsPage />} />
+          
+        
+
         </Route>
 
         <Route

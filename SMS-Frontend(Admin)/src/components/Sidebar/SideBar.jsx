@@ -65,7 +65,11 @@ const SideBar = ({ isOpen, toggleSideBar }) => {
           title={"Staffs"}
           Icon={<ContentCutIcon />}
         />
-        <SideBarItems to={"reviews"} title={"Reviews"} Icon={<ReviewsIcon />} />
+        <SideBarItems
+         to={"reviews"} 
+         title={"Reviews"} 
+         Icon={<ReviewsIcon />} 
+         />
         <SideBarItems
           to={"finances"}
           title={"Finances"}
