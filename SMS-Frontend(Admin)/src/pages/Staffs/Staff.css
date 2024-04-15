@@ -37,6 +37,7 @@
 	padding: 15px 30px;
 	width: 24%;
 	text-align: center;
+	
 
 }
 
@@ -167,5 +168,37 @@
 	flex-wrap: wrap;
 
 }
+
+/* Staff.css */
+
+/* .deleteBtn {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+} */
+
+.deleteBtn:hover {
+    background-color: darkred;
+}
+
+.deleteBtn {
+	margin: 10px auto;
+	width: 100px;
+	height: 35px;
+	background: red;
+	color:white;
+	border: none;
+	border-radius: 10px;
+	font-weight: 600;
+	cursor: pointer;
+	box-shadow: 0 10px 10px hsl(225, 100%, 94%);
+}
+
+
+
 
 
