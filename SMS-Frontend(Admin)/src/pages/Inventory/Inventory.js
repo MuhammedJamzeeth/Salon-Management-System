@@ -66,10 +66,21 @@ const handleDeleteProduct = async (productId) => {
   }
 };
 
+const handleUpdateProduct = (updatedProduct) => {
+  // Find the index of the updated product in the products array
+  const index = products.findIndex(product => product.productId === updatedProduct.productId);
+  // Create a copy of the products array
+  const updatedProducts = [...products];
+  // Replace the old product with the updated product in the copy
+  updatedProducts[index] = updatedProduct;
+  // Update the state with the new array
+  setProducts(updatedProducts);
+};
+
   return (
     <div className='Container'>
       {/* Pass handleAddProduct as a prop to AddProductForm */}
-      <div><AddProductForm onAddProduct={handleAddProduct} productDetails={selectedProduct} /></div>
+      <div><AddProductForm onAddProduct={handleAddProduct} productDetails={selectedProduct} onUpdateProduct={handleUpdateProduct} access_token={access_token}/></div>
       <div>
         <ProductList products={products} onDeleteProduct={handleDeleteProduct} onEdit={handleEditProduct}/>
       </div>
