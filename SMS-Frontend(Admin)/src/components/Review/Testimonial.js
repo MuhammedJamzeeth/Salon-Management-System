@@ -6,22 +6,21 @@ import './Testimonial.css';
 const Testimonial = ({ testimonial, onDelete }) => {
   const { id, name, username, imageUrl, rating, comment } = testimonial;
 
-  const handleDelete = () => {
-   
-    fetch(`http://localhost:8080/review/${id}`, {
-      method: 'DELETE',
-    })
-      .then(response => {
-        if (response.ok) {
-          
-          onDelete(id); 
-        } else {
-          throw new Error('Failed to delete testimonial');
-        }
-      })
-      .catch(error => {
-        console.error('Error deleting testimonial:', error);
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/review/${id}`, {
+        method: 'DELETE',
       });
+
+      if (response.ok) {
+        onDelete(id); // Call parent onDelete function with the testimonial id
+        console.log(`Testimonial with ID ${id} deleted successfully.`);
+      } else {
+        throw new Error('Failed to delete testimonial');
+      }
+    } catch (error) {
+      console.error('Error deleting testimonial:', error);
+    }
   };
 
   return (
