@@ -33,6 +33,18 @@ function AddProductForm ({ onAddProduct, productDetails, onUpdateProduct }) {
     //Add a new product
     const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Check if any required field is empty
+    if (!productName || !productPrice || !productQty || !productCategory) {
+        // Display an warning message
+        Swal.fire({
+            icon: 'warning',
+            title: 'Missing Fields',
+            text: 'Please fill in all required fields.',
+            showCloseButton: true
+        });
+        return; // Prevent form submission
+    }
 
     // Create a new product object with the form values
     const newProduct = {
@@ -167,17 +179,17 @@ const { access_token } = JSON.parse(user);
             <form>
                 <div className='form-container-1'>
                     <label>Product Name </label>
-                    <input type="text" value={productName} onChange={(e) => setProductName(e.target.value)} required />
+                    <input type="text" value={productName} onChange={(e) => setProductName(e.target.value)}  />
 
                     <label>Product Price</label>
-                    <input type="number" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} required />
+                    <input type="number" value={productPrice} onChange={(e) => setProductPrice(e.target.value)}  />
 
                     <label>Product Quantity </label>
-                    <input type="number" value={productQty} onChange={(e) => setProductQty(e.target.value)} required />
+                    <input type="number" value={productQty} onChange={(e) => setProductQty(e.target.value)}  />
                 </div>
                 <div className='form-container-2'>
                     <label>Product Category </label>
-                    <input type="text" value={productCategory} onChange={(e) => setProductCategory(e.target.value)} required />
+                    <input type="text" value={productCategory} onChange={(e) => setProductCategory(e.target.value)}  />
 
                     <label>Expiration Date </label>
                     <input type="date" value={expirationDate} onChange={(e) => setExpirationDate(e.target.value)} />
