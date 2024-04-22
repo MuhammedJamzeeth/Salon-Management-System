@@ -23,8 +23,7 @@ public class ServiceServiceImpl implements ServiceService{
             serviceEntity.setServicePrice(service.getServicePrice());
             serviceEntity.setServiceDate(service.getServiceDate());
             serviceEntity.setServiceState(service.getServiceState());
-//            serviceRepository.save(serviceEntity);
-
+        //serviceRepository.save(serviceEntity);
         // Save the new ServiceEntity object to the database
         return serviceRepository.save(serviceEntity);
     }
