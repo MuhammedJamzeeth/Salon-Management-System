@@ -27,7 +27,7 @@ function ServiceComponent() {
 
   //DELETE THE SERVICE BY ID
   const deleteService = (serviceId) => {
-    // DISPLAY CONFIRMATION DIALOG
+    // DISPLAY CONFIRMATION DIALOG gg
       Swal.fire({
         title: 'Do you want to delete?',
         icon: 'warning',

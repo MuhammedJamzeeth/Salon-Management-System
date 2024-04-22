@@ -31,8 +31,8 @@ const ProductList = ({ products, onDeleteProduct, onEdit }) => {
     return (
         <>
         <div className="searchbar">
-            {/* Search bar */}
             <h4>Search: </h4>
+            {/* Searchbar */}
                 <input
                     type="text"
                     placeholder="Search by product name"
@@ -62,7 +62,7 @@ const ProductList = ({ products, onDeleteProduct, onEdit }) => {
                                 <td>{product.productId}</td>
                                 <td>{product.productName}</td>
                                 <td>{product.productQty}</td>
-                                <td>${product.productPrice}</td>
+                                <td>Rs. {product.productPrice}</td>
                                 <td>{product.productCategory}</td>
                                 <td>{product.expirationDate}</td>
                                 <td>{product.productStatus}</td>
