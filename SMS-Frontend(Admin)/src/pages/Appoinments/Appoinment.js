@@ -24,7 +24,8 @@ import {
 } from "./Appointments.styles";
 
 const Appointments = () => {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  // const [appointmentDate, setAppointmentDate] = useState(new Date());
   const [startDate, setStartDate] = useState(new Date());
   const appointments = useSelector(
     (state) => state.appointments.current_appointment
@@ -41,10 +42,17 @@ const Appointments = () => {
   const excludedTimes = [];
 
   const [openDate, setOpenDate] = useState(false);
-  const [isClose, setIsClose] = useState(false);
+  // const [isClose, setIsClose] = useState(false);
+
+  const currentDate = new Date();
+
   const [state, setState] = useState([
     {
-      startDate: new Date(),
+      startDate: new Date(
+        currentDate.getFullYear() - 1,
+        currentDate.getMonth(),
+        currentDate.getDate()
+      ),
       endDate: addDays(new Date(), 7),
       key: "selection",
     },
@@ -54,6 +62,7 @@ const Appointments = () => {
     getAllAppointments();
     getEmployee();
     getAllServices();
+    // setAppointmentDate(new Date(), -120);
   }, []);
 
   const dateRangeRef = useRef();
@@ -92,6 +101,7 @@ const Appointments = () => {
   const InitiateState = {
     uname: "",
     email: "",
+    pno: "",
     eName: "",
     category: "",
     date: "",
@@ -99,6 +109,7 @@ const Appointments = () => {
   const ErrorInitiateState = {
     uname: "",
     email: "",
+    pno: "",
     eName: "",
     category: "",
     date: "",
@@ -128,11 +139,24 @@ const Appointments = () => {
       hasError = true;
     }
     if (!formInput.category.trim()) {
-      newErrorState.category = "Category can not be empty";
+      newErrorState.category = "Service can not be empty";
+      hasError = true;
+    }
+    if (!formInput.email.trim()) {
+      newErrorState.email = "Email can not be empty";
+      hasError = true;
+    }
+    if (!formInput.pno.trim()) {
+      newErrorState.pno = "Phone no can not be empty";
+      hasError = true;
+    } else if (!(formInput.pno.length === 10)) {
+      newErrorState.pno = "Phone number should contain 10 digits";
+      hasError = true;
+    } else if (!/^\d+$/.test(formInput.pno)) {
+      newErrorState.pno = "Phone number should contain digits only";
       hasError = true;
     }
 
-    // console.log(newErrorState);
     // If any field is empty, set the error state and exit the function
     if (hasError) {
       setError(newErrorState);
@@ -154,6 +178,7 @@ const Appointments = () => {
       formData.append("customerEmail", formInput.email);
       formData.append("date", formattedDate);
       formData.append("time", formattedTime);
+      formData.append("pno", formInput.pno);
 
       setLoading(true);
       console.log(formInput);
@@ -219,31 +244,37 @@ const Appointments = () => {
         ) : (
           <ListOfData>
             {appointments.length > 0 ? (
-              appointments.map((appointment, index) => (
-                <Card
-                  key={index}
-                  backGround={colors.colorGray}
-                  img={
-                    "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1153&q=80"
-                  }
-                  employee={appointment}
-                >
-                  <p style={{ fontSize: "12px", fontWeight: "600" }}>
-                    {appointment.customerName}
-                  </p>
-                  <span style={{ fontSize: "11px", fontWeight: "500" }}>
-                    {appointment.category}
-                  </span>
-                  <span style={{ fontSize: "11px", fontWeight: "500" }}>
-                    {appointment.date}
-                  </span>
-                  <span style={{ fontSize: "11px", fontWeight: "500" }}>
-                    {appointment.time}
-                  </span>
-                </Card>
-              ))
+              appointments.map((appointment, index) =>
+                // setAppointmentDate(new Date(appointment.date));
+                state[0].startDate <= new Date(appointment.date) &&
+                state[0].endDate >= new Date(appointment.date) ? (
+                  <Card
+                    key={index}
+                    backGround={colors.colorGray}
+                    img={
+                      "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1153&q=80"
+                    }
+                    employee={appointment}
+                  >
+                    <p style={{ fontSize: "12px", fontWeight: "600" }}>
+                      {appointment.customerName}
+                    </p>
+                    <span style={{ fontSize: "11px", fontWeight: "500" }}>
+                      {appointment.category}
+                    </span>
+                    <span style={{ fontSize: "11px", fontWeight: "500" }}>
+                      {appointment.date}
+                    </span>
+                    <span style={{ fontSize: "11px", fontWeight: "500" }}>
+                      {appointment.time}
+                    </span>
+                  </Card>
+                ) : (
+                  <></>
+                )
+              )
             ) : (
-              <div> not found </div>
+              <div> no data found </div>
             )}
           </ListOfData>
         )}
@@ -272,7 +303,7 @@ const Appointments = () => {
             )}
           </Form.Group>
           <Form.Group className="mb-1" controlId="formBasicEmail">
-            <Form.Label>Customer email (Optional)</Form.Label>
+            <Form.Label>Customer email</Form.Label>
             <Form.Control
               className="custom-input"
               type="email"
@@ -281,6 +312,37 @@ const Appointments = () => {
               value={formInput.email}
               onChange={handleInputChange}
             />
+            {error.email && (
+              <Form.Text
+                style={{
+                  color: "red",
+                }}
+              >
+                {error.email}
+              </Form.Text>
+            )}
+          </Form.Group>
+          <Form.Group className="mb-1" controlId="formBasicEmail">
+            <Form.Label>Customer Phone No</Form.Label>
+            <Form.Control
+              className="custom-input"
+              type="text"
+              placeholder="Enter phone no"
+              name="pno"
+              value={formInput.pno}
+              onChange={handleInputChange}
+            />
+            {error.pno ? (
+              <Form.Text
+                style={{
+                  color: "red",
+                }}
+              >
+                {error.pno}
+              </Form.Text>
+            ) : (
+              <Form.Text>Ex: 07XXXXXXXX</Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-1" controlId="formBasicPassword">
@@ -312,7 +374,7 @@ const Appointments = () => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Category</Form.Label>
+            <Form.Label>Services</Form.Label>
             <Form.Select
               className="custom-select"
               aria-label="Default select example"

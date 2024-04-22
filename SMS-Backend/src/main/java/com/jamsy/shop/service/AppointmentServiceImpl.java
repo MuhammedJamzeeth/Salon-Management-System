@@ -35,6 +35,7 @@ public class AppointmentServiceImpl implements AppointmentService{
         }
         saveAppointment.setDate(appointment.getDate());
         saveAppointment.setTime(appointment.getTime());
+        saveAppointment.setPno(appointment.getPno());
 
         appointmentRepository.save(saveAppointment);
         return saveAppointment;

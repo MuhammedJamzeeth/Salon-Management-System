@@ -21,6 +21,7 @@ public class Appointment {
     private String category;
     private String date;
     private String time;
+    private String pno;
 
 
 }

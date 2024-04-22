@@ -17,12 +17,12 @@ public class ServiceServiceImpl implements ServiceService{
     @Override
     public ServiceEntity addService(ServiceEntity service) {
         // Create a new ServiceEntity object and set its properties
-            ServiceEntity serviceEntity = new ServiceEntity();
-            serviceEntity.setServiceName(service.getServiceName());
-            serviceEntity.setServiceDesc(service.getServiceDesc());
-            serviceEntity.setServicePrice(service.getServicePrice());
-            serviceEntity.setServiceDate(service.getServiceDate());
-            serviceEntity.setServiceState(service.getServiceState());
+        ServiceEntity serviceEntity = new ServiceEntity();
+        serviceEntity.setServiceName(service.getServiceName());
+        serviceEntity.setServiceDesc(service.getServiceDesc());
+        serviceEntity.setServicePrice(service.getServicePrice());
+        serviceEntity.setServiceDate(service.getServiceDate());
+        serviceEntity.setServiceState(service.getServiceState());
 //            serviceRepository.save(serviceEntity);
 
         // Save the new ServiceEntity object to the database
