@@ -27,7 +27,7 @@ function ServiceComponent() {
 
   //DELETE THE SERVICE BY ID
   const deleteService = (serviceId) => {
-    // DISPLAY CONFIRMATION DIALOG gg
+    // DISPLAY CONFIRMATION DIALOG
       Swal.fire({
         title: 'Do you want to delete?',
         icon: 'warning',
@@ -80,11 +80,13 @@ function ServiceComponent() {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${access_token}`,
           },
           body: JSON.stringify({serviceName, serviceDesc, serviceState, servicePrice, serviceDate}),
           
         })
           .then(response => {
+            //console.log(response)
             if (!response.ok) {
               throw new Error('Network response was not ok');
             }
@@ -109,7 +111,13 @@ function ServiceComponent() {
           })
           .catch(error => {
             console.error('Error updating service:', error);
-            //error handling
+            Swal.fire({
+              icon: 'warning',
+              title: 'Not Updated',
+              text: error,
+              showCloseButton: true
+            });
+            
           });
       }
     };
@@ -132,12 +140,12 @@ function ServiceComponent() {
       setServiceDescError('');
     }
 
-    if (servicePrice.trim() === '') {
-      setServicePriceError('Service price is required');
-      return;
-    }else{
-      setServicePriceError('');
-    }
+    // if (servicePrice.trim() === '') {
+    //   setServicePriceError('Service price is required');
+    //   return;
+    // }else{
+    //   setServicePriceError('');
+    // }
 
     if (serviceState.trim() === '') {
       setServiceStateError('Service state is required');
@@ -224,7 +232,7 @@ function ServiceComponent() {
 
 // SET SERVICE DETAILS TO FORM FIELDS
   const setFormDetails = (service) => {
-    //setEditingService(service);
+    setEditingService(service);
     setShowForm(true);
     // Set form fields with the details of the selected service
     setServiceName(service.serviceName);
