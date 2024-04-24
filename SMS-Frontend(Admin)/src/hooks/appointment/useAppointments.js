@@ -111,12 +111,69 @@ const useAppointments = () => {
     }
   };
 
+  const setApprove = async (isApprove, id) => {
+    console.log(isApprove);
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/appointment/setApprove/${id}`,
+        isApprove,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
+      getAllAppointments();
+      console.log(response.data);
+      if (response?.statusText === "OK") {
+        throw new Error("Something went wrong");
+      }
+    } catch (error) {
+      setLoading(false);
+      setError(
+        error.code !== "ERR_NETWORK"
+          ? error.response?.statusText
+          : error.message
+      );
+    }
+  };
+
+  const removeAppointment = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/appointment/removeAppointment/${id}`,
+        isApprove,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
+      getAllAppointments();
+      console.log(response.data);
+      if (response?.statusText === "OK") {
+        throw new Error("Something went wrong");
+      }
+    } catch (error) {
+      setLoading(false);
+      setError(
+        error.code !== "ERR_NETWORK"
+          ? error.response?.statusText
+          : error.message
+      );
+    }
+  };
+
   return {
     getAllAppointments,
     getEmployee,
     getAllServices,
     emp,
     services,
+    setApprove,
+    removeAppointment,
   };
 };
 

@@ -1,7 +1,9 @@
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Avatar, Box, IconButton, Skeleton, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { confirmAlert } from "react-confirm-alert"; // Import react-confirm-alert module
+import "react-confirm-alert/src/react-confirm-alert.css";
 
-import React, { useEffect, useState } from "react";
 import {
   CardContainerWrapper,
   CardContainer,
@@ -10,15 +12,41 @@ import {
   ButtonContainer,
   Button,
 } from "./card.styles";
-import { set } from "date-fns";
 
-const Card = ({ id, img, children, backGround, loading, employee }) => {
+const Card = ({
+  id,
+  img,
+  children,
+  backGround,
+  loading,
+  employee,
+  setApprove,
+  removeAppointment,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const showConfirmationAlert = (title, message, onConfirm) => {
+    confirmAlert({
+      title: title || "Confirmation",
+      message: message || "Are you sure?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: onConfirm,
+        },
+        {
+          label: "No",
+          onClick: () => {}, // Do nothing if No is clicked
+        },
+      ],
+    });
+  };
 
   const appointmentDetails = () => {
     setIsOpen(!isOpen);
   };
 
+  console.log(employee.approved);
   return (
     <CardContainerWrapper backGround={backGround}>
       <CardContainer>
@@ -101,19 +129,68 @@ const Card = ({ id, img, children, backGround, loading, employee }) => {
             ) : (
               <CardDetails>
                 <p style={{ fontSize: "12px", fontWeight: "600" }}>
+                  {employee.employee.empFirstName}{" "}
                   {employee.employee.empLastName}
                 </p>
+                {!employee.approved ? (
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      fontWeight: "500",
+                      color: "green",
+                    }}
+                  >
+                    Available
+                  </span>
+                ) : (
+                  <span style={{ fontSize: "11px", fontWeight: "500" }}>
+                    Not Available
+                    <span
+                      style={{
+                        color: "red",
+                      }}
+                    >
+                      *
+                    </span>
+                  </span>
+                )}
+                <span style={{ fontSize: "11px", fontWeight: "500" }}>{}s</span>
               </CardDetails>
             )}
           </CardContainer>
           <ButtonContainer>
-            <Button>Approve</Button>
+            {!employee.approved ? (
+              <Button onClick={() => setApprove(true, employee.id)}>
+                Approve
+              </Button>
+            ) : (
+              <Button
+                onClick={() => setApprove(false, employee.id)}
+                style={{
+                  background: "orange",
+                }}
+              >
+                Decline
+              </Button>
+            )}
             <Button
+              // disabled={!employee.approved}
+              onClick={() =>
+                !employee.approved
+                  ? showConfirmationAlert(
+                      "Delete Appointment",
+                      "Are you sure you want to delete this appointment?",
+                      () => removeAppointment(employee.id)
+                    )
+                  : null
+              }
               style={{
+                cursor: employee.approved ? "not-allowed" : "pointer",
+                opacity: employee.approved ? 0.5 : 1,
                 background: "red",
               }}
             >
-              Decline
+              Remove
             </Button>
           </ButtonContainer>
         </CardDetailsExpand>

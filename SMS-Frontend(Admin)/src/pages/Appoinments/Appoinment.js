@@ -26,13 +26,21 @@ import {
 const Appointments = () => {
   // const [loading, setLoading] = useState(false);
   // const [appointmentDate, setAppointmentDate] = useState(new Date());
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState("");
+  const [minTime, setMinTime] = useState(new Date());
   const appointments = useSelector(
     (state) => state.appointments.current_appointment
   );
 
-  const { getAllAppointments, getEmployee, getAllServices, emp, services } =
-    useAppointments();
+  const {
+    getAllAppointments,
+    getEmployee,
+    getAllServices,
+    emp,
+    services,
+    setApprove,
+    removeAppointment,
+  } = useAppointments();
 
   const excludeSundays = (date) => {
     // Return false if the date is Sunday
@@ -98,6 +106,16 @@ const Appointments = () => {
     excludedTimes.push(setHours(setMinutes(new Date(), 30), i));
   }
 
+  appointments.forEach((appointment) => {
+    // Split the time string into hours, minutes, and period (AM/PM)
+    const [time, period] = appointment.time.split(" ");
+    const [hours, minutes] = time.split(":").map(Number);
+
+    excludedTimes.push(setHours(setMinutes(new Date(), minutes), hours));
+  });
+
+  // console.log(excludedTimes);
+
   const InitiateState = {
     uname: "",
     email: "",
@@ -113,6 +131,7 @@ const Appointments = () => {
     eName: "",
     category: "",
     date: "",
+    startDate: "",
   };
   const [formInput, setFormInput] = useState(InitiateState);
 
@@ -124,6 +143,7 @@ const Appointments = () => {
   };
   const newErrorState = { ...ErrorInitiateState };
   const [error, setError] = useState(ErrorInitiateState);
+  const [resError, setResError] = useState();
   const formSubmit = async (event) => {
     event.preventDefault();
     setError(ErrorInitiateState);
@@ -156,6 +176,10 @@ const Appointments = () => {
       newErrorState.pno = "Phone number should contain digits only";
       hasError = true;
     }
+    if (!startDate) {
+      newErrorState.startDate = "Date can not be empty";
+      hasError = true;
+    }
 
     // If any field is empty, set the error state and exit the function
     if (hasError) {
@@ -180,7 +204,7 @@ const Appointments = () => {
       formData.append("time", formattedTime);
       formData.append("pno", formInput.pno);
 
-      setLoading(true);
+      // setLoading(true);
       console.log(formInput);
       const response = await axios.post(
         "http://localhost:8080/appointment/save",
@@ -192,15 +216,18 @@ const Appointments = () => {
         }
       );
 
+      setResError(response);
       if (response.status === 200 || response.statusText === "OK") {
       }
-      setLoading(false);
+      // setLoading(false);
       setFormInput(InitiateState);
       getAllAppointments();
     } catch (error) {
-      setError(error.response.data);
-      setLoading(false);
+      setResError(error.response.data);
+      // setLoading(false);
     }
+
+    console.log(resError);
   };
 
   return (
@@ -251,6 +278,8 @@ const Appointments = () => {
                   <Card
                     key={index}
                     backGround={colors.colorGray}
+                    setApprove={setApprove}
+                    removeAppointment={removeAppointment}
                     img={
                       "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1153&q=80"
                     }
@@ -261,6 +290,9 @@ const Appointments = () => {
                     </p>
                     <span style={{ fontSize: "11px", fontWeight: "500" }}>
                       {appointment.category}
+                    </span>
+                    <span style={{ fontSize: "11px", fontWeight: "500" }}>
+                      {appointment.pno}
                     </span>
                     <span style={{ fontSize: "11px", fontWeight: "500" }}>
                       {appointment.date}
@@ -358,7 +390,7 @@ const Appointments = () => {
               {emp.length > 0 &&
                 emp.map((emp, index) => (
                   <option key={index} value={emp.empId}>
-                    {emp.empLastName}
+                    {emp.empFirstName} {emp.empLastName}
                   </option>
                 ))}
             </Form.Select>
@@ -385,7 +417,7 @@ const Appointments = () => {
               <option></option>
               {emp.length > 0 &&
                 services.map((service, index) => (
-                  <option key={index} value={service.serviceId}>
+                  <option key={index} value={service.serviceName}>
                     {service.serviceName}
                   </option>
                 ))}
@@ -407,15 +439,42 @@ const Appointments = () => {
                 className="custom-datePicker"
                 showIcon
                 selected={startDate}
-                onChange={(date) => setStartDate(date)}
+                onChange={(date) => {
+                  // When the date changes, update the minTime
+                  const selectedDate = date || new Date(); // If date is null, default to current date
+                  const currentDate = new Date();
+                  const isSameDay =
+                    selectedDate.getDate() === currentDate.getDate();
+
+                  // Set minTime based on whether the selected date is the current date or not
+                  const minTime = isSameDay
+                    ? new Date()
+                    : setHours(setMinutes(new Date(), 0), 9);
+
+                  // Update the state with the new selected date and minTime
+                  setStartDate(selectedDate);
+                  setMinTime(minTime);
+                }}
                 showTimeSelect
                 filterDate={excludeSundays} // Apply the filter function
                 placeholderText="We are closed on Sunday"
                 calendarClassName="custom-calender"
                 dateFormat="MMMM d, yyyy h:mm aa"
-                excludeTimes={excludedTimes}
+                // excludeDates={excludedTimes}
+                minDate={new Date()}
+                minTime={minTime}
+                maxTime={new Date().setHours(23, 0, 0, 0)}
               />
             </div>
+            {error.startDate && (
+              <Form.Text
+                style={{
+                  color: "red",
+                }}
+              >
+                {error.startDate}
+              </Form.Text>
+            )}
           </Form.Group>
 
           <Button className="custom-button" variant="primary" type="submit">
