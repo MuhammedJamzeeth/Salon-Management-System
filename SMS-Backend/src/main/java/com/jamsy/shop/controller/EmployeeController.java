@@ -42,8 +42,8 @@ public class EmployeeController {
 
     }
 
-    @DeleteMapping("employees/{empId}")
-    public void deleteEmployee(@PathVariable Long id){
+    @DeleteMapping("/employees/{empId}")
+    public void deleteEmployee(@PathVariable("empId") Long id){
         employeeRepository.deleteById(id);
         System.out.println(id+"Successfully deleted..");
 
