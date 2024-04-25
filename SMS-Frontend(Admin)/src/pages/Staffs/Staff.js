@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import './Staff.css'; 
 import AddStaff from './AddStaff';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
 
 function EmployeeCount() {
     const [employeeCount, setEmployeeCount] = useState(0);
@@ -24,10 +27,38 @@ function EmployeeCount() {
         <h1 style={{ color: "red" }}>{employeeCount}</h1>
     );
 }
+const handleDeleteEmployee = (empId) => {
+    console.log(empId)
+    confirmAlert({
+        title: 'Confirm to Delete',
+        message: 'Are you sure you want to delete this employee?',
+        buttons: [
+            {
+                label: 'Yes',
+                onClick: async () => {
+                    try {
+                        const response = await fetch(`http://localhost:8080/employees/${empId}`, {
+                            method: 'DELETE'
+                        });
+                        if (response.ok) {
+                            setEmployee(employee.filter(emp => emp.id !== empId));
+                        }
+                    } catch (error) {
+                        console.error('Error deleting employee:', error);
+                    }
+                }
+            },
+            {
+                label: 'No',
+                onClick: () => {} 
+            }
+        ]
+    });
+}
 
 function EmployeeDetails() {
     const [employee, setEmployee] = useState([]);
-    const [selectedEmployee, setSelectedEmployee] = useState(null); // To store the selected employee
+    const [selectedEmployee, setSelectedEmployee] = useState(null); 
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
@@ -53,7 +84,7 @@ function EmployeeDetails() {
         <div className="container">
             {employee.length > 0 ? (
                 employee.map((curElem) => (
-                    <div className="card_item" key={curElem.id}>
+                    <div className="card_item" key={curElem.empId}>
                         <div className="card_inner">
                             <img src={curElem.avatar_url} alt="" />
                             <div className="userName">{curElem.empFirstName}</div>
@@ -64,6 +95,7 @@ function EmployeeDetails() {
                                 <div className="gitDetail"><span>Remainder</span>11</div>
                             </div>
                             <button className="seeMore" onClick={() => handleSeeMore(curElem)}>See More</button>
+                            <button className="deleteBtn" onClick={() => handleDeleteEmployee(curElem.empId)}>Delete</button>
                         </div>
                     </div>
                 ))
