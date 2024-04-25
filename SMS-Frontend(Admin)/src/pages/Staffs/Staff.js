@@ -88,7 +88,7 @@ const EmployeeDetails = () => {
                 employees.map((curEmployee) => (
                     <div className="card_item" key={curEmployee.empId}>
                         <div className="card_inner">
-                            <img src={curEmployee.avatar_url} alt="" />
+                            <img src={`data:image/jpeg;base64,${curEmployee.empProfilePhoto}`} alt="" />
                             <div className="userName">{curEmployee.empFirstName}</div>
                             <div className="userUrl">{curEmployee.empLastName}</div>
                             <div className="detail-box">

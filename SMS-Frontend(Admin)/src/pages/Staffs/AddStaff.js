@@ -13,7 +13,8 @@ const AddStaff = () => {
         mNumber: '',
         gender: '',
         joiningDate: '',
-        dateOfBirth: ''
+        dateOfBirth: '',
+        profilePhoto: null// New state to hold the selected profile photo file
     });
 
     const [error, setError] = useState({
@@ -41,18 +42,26 @@ const AddStaff = () => {
         }));
     };
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setFormInput((prevState) => ({
+            ...prevState,
+            profilePhoto: file,
+        }));
+    };
+
     const handleAdd = async (e) => {
         e.preventDefault();
 
         const newErrorState = { ...error };
         let hasError = false;
 
-        for (const key in formInput) {
-            if (!formInput[key].trim()) {
-                newErrorState[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} can not be empty`;
-                hasError = true;
-            }
-        }
+        // for (const key in formInput) {
+        //     if (!formInput[key] && key !== 'profilePhoto') { // Skip validation for profile photo
+        //         newErrorState[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} can not be empty`;
+        //         hasError = true;
+        //     }
+        // }
 
         // Validate Mobile Number
         const isValidMobileNumber = /^[0-9]{10}$/.test(formInput.mNumber);
@@ -88,7 +97,7 @@ const AddStaff = () => {
             Swal.fire({
                 icon: 'success',
                 title: 'Added!',
-                text: `${formInput.firstName} ${formInput.lastName}'s data has been Added.`,
+                text: `${formInput.firstName} ${formInput.lastName}'s data has been added.`,
                 showConfirmButton: false,
                 timer: 1500
             });
@@ -101,7 +110,8 @@ const AddStaff = () => {
                 mNumber: '',
                 gender: '',
                 joiningDate: '',
-                dateOfBirth: ''
+                dateOfBirth: '',
+                profilePhoto: null
             });
         } catch (error) {
             console.error('Error saving staff:', error);
@@ -125,11 +135,21 @@ const AddStaff = () => {
         formData.append("empGender", formInput.gender);
         formData.append("empJoiningDate", formInput.joiningDate);
         formData.append("empDateOfBirth", formInput.dateOfBirth);
+        formData.append("empProfilePhoto", formInput.profilePhoto);
+        
+        console.log("FormData:", formData);
 
         try {
-            await axios.post('http://localhost:8080/employee', formData);
+            const response = await axios.post('http://localhost:8080/employee', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+    
+            console.log("Response:", response.data); // Log successful response data
         } catch (error) {
-            console.error(error);
+            console.error('Error saving staff:', error);
+            throw new Error('Failed to save staff.');
         }
     };
 
@@ -252,6 +272,16 @@ const AddStaff = () => {
                                     onChange={handleInputChange}
                                 />
                                 {error.dateOfBirth && <div className="text-danger">{error.dateOfBirth}</div>}
+                            </div>
+                            <div className='form-group mb-2'>
+                                <label className='form-label'>Profile Photo:</label>
+                                    <input
+                                    type='file'
+                                    accept='image/*'
+                                    name='profilePhoto'
+                                    className='form-control-file'
+                                    onChange={handleFileChange}
+                                />
                             </div>
                             <button type="submit" className="btn btn-primary">Save</button>
                         </form>
