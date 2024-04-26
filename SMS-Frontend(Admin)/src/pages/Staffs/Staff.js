@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import './Staff.css'; 
+import './Staff.css';
 import AddStaff from './AddStaff';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
-function EmployeeCount() {
+const EmployeeCount = () => {
     const [employeeCount, setEmployeeCount] = useState(0);
 
     useEffect(() => {
@@ -25,9 +27,9 @@ function EmployeeCount() {
     );
 }
 
-function EmployeeDetails() {
-    const [employee, setEmployee] = useState([]);
-    const [selectedEmployee, setSelectedEmployee] = useState(null); // To store the selected employee
+const EmployeeDetails = () => {
+    const [employees, setEmployees] = useState([]);
+    const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
@@ -35,7 +37,7 @@ function EmployeeDetails() {
             try {
                 const response = await fetch("http://localhost:8080/employees");
                 const data = await response.json();
-                setEmployee(data);
+                setEmployees(data);
             } catch (error) {
                 console.error('Error fetching employee details:', error);
             }
@@ -49,21 +51,53 @@ function EmployeeDetails() {
         setShowModal(true);
     };
 
+    const handleDeleteEmployee = (empId, empName) => {
+        confirmAlert({
+            title: 'Confirm to Delete',
+            message: `Are you sure you want to delete ${empName}?`,
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: async () => {
+                        try {
+                            const response = await fetch(`http://localhost:8080/employees/${empId}`, {
+                                method: 'DELETE'
+                            });
+                            if (response.ok) {
+                                // message: ` Deleted the ${empName}?`
+                                setEmployees(employees.filter(emp => emp.empId !== empId));
+                                
+
+                            }
+                        } catch (error) {
+                            console.error('Error deleting employee:', error);
+                        }
+                    }
+                },
+                {
+                    label: 'No',
+                    onClick: () => { }
+                }
+            ]
+        });
+    };
+
     return (
         <div className="container">
-            {employee.length > 0 ? (
-                employee.map((curElem) => (
-                    <div className="card_item" key={curElem.id}>
+            {employees.length > 0 ? (
+                employees.map((curEmployee) => (
+                    <div className="card_item" key={curEmployee.empId}>
                         <div className="card_inner">
-                            <img src={curElem.avatar_url} alt="" />
-                            <div className="userName">{curElem.empFirstName}</div>
-                            <div className="userUrl">{curElem.empLastName}</div>
+                            <img src={`data:image/jpeg;base64,${curEmployee.empProfilePhoto}`} alt="" />
+                            <div className="userName">{curEmployee.empFirstName}</div>
+                            <div className="userUrl">{curEmployee.empLastName}</div>
                             <div className="detail-box">
-                                <div className="gitDetail"><span>Task</span>23</div>
-                                <div className="gitDetail"><span>Finished</span>45</div>
-                                <div className="gitDetail"><span>Remainder</span>11</div>
+                                <div className="gitDetail"><span>Task</span>12</div>
+                                <div className="gitDetail"><span>Finished</span>12</div>
+                                <div className="gitDetail"><span>Remainder</span>12</div>
                             </div>
-                            <button className="seeMore" onClick={() => handleSeeMore(curElem)}>See More</button>
+                            <button className="seeMore" onClick={() => handleSeeMore(curEmployee)}>See More</button>
+                            <button className="deleteBtn" onClick={() => handleDeleteEmployee(curEmployee.empId, `${curEmployee.empFirstName} ${curEmployee.empLastName}`)}>Delete</button>
                         </div>
                     </div>
                 ))
@@ -80,9 +114,8 @@ function EmployeeDetails() {
                         <div>
                             <p>Name: {selectedEmployee.empFirstName} {selectedEmployee.empLastName}</p>
                             <p>Email: {selectedEmployee.empEmail}</p>
-                            <p>Address: {selectedEmployee.empAddress} </p>
-                            <p>Remainder: 11</p>
-                          
+                            <p>Address: {selectedEmployee.empAddress}</p>
+                            <p>Remainder: {selectedEmployee.remainder}</p>
                         </div>
                     )}
                 </Modal.Body>
@@ -94,7 +127,7 @@ function EmployeeDetails() {
             </Modal>
         </div>
     );
-}
+};
 
 const Staff = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -109,7 +142,7 @@ const Staff = () => {
                 <React.Fragment>
                     <div className='employee-details-container'>
                         <div className='employee-details'>
-                            <EmployeeCount /> <h1>Staff</h1>
+                            <EmployeeCount /><h1>Staff</h1>
                         </div>
                         <div className='employee-add'>
                             <Button className='button' onClick={setOpen}>+ Add Staff</Button>
