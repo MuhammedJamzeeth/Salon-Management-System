@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import './AddStaff.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './AddStaff.css';
 
 const AddStaff = ({ updateCount }) => {
     const [formInput, setFormInput] = useState({
@@ -64,6 +64,9 @@ const AddStaff = ({ updateCount }) => {
             if (!formInput[field]) {
                 newErrorState[field] = `Please enter ${field === 'mNumber' ? 'a valid 10-digit' : 'this'} ${field}`;
                 hasError = true;
+                toast.warning(`All field must required`, {
+                    position: 'top-center'
+                });
             }
         });
 
@@ -79,6 +82,9 @@ const AddStaff = ({ updateCount }) => {
         if (!isValidNIC) {
             newErrorState.ic = 'Please enter a valid NIC number (e.g., 123456789V)';
             hasError = true;
+            toast.error(`Please enter a valid NIC number (e.g., 123456789V)`, {
+                position: 'top-center'
+            });
         }
 
         // Validate Email
@@ -86,6 +92,9 @@ const AddStaff = ({ updateCount }) => {
         if (!isValidEmail) {
             newErrorState.email = 'Please enter a valid email address';
             hasError = true;
+            toast.error(`Please enter a valid email address`, {
+                position: 'top-center'
+            });
         }
 
         if (hasError) {
