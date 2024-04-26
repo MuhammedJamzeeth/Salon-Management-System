@@ -15,6 +15,8 @@ import { colors } from "../../styles/colors";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import useAppointments from "../../hooks/appointment/useAppointments";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   AppointmentContainer,
@@ -39,7 +41,6 @@ const Appointments = () => {
     emp,
     services,
     setApprove,
-    removeAppointment,
   } = useAppointments();
 
   const excludeSundays = (date) => {
@@ -279,7 +280,6 @@ const Appointments = () => {
                     key={index}
                     backGround={colors.colorGray}
                     setApprove={setApprove}
-                    removeAppointment={removeAppointment}
                     img={
                       "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1153&q=80"
                     }

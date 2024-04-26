@@ -15,10 +15,9 @@ import Service from "./pages/Services/Service";
 import Inventory from "./pages/Inventory/Inventory";
 // import AddStaff from "./components/Staff/Adddstaff";
 import MainDashBoard from "./pages/MyDashboard/MyDashboard";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import TestimonialsPage from "./pages/Reviews/TestimonialsPage";
-
-
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +36,7 @@ function App() {
 
   return (
     <React.Fragment>
+      <ToastContainer />
       <Routes>
         <Route
           path="/"
@@ -48,9 +48,6 @@ function App() {
           <Route path="services" element={<Service />} />
           <Route path="inventory" element={<Inventory />} />
           <Route path="reviews" element={<TestimonialsPage />} />
-          
-        
-
         </Route>
 
         <Route

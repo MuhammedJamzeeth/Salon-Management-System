@@ -1,8 +1,12 @@
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Avatar, Box, IconButton, Skeleton, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { confirmAlert } from "react-confirm-alert"; // Import react-confirm-alert module
 import "react-confirm-alert/src/react-confirm-alert.css";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { APPOINTMENT_ACTION_TYPES } from "../../constants/appointment.type";
+import { toast } from "react-toastify";
 
 import {
   CardContainerWrapper,
@@ -21,10 +25,39 @@ const Card = ({
   loading,
   employee,
   setApprove,
-  removeAppointment,
+  // removeAppointment,
+  // errorDelete,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const user = localStorage.getItem("user");
+  const { access_token } = JSON.parse(user);
+  const dispatch = useDispatch();
 
+  const removeAppointment = async (id) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/appointment/delete/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
+      console.log(response.data);
+      if (response?.statusText === "OK") {
+        throw new Error("Something went wrong");
+      } else {
+        dispatch({
+          type: APPOINTMENT_ACTION_TYPES.DELETE_APPOINTMENT,
+          payload: response.data,
+        });
+        toast.error("Successfully deleted", {
+          position: "top-right",
+        });
+      }
+    } catch (error) {}
+  };
   const showConfirmationAlert = (title, message, onConfirm) => {
     confirmAlert({
       title: title || "Confirmation",
@@ -46,7 +79,7 @@ const Card = ({
     setIsOpen(!isOpen);
   };
 
-  console.log(employee.approved);
+  // console.log(employee.approved);
   return (
     <CardContainerWrapper backGround={backGround}>
       <CardContainer>
@@ -195,6 +228,7 @@ const Card = ({
           </ButtonContainer>
         </CardDetailsExpand>
       )}
+      {/* <ToastContainer /> */}
     </CardContainerWrapper>
   );
 };
