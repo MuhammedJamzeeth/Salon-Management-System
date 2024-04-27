@@ -5,7 +5,7 @@ import AddStaff from './AddStaff';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-const EmployeeCount = () => {
+const EmployeeCount = ({ updateCount }) => {
     const [employeeCount, setEmployeeCount] = useState(0);
 
     useEffect(() => {
@@ -20,14 +20,14 @@ const EmployeeCount = () => {
         };
 
         fetchEmployeeCount();
-    }, []);
+    }, [updateCount]); // Update count when updateCount changes
 
     return (
         <h1 style={{ color: "red" }}>{employeeCount}</h1>
     );
 }
 
-const EmployeeDetails = () => {
+const EmployeeDetails = ({ updateCount }) => {
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -44,14 +44,14 @@ const EmployeeDetails = () => {
         };
 
         fetchEmployeeDetails();
-    }, []);
+    }, [updateCount]); // Update employee details when updateCount changes
 
     const handleSeeMore = (selectedEmp) => {
         setSelectedEmployee(selectedEmp);
         setShowModal(true);
     };
 
-    const handleDeleteEmployee = (empId, empName) => {
+    const handleDeleteEmployee = async (empId, empName) => {
         confirmAlert({
             title: 'Confirm to Delete',
             message: `Are you sure you want to delete ${empName}?`,
@@ -64,10 +64,8 @@ const EmployeeDetails = () => {
                                 method: 'DELETE'
                             });
                             if (response.ok) {
-                                // message: ` Deleted the ${empName}?`
                                 setEmployees(employees.filter(emp => emp.empId !== empId));
-                                
-
+                                updateCount(); // Update count after successful deletion
                             }
                         } catch (error) {
                             console.error('Error deleting employee:', error);
@@ -80,6 +78,33 @@ const EmployeeDetails = () => {
                 }
             ]
         });
+    };
+
+    const handleUpdateEmployee = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/employees/${selectedEmployee.empId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(selectedEmployee)
+            });
+            if (response.ok) {
+                console.log("Employee details updated successfully!");
+                updateCount(); // Update count after successful update
+                setShowModal(false);
+            }
+        } catch (error) {
+            console.error('Error updating employee details:', error);
+        }
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setSelectedEmployee(prevEmployee => ({
+            ...prevEmployee,
+            [name]: value
+        }));
     };
 
     return (
@@ -112,16 +137,28 @@ const EmployeeDetails = () => {
                 <Modal.Body>
                     {selectedEmployee && (
                         <div>
-                            <p>Name: {selectedEmployee.empFirstName} {selectedEmployee.empLastName}</p>
-                            <p>Email: {selectedEmployee.empEmail}</p>
-                            <p>Address: {selectedEmployee.empAddress}</p>
-                            <p>Remainder: {selectedEmployee.remainder}</p>
+                            <p>Name: 
+                                <input type="text" name="empFirstName" value={selectedEmployee.empFirstName} onChange={handleChange} />
+                                <input type="text" name="empLastName" value={selectedEmployee.empLastName} onChange={handleChange} />
+                            </p>
+                            <p>Email: 
+                                <input type="text" name="empEmail" value={selectedEmployee.empEmail} onChange={handleChange} />
+                            </p>
+                            <p>Address: 
+                                <input type="text" name="empAddress" value={selectedEmployee.empAddress} onChange={handleChange} />
+                            </p>
+                            <p>Phone Number:
+                                <input type="text" name="remainder" value={selectedEmployee.empPhone} onChange={handleChange} />
+                            </p>
                         </div>
                     )}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowModal(false)}>
                         Close
+                    </Button>
+                    <Button variant="primary" onClick={handleUpdateEmployee}>
+                        Update
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -131,9 +168,14 @@ const EmployeeDetails = () => {
 
 const Staff = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [updateCount, setUpdateCount] = useState(false); // State to trigger count update
 
     const setOpen = () => {
         setIsOpen(!isOpen);
+    };
+
+    const handleUpdateCount = () => {
+        setUpdateCount(!updateCount); // Toggle updateCount to trigger count update
     };
 
     return (
@@ -142,13 +184,13 @@ const Staff = () => {
                 <React.Fragment>
                     <div className='employee-details-container'>
                         <div className='employee-details'>
-                            <EmployeeCount /><h1>Staff</h1>
+                            <EmployeeCount updateCount={updateCount} /><h1>Staff</h1>
                         </div>
                         <div className='employee-add'>
                             <Button className='button' onClick={setOpen}>+ Add Staff</Button>
                         </div>
                     </div>
-                    <div className='employee-card-details'><EmployeeDetails /></div>
+                    <div className='employee-card-details'><EmployeeDetails updateCount={handleUpdateCount} /></div>
                 </React.Fragment>
             ) : (
                 <React.Fragment>
@@ -160,7 +202,7 @@ const Staff = () => {
                             <Button style={{ background: "red" }} className='button' onClick={setOpen}>Close</Button>
                         </div>
                     </div>
-                    <AddStaff />
+                    <AddStaff updateCount={handleUpdateCount} />
                 </React.Fragment>
             )}
         </div>

@@ -1,10 +1,13 @@
 .testimonial-box{
     width: 500px;
     box-shadow: 2px 2px 30px rgba(0,0,0,0.1);
-    background-color: #ffffff;
+    background-color: #fcfafa;
     padding: 20px;
     margin: 15px;
     cursor: pointer;
+    border: 1px solid black;
+    border-radius: 10 px;
+
 }
 
 
