@@ -7,6 +7,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { APPOINTMENT_ACTION_TYPES } from "../../constants/appointment.type";
 import { toast } from "react-toastify";
+import { format, setHours, setMinutes } from "date-fns"; // Import setHours and setMinutes from date-fns
 
 import {
   CardContainerWrapper,
@@ -32,6 +33,27 @@ const Card = ({
   const user = localStorage.getItem("user");
   const { access_token } = JSON.parse(user);
   const dispatch = useDispatch();
+
+  const checkStatus = (date, time) => {
+    const dateAndTime = `${date} ${time}`;
+    const dateTimeObj = new Date(dateAndTime);
+
+    const currentDate = new Date();
+
+    if (
+      currentDate.getFullYear() === dateTimeObj.getFullYear() &&
+      currentDate.getMonth() === dateTimeObj.getMonth() &&
+      currentDate.getDate() === dateTimeObj.getDate() &&
+      currentDate.getHours() === dateTimeObj.getHours() &&
+      currentDate.getMinutes() >= dateTimeObj.getMinutes() + 30
+    ) {
+      return "On Going";
+    } else if (currentDate < dateTimeObj) {
+      return "Pending";
+    } else {
+      return "Completed";
+    }
+  };
 
   const removeAppointment = async (id) => {
     try {
@@ -187,7 +209,9 @@ const Card = ({
                     </span>
                   </span>
                 )}
-                <span style={{ fontSize: "11px", fontWeight: "500" }}>{}s</span>
+                <span style={{ fontSize: "11px", fontWeight: "500" }}>
+                  Status: {checkStatus(employee.date, employee.time)}
+                </span>
               </CardDetails>
             )}
           </CardContainer>

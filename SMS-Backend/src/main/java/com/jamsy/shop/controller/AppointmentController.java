@@ -28,7 +28,7 @@ public class AppointmentController {
         List<Appointment> appointmentCheck = appointmentService.getAppointmentDetails();
         for(Appointment appointment1: appointmentCheck ){
             if(appointment1.getDate().equals(appointment.getDate()) && appointment1.getTime().equals(appointment.getTime()) && appointment1.getEmployee().getEmpId().equals(appointment.getEmployee().getEmpId())){
-                return new ResponseEntity<>("Date and Time already booked!!!, choose another", HttpStatus.BAD_REQUEST);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Date and Time already booked!!!, choose another");
             }
         }
         return ResponseEntity.ok(appointmentService.saveAppointment(appointment));

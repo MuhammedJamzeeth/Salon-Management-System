@@ -12,7 +12,7 @@ import React from "react";
 import SaloonLogo from "../../assets/logo.webp";
 import useLogOut from "../../hooks/user.logout";
 import Profile from "../Profile/Profile";
-import InventoryIcon from '@mui/icons-material/Inventory';
+import InventoryIcon from "@mui/icons-material/Inventory";
 
 import { commonNames } from "../../common/common.names";
 import {
@@ -56,8 +56,8 @@ const SideBar = ({ isOpen, toggleSideBar }) => {
           Icon={<InventoryIcon />}
         />
         <SideBarItems
-          to={"clients"}
-          title={"Clients"}
+          to={"attendance"}
+          title={"Attendance"}
           Icon={<AccountCircleOutlinedIcon />}
         />
         <SideBarItems
@@ -65,11 +65,7 @@ const SideBar = ({ isOpen, toggleSideBar }) => {
           title={"Staffs"}
           Icon={<ContentCutIcon />}
         />
-        <SideBarItems
-         to={"reviews"} 
-         title={"Reviews"} 
-         Icon={<ReviewsIcon />} 
-         />
+        <SideBarItems to={"reviews"} title={"Reviews"} Icon={<ReviewsIcon />} />
         <SideBarItems
           to={"finances"}
           title={"Finances"}

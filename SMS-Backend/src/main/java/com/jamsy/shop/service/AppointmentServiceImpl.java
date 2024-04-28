@@ -43,7 +43,7 @@ public class AppointmentServiceImpl implements AppointmentService{
 
     @Override
     public List<Appointment> getAppointmentDetails() {
-        List<Appointment> appointments = appointmentRepository.findAll(Sort.by(Sort.Direction.ASC,"date"));
+        List<Appointment> appointments = appointmentRepository.findAll(Sort.by(Sort.Direction.DESC,"date"));
         return appointments;
     }
 
