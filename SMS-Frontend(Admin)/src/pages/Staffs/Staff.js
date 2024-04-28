@@ -4,6 +4,8 @@ import './Staff.css';
 import AddStaff from './AddStaff';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EmployeeCount = ({ updateCount }) => {
     const [employeeCount, setEmployeeCount] = useState(0);
@@ -25,12 +27,24 @@ const EmployeeCount = ({ updateCount }) => {
     return (
         <h1 style={{ color: "red" }}>{employeeCount}</h1>
     );
-}
+};
+
+const calculateAge = (dob) => {
+    const today = new Date();
+    const birthDate = new Date(dob);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+};
 
 const EmployeeDetails = ({ updateCount }) => {
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [errors, setErrors] = useState({}); // State for validation errors
 
     useEffect(() => {
         const fetchEmployeeDetails = async () => {
@@ -66,6 +80,9 @@ const EmployeeDetails = ({ updateCount }) => {
                             if (response.ok) {
                                 setEmployees(employees.filter(emp => emp.empId !== empId));
                                 updateCount(); // Update count after successful deletion
+                                toast.success(`${empName} has been deleted successfully`, {
+                                    position: 'top-right'
+                                });
                             }
                         } catch (error) {
                             console.error('Error deleting employee:', error);
@@ -81,21 +98,73 @@ const EmployeeDetails = ({ updateCount }) => {
     };
 
     const handleUpdateEmployee = async () => {
-        try {
-            const response = await fetch(`http://localhost:8080/employees/${selectedEmployee.empId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(selectedEmployee)
+        // Validation
+        const validationErrors = {};
+        if (!selectedEmployee.empFirstName) {
+            validationErrors.firstName = "First name is required";
+            toast.error(`First name is required`, {
+                position: 'top-right'
             });
-            if (response.ok) {
-                console.log("Employee details updated successfully!");
-                updateCount(); // Update count after successful update
-                setShowModal(false);
+        }
+
+        if (!selectedEmployee.empLastName) {
+            validationErrors.lastName = "Last name is required";
+            toast.error(`Last name is required`, {
+                position: 'top-right'
+            });
+        }
+
+        if (!selectedEmployee.empEmail) {
+            validationErrors.email = "Email is required";
+            toast.error(`Email is required`, {
+                position: 'top-right'
+            });
+
+        } else if (!/\S+@\S+\.\S+/.test(selectedEmployee.empEmail)) {
+            validationErrors.email = "Email is invalid";
+            toast.error(`Email is invalid`, {
+                position: 'top-right'
+            });
+        }
+
+        if (!selectedEmployee.empPhone) {
+            validationErrors.phone = "Phone number is required";
+            toast.error(`Phone number is required`, {
+                position: 'top-right'
+            });
+        } else if (!/^\d{10}$/.test(selectedEmployee.empPhone)) {
+            validationErrors.phone = "Please enter a valid 10-digit mobile number";
+            toast.error(`Phone Number is invalid`, {
+                position: 'top-right'
+            });
+        }
+
+        if (Object.keys(validationErrors).length === 0) {
+            try {
+                const response = await fetch(`http://localhost:8080/employeeUpdate/${selectedEmployee.empId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(selectedEmployee)
+                });
+                if (response.ok) {
+                    console.log("Employee details updated successfully!");
+                    updateCount(); // Update count after successful update
+                    setShowModal(false);
+                    // Clear the selectedEmployee state after successful update
+                    setSelectedEmployee(null);
+                    
+                    toast.success(`${selectedEmployee.empFirstName} ${selectedEmployee.empLastName}'s data has been updated`, {
+                        position: 'top-right'
+                    });
+                }
+            } catch (error) {
+                console.error('Error updating employee details:', error);
             }
-        } catch (error) {
-            console.error('Error updating employee details:', error);
+        } else {
+            // If there are validation errors, set them in state
+            setErrors(validationErrors);
         }
     };
 
@@ -104,6 +173,11 @@ const EmployeeDetails = ({ updateCount }) => {
         setSelectedEmployee(prevEmployee => ({
             ...prevEmployee,
             [name]: value
+        }));
+        // Clear validation error when user starts typing again
+        setErrors(prevErrors => ({
+            ...prevErrors,
+            [name]: ''
         }));
     };
 
@@ -137,24 +211,46 @@ const EmployeeDetails = ({ updateCount }) => {
                 <Modal.Body>
                     {selectedEmployee && (
                         <div>
-                            <p>Name: 
-                                <input type="text" name="empFirstName" value={selectedEmployee.empFirstName} onChange={handleChange} />
-                                <input type="text" name="empLastName" value={selectedEmployee.empLastName} onChange={handleChange} />
-                            </p>
-                            <p>Email: 
-                                <input type="text" name="empEmail" value={selectedEmployee.empEmail} onChange={handleChange} />
-                            </p>
-                            <p>Address: 
-                                <input type="text" name="empAddress" value={selectedEmployee.empAddress} onChange={handleChange} />
-                            </p>
-                            <p>Phone Number:
-                                <input type="text" name="remainder" value={selectedEmployee.empPhone} onChange={handleChange} />
-                            </p>
+                            <b>
+                                <p>Name: 
+                                    <input type="text" name="empFirstName" value={selectedEmployee.empFirstName} onChange={handleChange} />
+                                    {errors.firstName && <div className="text-danger">{errors.firstName}</div>} {/* Display validation error */}
+                                    <input type="text" name="empLastName" value={selectedEmployee.empLastName} onChange={handleChange} />
+                                    {errors.lastName && <div className="text-danger">{errors.lastName}</div>} {/* Display validation error */}
+                                </p>
+                                <p>Email: 
+                                    <input type="text" name="empEmail" value={selectedEmployee.empEmail} onChange={handleChange} />
+                                    {errors.email && <div className="text-danger">{errors.email}</div>} {/* Display validation error */}
+                                </p>
+                                <p>Address: 
+                                    <input type="text" name="empAddress" value={selectedEmployee.empAddress} onChange={handleChange} />
+                                </p>
+                                <p>Phone Number:
+                                    <input type="text" name="empPhone" value={selectedEmployee.empPhone} onChange={handleChange} />
+                                    {errors.phone && <div className="text-danger">{errors.phone}</div>} {/* Display validation error */}
+                                </p>
+                                <p>Profile Photo:
+                                    {/* <img src={`data:image/jpeg;base64,${selectedEmployee.empProfilePhoto}`} alt="" /> */}
+                                </p>
+                                <p>
+                                    Age:
+                                    <input type="text" name="empGender" value={selectedEmployee.empDateOfBirth && calculateAge(selectedEmployee.empDateOfBirth)}/>
+                                     
+                                </p>
+                                <p>
+                                    Gender:
+                                    <input type="text" name="empGender" value={selectedEmployee.empGender} />
+                                </p>
+                                <p>
+                                    NIC:
+                                    <input type="text" name="empIc" value={selectedEmployee.empIc} />
+                                </p>
+                            </b>
                         </div>
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                    <Button variant="secondary" onClick={() => setShowModal(false)} name='but'>
                         Close
                     </Button>
                     <Button variant="primary" onClick={handleUpdateEmployee}>
@@ -207,6 +303,6 @@ const Staff = () => {
             )}
         </div>
     );
-}
+};
 
 export default Staff;

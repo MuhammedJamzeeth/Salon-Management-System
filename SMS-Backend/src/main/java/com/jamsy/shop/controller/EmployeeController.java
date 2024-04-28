@@ -1,6 +1,7 @@
 package com.jamsy.shop.controller;
 
 import com.jamsy.shop.entity.Employee;
+import com.jamsy.shop.entity.Product;
 import com.jamsy.shop.repository.EmployeeRepository;
 import com.jamsy.shop.service.EmployeeService;
 import com.jamsy.shop.service.EmployeeServiceImpl;
@@ -56,9 +57,8 @@ public class EmployeeController {
         }
     }
 
-
-            @GetMapping("/employees")
-        public ResponseEntity<List<Employee>> fetchEmployeeList(){
+    @GetMapping("/employees")
+    public ResponseEntity<List<Employee>> fetchEmployeeList(){
         List<Employee> emp = employeeRepository.findAll();
         return ResponseEntity.ok(emp);
     }
@@ -78,7 +78,12 @@ public class EmployeeController {
     public void deleteEmployee(@PathVariable("empId") Long id){
         employeeRepository.deleteById(id);
 
+    }
 
+    @PutMapping("/employeeUpdate/{empId}")
+    public Employee updateEmployee(@PathVariable("empId") Long id, @RequestBody Employee employee){
+        System.out.println("Successfully Updated..!!!");
+        return employeeService.updateEmployee(id,employee);
     }
 
 

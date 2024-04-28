@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
@@ -53,6 +54,24 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
+    }
+
+    @Override
+    public Employee updateEmployee(Long id, Employee updateEmployee) {
+        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
+        if (optionalEmployee.isPresent()) {
+            Employee existingEmployee = optionalEmployee.get();
+            existingEmployee.setEmpFirstName(updateEmployee.getEmpFirstName());
+            existingEmployee.setEmpLastName(updateEmployee.getEmpLastName());
+            existingEmployee.setEmpEmail(updateEmployee.getEmpEmail());
+            existingEmployee.setEmpAddress(updateEmployee.getEmpAddress());
+            existingEmployee.setEmpPhone(updateEmployee.getEmpPhone());
+//            existingEmployee.setEmpProfilePhoto(employee.getEmpProfilePhoto());
+
+            return employeeRepository.save(existingEmployee);
+        } else {
+            throw new RuntimeException("Employee not found with id: " + id);
+        }
     }
 
 

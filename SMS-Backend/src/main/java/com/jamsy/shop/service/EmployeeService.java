@@ -1,6 +1,7 @@
 package com.jamsy.shop.service;
 
 import com.jamsy.shop.entity.Employee;
+import com.jamsy.shop.entity.Product;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public interface EmployeeService {
    public Employee fetchEmployeeById(Long employeeId);
 
     void deleteEmployee(Long id);
+
+    Employee updateEmployee(Long id, Employee employee);
 
 
 }

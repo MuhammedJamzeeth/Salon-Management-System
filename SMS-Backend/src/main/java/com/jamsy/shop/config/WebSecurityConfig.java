@@ -53,7 +53,8 @@ public class WebSecurityConfig{
             "/reviews",
             "/addReview",
             "/review/{id}",
-            "/employees/{empId}"
+            "/employees/{empId}",
+            "/employeeUpdate/{empId}"
 
     };
     private final JwtAuthenticationFilter jwtAuthFilter;
