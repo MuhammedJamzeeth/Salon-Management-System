@@ -198,8 +198,6 @@
 	box-shadow: 0 10px 10px hsl(225, 100%, 94%);
 }
 
-/* Add these styles to your CSS file */
-
 /* Modal styles */
 .modal-content {
     border-radius: 10px;
@@ -207,7 +205,7 @@
 }
 
 .modal-header {
-    background-color: #007bff;
+    background-color: #51555b;
     color: white;
     border-radius: 10px 10px 0 0;
 }
@@ -230,6 +228,7 @@
     margin-right: 0;
 	
 }
+
 
 /* Input styles */
 input[type="text"] {
