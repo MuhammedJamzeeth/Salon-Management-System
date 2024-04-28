@@ -1,9 +1,12 @@
 import React from "react";
+import Header from "../../components/Finances/Header/Header";
+import TableFinance from "../../components/Finances/TableFinances/TableFinance";
 
 const Financial = () => {
   return (
     <>
-      <div>financial</div>
+      <Header></Header>
+      <TableFinance />;
     </>
   );
 };
