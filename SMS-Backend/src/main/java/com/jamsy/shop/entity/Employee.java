@@ -1,6 +1,8 @@
 package com.jamsy.shop.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,8 +25,15 @@ public class Employee {
     private Long empId;
     private String empFirstName;
     private String empLastName;
+
+    @NotBlank
+    @Column(unique = true)
     private String empIc;
-//    @Column(unique = true,nullable = false)
+
+    @NotBlank
+    @Email
+    @Column(unique = true)
+
     private String empEmail;
     private String empAddress;
     private String empGender;
