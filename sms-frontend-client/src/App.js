@@ -1,16 +1,11 @@
 import React from "react";
-import NavigationBar from "./Components/NavigationBar";
-import ImageSlider from "./Components/ImageSlider";
-import Services from "./Components/Services";
-import Reviews from "./Components/Reviews/Reviews";
+import WebApp from "./Pages/WebApp";
 
 function App() {
   return (
     <div className="App">
-      <NavigationBar/>
-      <ImageSlider/>
-      <Services/>
       {/* <Reviews /> */}
+      <WebApp/>
     </div>
   );
 }
