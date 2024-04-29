@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import Swal from 'sweetalert2';
-import axios from "axios";
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './AddStaff.css';
 
-const AddStaff = () => {
+const AddStaff = ({ updateCount }) => {
     const [formInput, setFormInput] = useState({
         firstName: '',
         lastName: '',
@@ -13,7 +14,8 @@ const AddStaff = () => {
         mNumber: '',
         gender: '',
         joiningDate: '',
-        dateOfBirth: ''
+        dateOfBirth: '',
+        profilePhoto: null
     });
 
     const [error, setError] = useState({
@@ -30,29 +32,43 @@ const AddStaff = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormInput(prevState => ({
+        setFormInput((prevState) => ({
             ...prevState,
             [name]: value
         }));
-        
-        setError(prevState => ({
+        setError((prevState) => ({
             ...prevState,
             [name]: ''
+        }));
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setFormInput((prevState) => ({
+            ...prevState,
+            profilePhoto: file
         }));
     };
 
     const handleAdd = async (e) => {
         e.preventDefault();
 
-        const newErrorState = { ...error };
+        const newErrorState = {};
+
+        // Validate all required fields
+        const requiredFields = ['firstName', 'lastName', 'ic', 'email', 'address', 'mNumber', 'gender', 'joiningDate', 'dateOfBirth'];
+
         let hasError = false;
 
-        for (const key in formInput) {
-            if (!formInput[key].trim()) {
-                newErrorState[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} can not be empty`;
+        requiredFields.forEach((field) => {
+            if (!formInput[field]) {
+                newErrorState[field] = `Please enter ${field === 'mNumber' ? 'a valid 10-digit' : 'this'} ${field}`;
                 hasError = true;
+                toast.warning(`All field must required`, {
+                    position: 'top-center'
+                });
             }
-        }
+        });
 
         // Validate Mobile Number
         const isValidMobileNumber = /^[0-9]{10}$/.test(formInput.mNumber);
@@ -66,6 +82,19 @@ const AddStaff = () => {
         if (!isValidNIC) {
             newErrorState.ic = 'Please enter a valid NIC number (e.g., 123456789V)';
             hasError = true;
+            toast.error(`Please enter a valid NIC number (e.g., 123456789V)`, {
+                position: 'top-center'
+            });
+        }
+
+        // Validate Email
+        const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formInput.email);
+        if (!isValidEmail) {
+            newErrorState.email = 'Please enter a valid email address';
+            hasError = true;
+            toast.error(`Please enter a valid email address`, {
+                position: 'top-center'
+            });
         }
 
         if (hasError) {
@@ -73,24 +102,10 @@ const AddStaff = () => {
             return;
         }
 
-        const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formInput.email);
-        if (!isValidEmail) {
-            return Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'Please enter a valid email address.',
-                showConfirmButton: true
-            });
-        }
-
         try {
             await saveStaff();
-            Swal.fire({
-                icon: 'success',
-                title: 'Added!',
-                text: `${formInput.firstName} ${formInput.lastName}'s data has been Added.`,
-                showConfirmButton: false,
-                timer: 1500
+            toast.success(`${formInput.firstName} ${formInput.lastName}'s data has been added`, {
+                position: 'top-center'
             });
             setFormInput({
                 firstName: '',
@@ -101,35 +116,43 @@ const AddStaff = () => {
                 mNumber: '',
                 gender: '',
                 joiningDate: '',
-                dateOfBirth: ''
+                dateOfBirth: '',
+                profilePhoto: null
             });
+
+            // Update the count after successful addition
+            updateCount();
         } catch (error) {
             console.error('Error saving staff:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'Failed to save staff.',
-                showConfirmButton: true
+            toast.error('Failed to save staff', {
+                position: 'top-center'
             });
         }
     };
 
     const saveStaff = async () => {
         const formData = new FormData();
-        formData.append("empFirstName", formInput.firstName);
-        formData.append("empLastName", formInput.lastName);
-        formData.append("empIc", formInput.ic);
-        formData.append("empEmail", formInput.email);
-        formData.append("empAddress", formInput.address);
-        formData.append("empPhone", formInput.mNumber);
-        formData.append("empGender", formInput.gender);
-        formData.append("empJoiningDate", formInput.joiningDate);
-        formData.append("empDateOfBirth", formInput.dateOfBirth);
+        formData.append('empFirstName', formInput.firstName);
+        formData.append('empLastName', formInput.lastName);
+        formData.append('empIc', formInput.ic);
+        formData.append('empEmail', formInput.email);
+        formData.append('empAddress', formInput.address);
+        formData.append('empPhone', formInput.mNumber);
+        formData.append('empGender', formInput.gender);
+        formData.append('empJoiningDate', formInput.joiningDate);
+        formData.append('empDateOfBirth', formInput.dateOfBirth);
+        formData.append('empProfilePhoto', formInput.profilePhoto);
 
         try {
-            await axios.post('http://localhost:8080/employee', formData);
+            const response = await axios.post('http://localhost:8080/employee', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log('Response:', response.data); // Log successful response data
         } catch (error) {
-            console.error(error);
+            console.error('Error saving staff:', error);
+            throw new Error('Failed to save staff.');
         }
     };
 
@@ -253,6 +276,16 @@ const AddStaff = () => {
                                 />
                                 {error.dateOfBirth && <div className="text-danger">{error.dateOfBirth}</div>}
                             </div>
+                            <div className='form-group mb-2'>
+                                <label className='form-label'>Profile Photo:</label>
+                                <input
+                                    type='file'
+                                    accept='image/*'
+                                    name='profilePhoto'
+                                    className='form-control-file'
+                                    onChange={handleFileChange}
+                                />
+                            </div>
                             <button type="submit" className="btn btn-primary">Save</button>
                         </form>
                     </div>
@@ -260,6 +293,6 @@ const AddStaff = () => {
             </div>
         </div>
     );
-}
+};
 
 export default AddStaff;

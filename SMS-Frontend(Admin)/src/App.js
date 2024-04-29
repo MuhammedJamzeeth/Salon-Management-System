@@ -8,17 +8,18 @@ import useLogOut from "./hooks/user.logout";
 import { setCurrentUser } from "./actions/user.action";
 import SharedLayOut from "./pages/Shared/ShardLayOut";
 import AuthVerify from "./common/AuthVerify";
-import DashBoard from "./pages/Dashboard/DashBoard";
+// import DashBoard from "./pages/Dashboard/DashBoard";
 import Appointments from "./pages/Appoinments/Appoinment";
 import Staff from "./pages/Staffs/Staff";
 import Service from "./pages/Services/Service";
 import Inventory from "./pages/Inventory/Inventory";
 // import AddStaff from "./components/Staff/Adddstaff";
 import MainDashBoard from "./pages/MyDashboard/MyDashboard";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import TestimonialsPage from "./pages/Reviews/TestimonialsPage";
-
-
+import Financial from "./pages/Financials/Financial";
+import Attendance from "./pages/Attendence/Attendance";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ function App() {
 
   return (
     <React.Fragment>
+      <ToastContainer />
       <Routes>
         <Route
           path="/"
@@ -48,9 +50,8 @@ function App() {
           <Route path="services" element={<Service />} />
           <Route path="inventory" element={<Inventory />} />
           <Route path="reviews" element={<TestimonialsPage />} />
-          
-        
-
+          <Route path="finances" element={<Financial />} />
+          <Route path="attendance" element={<Attendance />} />
         </Route>
 
         <Route

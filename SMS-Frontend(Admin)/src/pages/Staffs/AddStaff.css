@@ -6,6 +6,11 @@
     align-items: center;
     height: 100vh;
     background-color: #f5f5f5;
+    border-radius: 10px;
+    width: auto;
+    margin-bottom: 20px;
+    
+  
   }
   
   .card-body {
@@ -14,11 +19,13 @@
     padding: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 500px;
+    border: 1px solid black;
   }
   
   h2 {
     text-align: center;
     margin-bottom: 20px;
+    
   }
   
   .form-label {

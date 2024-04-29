@@ -23,7 +23,9 @@ public class Employee {
     private String empPhone;
     private String empJoiningDate;
     private String empDateOfBirth;
+    private byte[] empProfilePhoto;
     private Boolean isAvailable;
     @OneToMany(mappedBy = "appointment")
     private List<Appointment> appointments;
+
 }

@@ -15,6 +15,7 @@ import { colors } from "../../styles/colors";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import useAppointments from "../../hooks/appointment/useAppointments";
+import { toast } from "react-toastify";
 
 import {
   AppointmentContainer,
@@ -22,6 +23,7 @@ import {
   CreateAppointment,
   ListOfData,
 } from "./Appointments.styles";
+import { tr } from "date-fns/locale";
 
 const Appointments = () => {
   // const [loading, setLoading] = useState(false);
@@ -39,7 +41,6 @@ const Appointments = () => {
     emp,
     services,
     setApprove,
-    removeAppointment,
   } = useAppointments();
 
   const excludeSundays = (date) => {
@@ -132,6 +133,7 @@ const Appointments = () => {
     category: "",
     date: "",
     startDate: "",
+    isBooked: false,
   };
   const [formInput, setFormInput] = useState(InitiateState);
 
@@ -180,6 +182,11 @@ const Appointments = () => {
       newErrorState.startDate = "Date can not be empty";
       hasError = true;
     }
+    if (resError) {
+      newErrorState.isBooked =
+        "Already booked! please choose Different date and time OR employee";
+      hasError = true;
+    }
 
     // If any field is empty, set the error state and exit the function
     if (hasError) {
@@ -217,6 +224,9 @@ const Appointments = () => {
       );
 
       setResError(response);
+      toast.success("Successfully saved", {
+        position: "top-right",
+      });
       if (response.status === 200 || response.statusText === "OK") {
       }
       // setLoading(false);
@@ -279,7 +289,6 @@ const Appointments = () => {
                     key={index}
                     backGround={colors.colorGray}
                     setApprove={setApprove}
-                    removeAppointment={removeAppointment}
                     img={
                       "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1153&q=80"
                     }
@@ -288,6 +297,9 @@ const Appointments = () => {
                     <p style={{ fontSize: "12px", fontWeight: "600" }}>
                       {appointment.customerName}
                     </p>
+                    <span
+                      style={{ fontSize: "11px", fontWeight: "500" }}
+                    >{`Order ID: ${appointment.id}`}</span>
                     <span style={{ fontSize: "11px", fontWeight: "500" }}>
                       {appointment.category}
                     </span>
@@ -296,8 +308,7 @@ const Appointments = () => {
                     </span>
                     <span style={{ fontSize: "11px", fontWeight: "500" }}>
                       {appointment.date}
-                    </span>
-                    <span style={{ fontSize: "11px", fontWeight: "500" }}>
+                      {", "}
                       {appointment.time}
                     </span>
                   </Card>
@@ -473,6 +484,15 @@ const Appointments = () => {
                 }}
               >
                 {error.startDate}
+              </Form.Text>
+            )}
+            {error.isBooked && (
+              <Form.Text
+                style={{
+                  color: "red",
+                }}
+              >
+                {error.isBooked}
               </Form.Text>
             )}
           </Form.Group>
