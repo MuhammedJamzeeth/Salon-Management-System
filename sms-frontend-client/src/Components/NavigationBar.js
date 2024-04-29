@@ -1,11 +1,11 @@
 import React from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
-import logo from '../Resources/logo.png'
+import logo from '../Resources/logo.png';
 import './NavigationBar.css';
 
 function NavigationBar() {
     return (
-        <Navbar className="navbar">
+        <Navbar className="navbar sticky-top">
             <Nav href="#home" className="logo-container">
                 <img src={logo} alt='img' className='logoimg'></img>
             </Nav>

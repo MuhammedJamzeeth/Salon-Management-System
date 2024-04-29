@@ -22,6 +22,13 @@
   font-size: large;
 }
 
+.navbar.sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+
 .navbar-nav .nav-link {
   color: white;
   text-decoration: none; 
