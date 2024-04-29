@@ -1,9 +1,14 @@
-
+import React from "react";
+import NavigationBar from "./Components/NavigationBar";
+import ImageSlider from "./Components/ImageSlider";
+import Services from "./Components/Services";
 
 function App() {
   return (
     <div className="App">
-      hello Siyam!!
+      <NavigationBar/>
+      <ImageSlider/>
+      <Services/>
     </div>
   );
 }
