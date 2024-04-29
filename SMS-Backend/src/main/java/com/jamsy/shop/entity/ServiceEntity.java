@@ -15,6 +15,7 @@ import java.util.Date;
 @Builder
 @Table(name="Service")
 public class ServiceEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long serviceId;
