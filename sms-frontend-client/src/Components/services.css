@@ -1,7 +1,9 @@
 .services-container {
-    margin: 0 auto;
+    margin: 0px;
+    padding-top: 10px;
+    /* background: linear-gradient(180deg, #5690fcb9 0%, #f4f4f4 100%); */
     background-image: url(../Resources/servicebg.jpg);
-    border-radius: 100px;
+    /* border-radius: 100px; */
     
 }
 
@@ -12,15 +14,13 @@
     transition: max-height 0.4s ease;
     overflow: hidden;
     padding-top: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
 }
 
 .service-icon {
-    width: 110px;
-    height: 110px;
+    width: 120px;
+    height: 120px;
     background-color: #ffffff;
-    border-radius: 60px;
+    border-radius: 65px;
     display: flex;
     justify-content: center;
     align-items: center;
