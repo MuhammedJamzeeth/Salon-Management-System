@@ -7,7 +7,7 @@ export const AppointmentContainer = styled.div`
   padding: 10px;
   gap: 10px;
   width: 100%;
-  height: 90%;
+  height: 100%;
   @media screen and (max-width: 1000px) {
     flex-direction: column;
   }
@@ -76,11 +76,13 @@ export const CreateAppointment = styled.div`
   background: ${colors.colorWhite};
   border-radius: 10px;
   width: 60%;
+  // height: 100%;
+  // margin-bottom: 12px;
   padding: 0 10px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
   font-size: 14px;
   h2 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
   }
   .custom-input {
@@ -143,7 +145,7 @@ export const ListOfData = styled.div`
   &::-webkit-scrollbar {
     width: 10px; /* Width of the scrollbar */
   }
-  
+
   /* Track */
   &::-webkit-scrollbar-track {
     background: #f1f1f1; /* Color of the track */

@@ -1,32 +1,36 @@
 package com.jamsy.shop.controller;
 
-import com.jamsy.shop.model.Product;
-import com.jamsy.shop.service.product.ProductService;
+import com.jamsy.shop.entity.Product;
+import com.jamsy.shop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
-@RequestMapping("/product")
 public class ProductController {
-
     @Autowired
-    ProductService productService;
+    private ProductService productService;
 
-    @PostMapping("/add")
-    public String addProduct(@RequestBody Product product){
-        productService.saveProduct(product);
-        return "New Product is added";
+    @PostMapping("/addproduct")
+    public Product addProduct(@RequestBody Product product){
+        return productService.saveProduct(product);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/getallproducts")
     public List<Product> getAllProducts(){
-        productService.getAllProducts();
         return productService.getAllProducts();
     }
 
+    @PutMapping("/updateproduct/{id}")
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product product){
+        return productService.updateProduct(id,product);
+    }
 
-
+    @DeleteMapping("/deleteproduct/{id}")
+    public void deleteProduct(@PathVariable Long id){
+        productService.deleteProduct(id);
+    }
 
 }

@@ -1,0 +1,86 @@
+.services-container {
+    margin: 0px;
+    padding-top: 10px;
+    /* background: linear-gradient(180deg, #5690fcb9 0%, #f4f4f4 100%); */
+    background-image: url(../Resources/servicebg.jpg);
+    /* border-radius: 100px; */
+    
+}
+
+.service-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    transition: max-height 0.4s ease;
+    overflow: hidden;
+    padding-top: 15px;
+}
+
+.service-icon {
+    width: 120px;
+    height: 120px;
+    background-color: #ffffff;
+    border-radius: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #cc00ff;
+    font-size: 20px;
+    padding: 5px;
+    margin-left: 4px;
+    margin-bottom: 20px;
+    font-size: medium;
+    font-weight: bold;
+    animation: colorAnimation 4s infinite alternate; /* Add animation */
+}
+
+@keyframes colorAnimation {
+    0% {
+        background: linear-gradient(45deg, #fa69e2, #3498db); /* Start color: green to blue */
+        color: #ffb134; /* Orange text color */
+        transform: scale(1);
+    }
+    50% {
+        background: linear-gradient(45deg, #9b59b6, #7fbfff); /* Middle color: purple to dark gray */
+        color: #ecf0f1; /* Light gray text color */
+        transform: scale(1.1);
+    }
+    100% {
+        background: linear-gradient(45deg, #61ffdf, #fcf2f2); /* End color: turquoise to dark blue */
+        color: #ffb134; /* Orange text color */
+        transform: scale(1);
+    }
+}
+
+
+.service-icon:hover {
+    animation: none; /* Disable animation on hover */
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(241, 150, 255, 0.863);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+
+.service-list::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background-color: #266ecd; */
+    border-radius: 60px;
+    filter: blur(5px); /* Apply a blur effect to the background */
+    z-index: -1; /* Ensure the pseudo-element is behind the text */
+}
+
+.toggle-button {
+    cursor: pointer;
+    text-align: center;
+    margin-top: 5px;
+}
+
+h2{
+    text-align: center;
+}

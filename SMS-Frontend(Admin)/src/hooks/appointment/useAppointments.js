@@ -1,12 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { APPOINTMENT_ACTION_TYPES } from "../../constants/appointment.type";
 
 const useAppointments = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState({});
+  const [errorDl, setErrorDl] = useState([]);
+
   const [emp, setEmp] = useState([]);
   const [services, setServices] = useState([]);
   const user = localStorage.getItem("user");
@@ -111,12 +113,84 @@ const useAppointments = () => {
     }
   };
 
+  const setApprove = async (isApprove, id) => {
+    console.log(isApprove);
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/appointment/setApprove/${id}`,
+        isApprove,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
+      // getAllAppointments();
+      console.log(response.data);
+      if (response?.statusText === "OK") {
+        throw new Error("Something went wrong");
+      } else {
+        setLoading(false);
+        dispatch({
+          type: APPOINTMENT_ACTION_TYPES.UPDATE_APPOINTMENT,
+          payload: response.data,
+        });
+      }
+    } catch (error) {
+      setLoading(false);
+      setError(
+        error.code !== "ERR_NETWORK"
+          ? error.response?.statusText
+          : error.message
+      );
+    }
+  };
+
+  // const removeAppointment = async (id) => {
+  //   try {
+  //     const response = await axios.delete(
+  //       `http://localhost:8080/appointment/delete/${id}`,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${access_token}`,
+  //         },
+  //       }
+  //     );
+  //     // getAllAppointments();
+  //     console.log(response.data);
+  //     setErrorDl(response.data);
+  //     if (response?.statusText === "OK") {
+  //       throw new Error("Something went wrong");
+  //     } else {
+  //       setLoading(false);
+  //       dispatch({
+  //         type: APPOINTMENT_ACTION_TYPES.DELETE_APPOINTMENT,
+  //         payload: response.data,
+  //       });
+  //       return response.data;
+  //     }
+  //   } catch (error) {
+  //     setLoading(false);
+  //     setError(
+  //       error.code !== "ERR_NETWORK"
+  //         ? error.response?.statusText
+  //         : error.message
+  //     );
+  //   }
+  //   return null;
+  // };
+
   return {
     getAllAppointments,
     getEmployee,
     getAllServices,
     emp,
     services,
+    setApprove,
+    // removeAppointment,
+    errorDl,
   };
 };
 

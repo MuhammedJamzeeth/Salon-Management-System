@@ -1,13 +1,13 @@
 package com.jamsy.shop.service;
 
-import com.jamsy.shop.model.ServiceModel;
+import com.jamsy.shop.entity.ServiceEntity;
 
 import java.util.List;
 
 public interface ServiceService {
-    ServiceModel addService(ServiceModel service);
-    List<ServiceModel> getAllServices();
-    ServiceModel updateService(Long id, ServiceModel service);
+    ServiceEntity addService(ServiceEntity service);
+    List<ServiceEntity> getAllServices();
+    ServiceEntity updateService(Long id, ServiceEntity service);
     void deleteService(Long id);
-    ServiceModel getServiceById(Long id);
+    ServiceEntity getServiceById(Long id);
 }

@@ -15,6 +15,7 @@ import { colors } from "../../styles/colors";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import useAppointments from "../../hooks/appointment/useAppointments";
+import { toast } from "react-toastify";
 
 import {
   AppointmentContainer,
@@ -22,16 +23,25 @@ import {
   CreateAppointment,
   ListOfData,
 } from "./Appointments.styles";
+import { tr } from "date-fns/locale";
 
 const Appointments = () => {
-  const [loading, setLoading] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
+  // const [loading, setLoading] = useState(false);
+  // const [appointmentDate, setAppointmentDate] = useState(new Date());
+  const [startDate, setStartDate] = useState("");
+  const [minTime, setMinTime] = useState(new Date());
   const appointments = useSelector(
     (state) => state.appointments.current_appointment
   );
 
-  const { getAllAppointments, getEmployee, getAllServices, emp, services } =
-    useAppointments();
+  const {
+    getAllAppointments,
+    getEmployee,
+    getAllServices,
+    emp,
+    services,
+    setApprove,
+  } = useAppointments();
 
   const excludeSundays = (date) => {
     // Return false if the date is Sunday
@@ -41,10 +51,17 @@ const Appointments = () => {
   const excludedTimes = [];
 
   const [openDate, setOpenDate] = useState(false);
-  const [isClose, setIsClose] = useState(false);
+  // const [isClose, setIsClose] = useState(false);
+
+  const currentDate = new Date();
+
   const [state, setState] = useState([
     {
-      startDate: new Date(),
+      startDate: new Date(
+        currentDate.getFullYear() - 1,
+        currentDate.getMonth(),
+        currentDate.getDate()
+      ),
       endDate: addDays(new Date(), 7),
       key: "selection",
     },
@@ -54,6 +71,7 @@ const Appointments = () => {
     getAllAppointments();
     getEmployee();
     getAllServices();
+    // setAppointmentDate(new Date(), -120);
   }, []);
 
   const dateRangeRef = useRef();
@@ -89,9 +107,20 @@ const Appointments = () => {
     excludedTimes.push(setHours(setMinutes(new Date(), 30), i));
   }
 
+  appointments.forEach((appointment) => {
+    // Split the time string into hours, minutes, and period (AM/PM)
+    const [time, period] = appointment.time.split(" ");
+    const [hours, minutes] = time.split(":").map(Number);
+
+    excludedTimes.push(setHours(setMinutes(new Date(), minutes), hours));
+  });
+
+  // console.log(excludedTimes);
+
   const InitiateState = {
     uname: "",
     email: "",
+    pno: "",
     eName: "",
     category: "",
     date: "",
@@ -99,9 +128,12 @@ const Appointments = () => {
   const ErrorInitiateState = {
     uname: "",
     email: "",
+    pno: "",
     eName: "",
     category: "",
     date: "",
+    startDate: "",
+    isBooked: false,
   };
   const [formInput, setFormInput] = useState(InitiateState);
 
@@ -113,6 +145,7 @@ const Appointments = () => {
   };
   const newErrorState = { ...ErrorInitiateState };
   const [error, setError] = useState(ErrorInitiateState);
+  const [resError, setResError] = useState();
   const formSubmit = async (event) => {
     event.preventDefault();
     setError(ErrorInitiateState);
@@ -128,11 +161,33 @@ const Appointments = () => {
       hasError = true;
     }
     if (!formInput.category.trim()) {
-      newErrorState.category = "Category can not be empty";
+      newErrorState.category = "Service can not be empty";
+      hasError = true;
+    }
+    if (!formInput.email.trim()) {
+      newErrorState.email = "Email can not be empty";
+      hasError = true;
+    }
+    if (!formInput.pno.trim()) {
+      newErrorState.pno = "Phone no can not be empty";
+      hasError = true;
+    } else if (!(formInput.pno.length === 10)) {
+      newErrorState.pno = "Phone number should contain 10 digits";
+      hasError = true;
+    } else if (!/^\d+$/.test(formInput.pno)) {
+      newErrorState.pno = "Phone number should contain digits only";
+      hasError = true;
+    }
+    if (!startDate) {
+      newErrorState.startDate = "Date can not be empty";
+      hasError = true;
+    }
+    if (resError) {
+      newErrorState.isBooked =
+        "Already booked! please choose Different date and time OR employee";
       hasError = true;
     }
 
-    // console.log(newErrorState);
     // If any field is empty, set the error state and exit the function
     if (hasError) {
       setError(newErrorState);
@@ -154,8 +209,9 @@ const Appointments = () => {
       formData.append("customerEmail", formInput.email);
       formData.append("date", formattedDate);
       formData.append("time", formattedTime);
+      formData.append("pno", formInput.pno);
 
-      setLoading(true);
+      // setLoading(true);
       console.log(formInput);
       const response = await axios.post(
         "http://localhost:8080/appointment/save",
@@ -167,15 +223,21 @@ const Appointments = () => {
         }
       );
 
+      setResError(response);
+      toast.success("Successfully saved", {
+        position: "top-right",
+      });
       if (response.status === 200 || response.statusText === "OK") {
       }
-      setLoading(false);
+      // setLoading(false);
       setFormInput(InitiateState);
       getAllAppointments();
     } catch (error) {
-      setError(error.response.data);
-      setLoading(false);
+      setResError(error.response.data);
+      // setLoading(false);
     }
+
+    console.log(resError);
   };
 
   return (
@@ -219,31 +281,43 @@ const Appointments = () => {
         ) : (
           <ListOfData>
             {appointments.length > 0 ? (
-              appointments.map((appointment, index) => (
-                <Card
-                  key={index}
-                  backGround={colors.colorGray}
-                  img={
-                    "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1153&q=80"
-                  }
-                  employee={appointment}
-                >
-                  <p style={{ fontSize: "12px", fontWeight: "600" }}>
-                    {appointment.customerName}
-                  </p>
-                  <span style={{ fontSize: "11px", fontWeight: "500" }}>
-                    {appointment.category}
-                  </span>
-                  <span style={{ fontSize: "11px", fontWeight: "500" }}>
-                    {appointment.date}
-                  </span>
-                  <span style={{ fontSize: "11px", fontWeight: "500" }}>
-                    {appointment.time}
-                  </span>
-                </Card>
-              ))
+              appointments.map((appointment, index) =>
+                // setAppointmentDate(new Date(appointment.date));
+                state[0].startDate <= new Date(appointment.date) &&
+                state[0].endDate >= new Date(appointment.date) ? (
+                  <Card
+                    key={index}
+                    backGround={colors.colorGray}
+                    setApprove={setApprove}
+                    img={
+                      "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1153&q=80"
+                    }
+                    employee={appointment}
+                  >
+                    <p style={{ fontSize: "12px", fontWeight: "600" }}>
+                      {appointment.customerName}
+                    </p>
+                    <span
+                      style={{ fontSize: "11px", fontWeight: "500" }}
+                    >{`Order ID: ${appointment.id}`}</span>
+                    <span style={{ fontSize: "11px", fontWeight: "500" }}>
+                      {appointment.category}
+                    </span>
+                    <span style={{ fontSize: "11px", fontWeight: "500" }}>
+                      {appointment.pno}
+                    </span>
+                    <span style={{ fontSize: "11px", fontWeight: "500" }}>
+                      {appointment.date}
+                      {", "}
+                      {appointment.time}
+                    </span>
+                  </Card>
+                ) : (
+                  <></>
+                )
+              )
             ) : (
-              <div> not found </div>
+              <div> no data found </div>
             )}
           </ListOfData>
         )}
@@ -272,7 +346,7 @@ const Appointments = () => {
             )}
           </Form.Group>
           <Form.Group className="mb-1" controlId="formBasicEmail">
-            <Form.Label>Customer email (Optional)</Form.Label>
+            <Form.Label>Customer email</Form.Label>
             <Form.Control
               className="custom-input"
               type="email"
@@ -281,6 +355,37 @@ const Appointments = () => {
               value={formInput.email}
               onChange={handleInputChange}
             />
+            {error.email && (
+              <Form.Text
+                style={{
+                  color: "red",
+                }}
+              >
+                {error.email}
+              </Form.Text>
+            )}
+          </Form.Group>
+          <Form.Group className="mb-1" controlId="formBasicEmail">
+            <Form.Label>Customer Phone No</Form.Label>
+            <Form.Control
+              className="custom-input"
+              type="text"
+              placeholder="Enter phone no"
+              name="pno"
+              value={formInput.pno}
+              onChange={handleInputChange}
+            />
+            {error.pno ? (
+              <Form.Text
+                style={{
+                  color: "red",
+                }}
+              >
+                {error.pno}
+              </Form.Text>
+            ) : (
+              <Form.Text>Ex: 07XXXXXXXX</Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-1" controlId="formBasicPassword">
@@ -296,7 +401,7 @@ const Appointments = () => {
               {emp.length > 0 &&
                 emp.map((emp, index) => (
                   <option key={index} value={emp.empId}>
-                    {emp.empLastName}
+                    {emp.empFirstName} {emp.empLastName}
                   </option>
                 ))}
             </Form.Select>
@@ -312,7 +417,7 @@ const Appointments = () => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Category</Form.Label>
+            <Form.Label>Services</Form.Label>
             <Form.Select
               className="custom-select"
               aria-label="Default select example"
@@ -323,7 +428,7 @@ const Appointments = () => {
               <option></option>
               {emp.length > 0 &&
                 services.map((service, index) => (
-                  <option key={index} value={service.serviceId}>
+                  <option key={index} value={service.serviceName}>
                     {service.serviceName}
                   </option>
                 ))}
@@ -345,15 +450,51 @@ const Appointments = () => {
                 className="custom-datePicker"
                 showIcon
                 selected={startDate}
-                onChange={(date) => setStartDate(date)}
+                onChange={(date) => {
+                  // When the date changes, update the minTime
+                  const selectedDate = date || new Date(); // If date is null, default to current date
+                  const currentDate = new Date();
+                  const isSameDay =
+                    selectedDate.getDate() === currentDate.getDate();
+
+                  // Set minTime based on whether the selected date is the current date or not
+                  const minTime = isSameDay
+                    ? new Date()
+                    : setHours(setMinutes(new Date(), 0), 9);
+
+                  // Update the state with the new selected date and minTime
+                  setStartDate(selectedDate);
+                  setMinTime(minTime);
+                }}
                 showTimeSelect
                 filterDate={excludeSundays} // Apply the filter function
                 placeholderText="We are closed on Sunday"
                 calendarClassName="custom-calender"
                 dateFormat="MMMM d, yyyy h:mm aa"
-                excludeTimes={excludedTimes}
+                // excludeDates={excludedTimes}
+                minDate={new Date()}
+                minTime={minTime}
+                maxTime={new Date().setHours(23, 0, 0, 0)}
               />
             </div>
+            {error.startDate && (
+              <Form.Text
+                style={{
+                  color: "red",
+                }}
+              >
+                {error.startDate}
+              </Form.Text>
+            )}
+            {error.isBooked && (
+              <Form.Text
+                style={{
+                  color: "red",
+                }}
+              >
+                {error.isBooked}
+              </Form.Text>
+            )}
           </Form.Group>
 
           <Button className="custom-button" variant="primary" type="submit">

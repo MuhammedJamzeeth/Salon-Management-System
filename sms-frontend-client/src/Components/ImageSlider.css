@@ -1,0 +1,49 @@
+.image-slider {
+    position: relative;
+    width: 100%;      /* 1540px */
+    height: 430px; /* Set height for the slider */
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit:cover; /* Cover the entire slide with the image */
+}
+
+/* Optional: Add styles for prev and next buttons */
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px 15px;
+    font-size: 16px;
+}
+
+.prev {
+    left: 10px; /* Adjust as needed */
+}
+
+.next {
+    right: 10px; /* Adjust as needed */
+}

@@ -1,0 +1,13 @@
+.container {
+    display: flex; /* Use flexbox layout */
+  }
+  
+  .left-panel {
+    flex: 1; /* Let this div grow to take remaining space */
+    margin-right: 20px; /* Add some spacing between the two panels */
+  }
+  
+  .right-panel {
+    flex: 1; /* Let this div grow to take remaining space */
+  }
+  

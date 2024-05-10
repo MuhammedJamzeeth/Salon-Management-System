@@ -35,6 +35,7 @@ public class AppointmentServiceImpl implements AppointmentService{
         }
         saveAppointment.setDate(appointment.getDate());
         saveAppointment.setTime(appointment.getTime());
+        saveAppointment.setPno(appointment.getPno());
 
         appointmentRepository.save(saveAppointment);
         return saveAppointment;
@@ -42,7 +43,22 @@ public class AppointmentServiceImpl implements AppointmentService{
 
     @Override
     public List<Appointment> getAppointmentDetails() {
-        List<Appointment> appointments = appointmentRepository.findAll();
+        List<Appointment> appointments = appointmentRepository.findAll(Sort.by(Sort.Direction.DESC,"date"));
         return appointments;
+    }
+
+    @Override
+    public Optional<Appointment> setApprove(Boolean isApprove, Long id) {
+        Optional<Appointment> appointmentOptional = appointmentRepository.findById(id);
+
+        if (appointmentOptional.isPresent()) {
+            Appointment appointment = appointmentOptional.get();
+            appointment.setApproved(isApprove);
+            appointmentRepository.save(appointment);
+            return Optional.of(appointment);
+        } else {
+            // Handle case where appointment with the specified id doesn't exist
+            return Optional.empty();
+        }
     }
 }

@@ -1,0 +1,104 @@
+.product-list-container {
+    display: block;
+    justify-content: center;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    max-height: 300px; /* Adjust max height as needed */
+    overflow-y: auto;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.product-table th,
+.product-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+    transition: background-color 0.3s ease;
+}
+
+.product-table th {
+    position: sticky;
+    top: 0;
+    background-color: #8b9bff;
+    z-index: 1;
+}
+
+/* Hover effect for table rows */
+.product-table tbody tr:hover {
+    background-color: #b6b5b566;
+}
+
+/* Animation for table rows */
+.product-table tbody tr {
+    transition: background-color 0.4s ease;
+}
+
+.edit-btn,
+.delete-btn {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 14px;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+}
+
+.searchbar {
+    display: flex;
+    align-items: center;
+    margin: 10px 10px 10px 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(113, 181, 255, 0.5);
+    width: 440px;
+}
+
+.searchbar h4 {
+    margin-right: 25px;
+    padding-left: 20px;
+}
+
+.search-bar {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    font-size: 16px;
+    outline: none;
+    width: 300px;
+    transition: all 0.3s ease;
+}
+
+/* Placeholder style */
+.search-bar::placeholder {
+    color: #999;
+}
+
+/* Animation for focus */
+.search-bar:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(0, 107, 128, 0.5);
+}
+
+/* Hover effect */
+.search-bar:hover {
+    background-color: #f4f4f4;
+}
+
+/* Animation for placeholder */
+.search-bar:focus::placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}

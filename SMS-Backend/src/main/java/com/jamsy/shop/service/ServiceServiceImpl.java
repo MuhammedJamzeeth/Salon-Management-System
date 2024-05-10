@@ -1,6 +1,6 @@
 package com.jamsy.shop.service;
 
-import com.jamsy.shop.model.ServiceModel;
+import com.jamsy.shop.entity.ServiceEntity;
 import com.jamsy.shop.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,36 +10,54 @@ import java.util.List;
 @Service
 public class ServiceServiceImpl implements ServiceService{
     @Autowired
-    ServiceRepository serviceRepository;
+    private ServiceRepository serviceRepository;
 
+    //Save a new service to database
     @Override
-    public ServiceModel addService(ServiceModel service) {
-        return serviceRepository.save(service);
+    public ServiceEntity addService(ServiceEntity service) {
+        // Create a new ServiceEntity object and set its properties
+        ServiceEntity serviceEntity = new ServiceEntity();
+        serviceEntity.setServiceName(service.getServiceName());
+        serviceEntity.setServiceDesc(service.getServiceDesc());
+        serviceEntity.setServicePrice(service.getServicePrice());
+        serviceEntity.setServiceDate(service.getServiceDate());
+        serviceEntity.setServiceState(service.getServiceState());
+//            serviceRepository.save(serviceEntity);
+
+        // Save the new ServiceEntity object to the database
+        return serviceRepository.save(serviceEntity);
     }
 
+    //List all services
     @Override
-    public List<ServiceModel> getAllServices() {
-        return serviceRepository.findAll();
-    }
+    public List<ServiceEntity> getAllServices() { return serviceRepository.findAll();}
 
+    //Update service details
     @Override
-    public ServiceModel updateService(Long id, ServiceModel updatedService) {
-        ServiceModel existingService = serviceRepository.findById(Long.valueOf(Math.toIntExact(id)))
+    public ServiceEntity updateService(Long id, ServiceEntity updatedService) {
+        ServiceEntity existingService = serviceRepository.findById((long) Math.toIntExact(id))
                 .orElseThrow(()-> new IllegalArgumentException("Service with id " + id + " not found"));
 
         // Update only the fields that are not null in the updatedProduct
         if(updatedService.getServiceName()!=null){
             existingService.setServiceName(updatedService.getServiceName());
         }
-        if (updatedService.getServiceDescription()!=null){
-            existingService.setServiceDescription(updatedService.getServiceDescription());
+        if (updatedService.getServiceDesc()!=null){
+            existingService.setServiceDesc(updatedService.getServiceDesc());
         }
         if(updatedService.getServiceState()!=null){
             existingService.setServiceState(updatedService.getServiceState());
         }
+        if(updatedService.getServicePrice() != 0){
+            existingService.setServicePrice(updatedService.getServicePrice());
+        }
+        if(updatedService.getServiceDate() != null){
+            existingService.setServiceDate(updatedService.getServiceDate());
+        }
         return serviceRepository.save(existingService);
     }
 
+    //Delete a service by id
     @Override
     public void deleteService(Long id) {
         if(serviceRepository.existsById((long) Math.toIntExact(id))){
@@ -49,8 +67,10 @@ public class ServiceServiceImpl implements ServiceService{
         }
     }
 
+    //Get a service by id
     @Override
-    public ServiceModel getServiceById(Long id) {
-        return serviceRepository.findById((long) Math.toIntExact(id)).orElseThrow(()-> new IllegalArgumentException("Service with id "+ id +" not found"));
+    public ServiceEntity getServiceById(Long id) {
+        return serviceRepository.findById(id).get();
     }
+
 }
