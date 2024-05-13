@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './ImageSlider.css';
-import image1 from '../Resources/image1.jpg';
-import image2 from '../Resources/image2.jpg';
-import image3 from '../Resources/image3.png';
+import image1 from '../../Resources/image1.jpg';
+import image2 from '../../Resources/image2.jpg';
+import image3 from '../../Resources/image3.png';
 
 function ImageSlider() {
     const [activeIndex, setActiveIndex] = useState(0);

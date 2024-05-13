@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../Resources/logo.png';
+import logo from '../../Resources/logo.png';
 import './NavigationBar.css';
 import { Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";

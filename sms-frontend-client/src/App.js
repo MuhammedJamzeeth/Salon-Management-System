@@ -1,22 +1,20 @@
 import React from "react";
 import Home from "./Pages/Home";
-import { Route, Routes } from "react-router-dom";
-import AboutUs from "./Components/About";
+import { Route, Routes,Navigate } from "react-router-dom";
+import ServicesPage from "./Pages/ServicesPage";
+import AboutUsPage from "./Pages/AboutUsPage";
 
 function App() {
   return (
     <div className="App">
-      {/* <Reviews /> */}
-      {/* <Home/> */}
-      {/* <Footer /> */}
       <React.Fragment>
       <Routes>
-        <Route path="/" element={<Home />} >
-          {/* <Route index path="/" element={<Home />}></Route> */}
+        <Route path="/" element={<Home />} /> 
+          <Route path="aboutus" element={<AboutUsPage/>}/> 
+          <Route path="services" element={<ServicesPage/>}/> 
+        {/* </Route> */}
         
-        </Route>
-        <Route path="aboutus" element={<AboutUs/>}/> <Route/>
-
+        <Route path="*" element={<Navigate to="/" />} />
         {/* <Route
           element={!currentUserValue ? <Login /> : <Navigate to="/" />}
           path="login"
