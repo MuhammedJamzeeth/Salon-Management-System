@@ -9,16 +9,17 @@
     margin-top: 30px;
     margin-left: 10px;
     margin-right: 8px;
-    height: 150px;
+    height: 170px;
     background-color: #f0f0f0; /* Nice background color */
-    padding: 20px; /* Add padding for spacing */
+    padding: 10px; /* Add padding for spacing */
     border-radius: 10px; /* Add rounded corners for a smooth component */
-    transition: background-color 0.3s ease; /* Smooth transition for background color change */
+    transition: background-color 0.4s ease; /* Smooth transition for background color change */
 }
 
 .about-h{
-    margin: 0px;
+    margin: 0px auto;
     padding-left: 50px;
+    padding-bottom: 10px;
     font-size: 30px;
     font-family:'Montserrat';
 }

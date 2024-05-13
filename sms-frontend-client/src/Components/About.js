@@ -10,9 +10,9 @@ function AboutUs() {
             </div>
             <div className='about-para'>
                 <h3 className='about-h'>About Us</h3>
-                <p> Welcome to Corner Barber Salon where Style Meets Tradition! With our skilled barbers and cozy atmosphere,<br></br>
-                    we are dedicated to delivering exceptional cuts, shaves, and grooming experince tailored to evry client.<br></br>
-                Step into our saloon and experince the timeless art of barbering fused with contomporary flair.</p>
+                <p> Welcome to Corner Barber Salon where Style Meets Tradition! With our skilled barbers and cozy atmosphere,
+                    we are dedicated to delivering exceptional cuts, shaves, and grooming experince tailored to evry client.
+                    Step into our saloon and experince the timeless art of barbering fused with contomporary flair.</p>
             </div>
         </div>
     );

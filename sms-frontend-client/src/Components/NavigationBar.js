@@ -1,25 +1,64 @@
 import React from 'react';
-import { Navbar, Nav, Button } from 'react-bootstrap';
 import logo from '../Resources/logo.png';
 import './NavigationBar.css';
+import { Button } from 'react-bootstrap';
+import { Link } from "react-router-dom";
+import {
+    Image,
+    NavContainer,
+    NavLeft,
+    NavRight, 
+} from './NavBar.styles';
 
 function NavigationBar() {
     return (
-        <Navbar className="navbar sticky-top">
-            <Nav href="#home" className="logo-container">
-                <img src={logo} alt='img' className='logoimg'></img>
-            </Nav>
-            <div className="Nav-items"> 
-                <Nav>
-                    <Nav.Link href="#home">Home</Nav.Link>
-                    <Nav.Link href="#aboutus">About Us</Nav.Link>
-                    <Nav.Link href="#services">Services</Nav.Link>
-                    <Nav.Link href="#products">Products</Nav.Link>
-                    <Nav.Link href="#contactus">Contact Us</Nav.Link>
-                    <Button variant="outline-light" href="#" className="bookbtn">BOOK NOW</Button>
-                </Nav>
-            </div>
-        </Navbar>
+        <NavContainer> 
+            <NavLeft>
+                <Image><img src={logo} alt="logo" /></Image>
+            </NavLeft>
+            <NavRight>
+                <Link to="/"
+                style={{ textDecoration: "none", color: "inherit" }}
+                >
+                    <h1 style={{ paddingLeft: 10 }}> Home </h1>
+                </Link>
+                <Link to="aboutus"
+                style={{ textDecoration: "none", color: "inherit" }}
+                >
+                    <h1 style={{ paddingLeft: 10 }}> AboutUs </h1>
+                </Link>
+                <Link to="services"
+                style={{ textDecoration: "none", color: "inherit" }}
+                >
+                    <h1 style={{ paddingLeft: 10 }}> Services </h1>
+                </Link>
+                <Link to="contact"
+                style={{ textDecoration: "none", color: "inherit" }}
+                >
+                    <h1 style={{ paddingLeft: 10 }}> Contact </h1>
+                </Link>
+                <Button
+                    style={{
+                        margin: '10px',
+                        width: '200px',
+                        backgroundColor: '#222322',
+                        color: '#fff',
+                        border: '1px solid #fff',
+                        borderRadius: '5px',
+                    }}
+                        onMouseEnter={(e) => {
+                        e.target.style.backgroundColor = '#fff';
+                        e.target.style.color = '#000';
+                    }}
+                        onMouseLeave={(e) => {
+                        e.target.style.backgroundColor = '#000';
+                        e.target.style.color = '#fff';
+                    }}
+                >
+                    <h1 style={{  }}> BookNow </h1>
+                </Button>
+            </NavRight>
+        </NavContainer>
     );
 }
 
