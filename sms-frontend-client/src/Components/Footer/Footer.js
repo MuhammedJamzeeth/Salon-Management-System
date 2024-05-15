@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="Footer">
         <div className="container">
           <div className="row">
-            <div className="">
+            <div className="ic">
               <h3><span>CORNER</span>BARBER</h3>
               <p></p>
               <div className="footer-icons">
@@ -51,7 +51,7 @@ const Footer = () => {
         </div>
       </div>
       <div className='Last-footer'>
-        <p>R</p>
+        <p>Copyright  2024 Corner Barber.lk. All rights reserved.</p>
       </div>
     </>
   )
