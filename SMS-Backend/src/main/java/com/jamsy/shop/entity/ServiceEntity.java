@@ -1,5 +1,6 @@
 package com.jamsy.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 @Table(name="Service")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ServiceEntity {
 
     @Id
@@ -25,5 +27,9 @@ public class ServiceEntity {
     private double servicePrice;
     private String serviceState;
     private Date serviceDate;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "category_id", nullable = false)
+//    private ServiceCategory serviceCategory;
 }
 
