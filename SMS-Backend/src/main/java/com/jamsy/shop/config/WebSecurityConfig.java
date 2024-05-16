@@ -40,11 +40,9 @@ public class WebSecurityConfig{
             "/employee/{empId}",
             "/addproduct",
             "/getallproducts",
-            "/updateproduct*",
-            "/deleteproduct*",
+            "/updateproduct/*",
+            "/deleteproduct/*",
             "/getproductbyid*",
-            "/addservice",
-            "/getallservices",
             "/deleteservice*",
             "/deleteservice/*",
             "/getservicebyid*",
@@ -54,13 +52,13 @@ public class WebSecurityConfig{
             "/addReview",
             "/review/{id}",
             "/employees/{empId}",
-            "/employeeUpdate/{empId}"
+            "/employeeUpdate/{empId}",
+            "/getallservices",
 
     };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -69,6 +67,7 @@ public class WebSecurityConfig{
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(WHITE_LIST_URLS).permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/service-categories/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().authenticated()
                 ).sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

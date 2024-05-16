@@ -1,8 +1,8 @@
 .services-container {
     margin: 0px;
     padding-top: 10px;
-    /* background: linear-gradient(180deg, #5690fcb9 0%, #f4f4f4 100%); */
-    background-image: url(../Resources/servicebg.jpg);
+    background: linear-gradient(180deg, #f4f4f4 0%, #699effb9 100%);
+    /* background-image: url(../Resources/servicebg.jpg); */
     /* border-radius: 100px; */
     
 }

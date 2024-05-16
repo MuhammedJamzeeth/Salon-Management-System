@@ -36,21 +36,23 @@ function Services() {
     };
 
     return (
-        <div className="services-container">
-            <h2>Our Services</h2>
-            <div className={`service-list ${isExpanded ? 'expanded' : ''}`}>
-                {services.slice(0, isExpanded ? services.length : 10).map((service) => (
-                    <div key={service.serviceId} className="service-item">
-                        <div className="service-icon">
-                            {service.serviceName.toUpperCase()}
+        <>
+            <div className="services-container">
+                <h2>Our Services</h2>
+                <div className={`service-list ${isExpanded ? 'expanded' : ''}`}>
+                    {services.slice(0, isExpanded ? services.length : 10).map((service) => (
+                        <div key={service.serviceId} className="service-item">
+                            <div className="service-icon">
+                                {service.serviceName.toUpperCase()}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
+                <div className="toggle-button" onClick={toggleExpand}>
+                    {isExpanded ? 'Minimize' : 'Maximize'}
+                </div>
             </div>
-            <div className="toggle-button" onClick={toggleExpand}>
-                {isExpanded ? 'Minimize' : 'Maximize'}
-            </div>
-        </div>
+        </>
     );
 }
 
