@@ -7,6 +7,45 @@ import { faPhoneVolume, faEnvelope, faPaperPlane } from '@fortawesome/free-solid
 
 const Footer = () => {
   return (
+    <>
+      <div className="Footer">
+        <div className="container">
+          <div className="row">
+            <div className="ic">
+              <h3><span>CORNER</span>BARBER</h3>
+              <p></p>
+              <div className="footer-icons">
+                <FontAwesomeIcon icon={faFacebook} />
+                {/* <FontAwesomeIcon icon={faTwitter} /> */}
+                <FontAwesomeIcon icon={faInstagram} />
+                {/* <FontAwesomeIcon icon={faLinkedinIn} /> */}
+              </div>
+            </div>
+            <div className="">
+              <h5>Quick Links</h5>
+              <ul>
+                <li className="nav-item">
+                  <a className="" href="/">Home</a>
+                </li>
+                <li className="nav-item">
+                  <a className="" href="/">Service</a>
+                </li>
+                <li className="nav-item">
+                  <a className="" href="/">Contact Us</a>
+                </li>
+                <li className="nav-item">
+                  <a className="" href="/">Products</a>
+                </li>
+                <li className="nav-item">
+                  <a className="" href="/">About Us</a>
+                </li>
+              </ul>
+            </div>
+            <div className="">
+              <h5>Quick Links</h5>
+              <p><FontAwesomeIcon icon={faPhoneVolume} /> </p>
+              <p><FontAwesomeIcon icon={faEnvelope} /> </p>
+              <p><FontAwesomeIcon icon={faPaperPlane} /> </p>
     <footer className="Footer">
       <div className="container">
         <div className="row">
@@ -35,6 +74,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      <div className='Last-footer'>
+        <p>Copyright  2024 Corner Barber.lk. All rights reserved.</p>
       <div className="Last-footer">
         <p>R</p>
       </div>

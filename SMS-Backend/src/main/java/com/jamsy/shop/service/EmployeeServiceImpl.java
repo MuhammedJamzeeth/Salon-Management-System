@@ -62,7 +62,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         if (optionalEmployee.isPresent()) {
             Employee existingEmployee = optionalEmployee.get();
             existingEmployee.setEmpFirstName(updateEmployee.getEmpFirstName());
-            existingEmployee.setEmpLastName(updateEmployee.getEmpLastName());
+             existingEmployee.setEmpLastName(updateEmployee.getEmpLastName());
             existingEmployee.setEmpEmail(updateEmployee.getEmpEmail());
             existingEmployee.setEmpAddress(updateEmployee.getEmpAddress());
             existingEmployee.setEmpPhone(updateEmployee.getEmpPhone());
@@ -73,6 +73,7 @@ public class EmployeeServiceImpl implements EmployeeService{
             throw new RuntimeException("Employee not found with id: " + id);
         }
     }
+
 
 
 }
