@@ -1,0 +1,113 @@
+
+.all-services-container {
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+}
+
+.slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.slider-content {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.service-item {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    background-color: #fff;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.service-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.service-item h3 {
+    margin-bottom: 15px;
+}
+
+.service-price {
+    color: #28a745;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.book-now-button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.book-now-button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.slider-icon {
+    color: #007BFF;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.slider-icon:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+.slider-icon.left {
+    left: -40px;
+}
+
+.slider-icon.right {
+    right: -40px;
+}
+
+@media (max-width: 768px) {
+    .slider-content {
+        flex-direction: column;
+    }
+
+    .service-item {
+        margin: 10px 0;
+    }
+
+    .slider-icon.left {
+        left: 10px;
+    }
+
+    .slider-icon.right {
+        right: 10px;
+    }
+}
