@@ -7,6 +7,7 @@ import { faPhoneVolume, faEnvelope, faPaperPlane } from '@fortawesome/free-solid
 
 const Footer = () => {
   return (
+    <>
     <footer className="Footer">
       <div className="container">
         <div className="row">
@@ -38,8 +39,8 @@ const Footer = () => {
       <div className='Last-footer'>
         <p>Copyright 2024 Corner Barber.lk. All rights reserved.</p>
       </div>
-      </div>
     </footer>
+  </>
   );
 }
 
