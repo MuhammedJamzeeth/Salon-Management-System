@@ -48,12 +48,13 @@ public class WebSecurityConfig{
             "/getservicebyid*",
             "/updateservice/*",
             "/updateservice*",
+            "/addservice",
+            "/getallservices",
             "/reviews",
             "/addReview",
             "/review/{id}",
             "/employees/{empId}",
-            "/employeeUpdate/{empId}",
-            "/getallservices",
+            "/employeeUpdate/{empId}"
 
     };
     private final JwtAuthenticationFilter jwtAuthFilter;
@@ -67,7 +68,6 @@ public class WebSecurityConfig{
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(WHITE_LIST_URLS).permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers("/service-categories/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().authenticated()
                 ).sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
