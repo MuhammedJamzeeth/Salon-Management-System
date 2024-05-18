@@ -79,6 +79,7 @@ const Footer = () => {
       <div className="Last-footer">
         <p>R</p>
       </div>
+      </div>
     </footer>
   );
 }
