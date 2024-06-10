@@ -5,7 +5,8 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/salon_management
     username: root
-    password: jamzee
+    password: 12345
+    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:

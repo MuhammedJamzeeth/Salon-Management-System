@@ -1,0 +1,37 @@
+/* ServiceList.css */
+
+.service-list-style {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+transition: all 0.3s ease;
+}
+
+.service-list-style:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.service-list-style p {
+    margin: 5px 0;
+}
+
+.service-list-style button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.service-list-style button:hover {
+    transform: scale(1.1);
+}
+
+.editButton {
+    color: #007bff; /* blue color */
+}
+
+.deleteButton {
+    color: #dc3545; /* red color */
+}

@@ -28,7 +28,7 @@ public class Employee {
 
     @NotBlank
     @Column(unique = true)
-    private String empIc;
+        private String empIc;
 
     @NotBlank
     @Email

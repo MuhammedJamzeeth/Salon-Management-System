@@ -1,0 +1,56 @@
+.main {
+    font-family: sans-serif;
+    text-align: center;
+  } 
+  
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 405px;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .product {
+    display: flex;
+    align-items: center;
+  }
+  .product h1 {
+    font-size: 20px;
+  }
+  textarea {
+    width: 100%;
+    border-radius: 6px;
+    padding: 10px;
+  }
+  button {
+    background: rgb(92, 92, 185);
+    color: #fff;
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 6px;
+    padding: 10px 0;
+    border: none;
+    font-weight: bolder;
+    cursor: pointer;
+  }
+  button.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  

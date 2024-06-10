@@ -1,0 +1,79 @@
+/* Navbar background color */
+.navbar {
+  background-color: #222322;
+  color: white;
+  display: flex;
+  flex-direction: row; 
+  justify-content: space-between;
+}
+
+.logo-container{
+  display: flex;
+  flex-direction: column;
+  justify-content:flex-start !important ;
+  margin-left: 10px;
+}
+
+.Nav-items{
+  display: flex;
+  flex-direction: row;
+  justify-content:flex-end !important ;
+  margin-right: 20px;
+  font-size: large;
+}
+
+.navbar.sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+
+.navbar-nav .nav-link {
+  color: white;
+  text-decoration: none; 
+  margin-right: 10px;
+}
+
+.logoimg{
+  width: 220px;
+  height: 80px;
+  text-align: left;
+}
+
+.nav-link{
+  color: aliceblue;
+  text-decoration: none;
+  padding-left: 10px;
+  margin-left: 10px;
+}
+
+.nav-link:hover{
+  outline: 2px solid white;
+  border-radius: 10px;
+  padding: 3px;
+  transition-duration: 0.3s;
+}
+
+.bookbtn{
+  color: aliceblue;
+  outline: 5px solid white;
+  padding: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 2px;
+  margin-left: 10px;
+}
+
+.bookbtn:hover {
+  background-color: white; /* Change background color on hover */
+  color: #222322; /* Change text color on hover */
+
+}
+
+/* Align Navbar items vertically center */
+.navbar-nav, .navbar-brand {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}

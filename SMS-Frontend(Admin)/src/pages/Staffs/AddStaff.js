@@ -78,7 +78,7 @@ const AddStaff = ({ updateCount }) => {
         }
 
         // Validate NIC Number
-        const isValidNIC = /^[0-9]{9}[vVxX]$/.test(formInput.ic);
+        const isValidNIC = /^[0-9]{9}[vVxX]$/.test || /^[0-9]{12}$/.test(formInput.ic);
         if (!isValidNIC) {
             newErrorState.ic = 'Please enter a valid NIC number (e.g., 123456789V)';
             hasError = true;
@@ -149,7 +149,7 @@ const AddStaff = ({ updateCount }) => {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log('Response:', response.data); // Log successful response data
+            console.log('Response:', response.data); 
         } catch (error) {
             console.error('Error saving staff:', error);
             throw new Error('Failed to save staff.');

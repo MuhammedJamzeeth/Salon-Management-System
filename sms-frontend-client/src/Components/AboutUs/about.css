@@ -1,0 +1,51 @@
+.container{
+    height: 240px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.about-para, .about-img{
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-right: 8px;
+    height: 170px;
+    background-color: #f0f0f0; /* Nice background color */
+    padding: 10px; /* Add padding for spacing */
+    border-radius: 10px; /* Add rounded corners for a smooth component */
+    transition: background-color 0.4s ease; /* Smooth transition for background color change */
+}
+
+.about-h{
+    margin: 0px auto;
+    padding-left: 50px;
+    padding-bottom: 10px;
+    font-size: 30px;
+    font-family:'Montserrat';
+}
+
+p{
+    padding-left: 50px;
+    font-family: monospace;
+    font-size: 16px;
+    padding-right: 30px;
+}
+
+.box {
+    transition: transform 0.3s ease; /* Smooth transition for scaling */
+    margin-right: 30px;
+}
+
+.box:hover {
+    transform: scale(1.1); /* Scale up the element on hover */
+}
+
+.about-para:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05); /* Change background color on hover */
+}
+
+.about-para{
+    transition: transform 0.4s ease;
+}
+
