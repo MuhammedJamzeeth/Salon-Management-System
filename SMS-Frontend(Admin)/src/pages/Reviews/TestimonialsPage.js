@@ -32,6 +32,7 @@ const TestimonialsPage = () => {
       if (response.ok) {
         setTestimonials((prevTestimonials) =>
           prevTestimonials.filter((testimonial) => testimonial.id !== id)
+        
         );
         console.log(`Testimonial with ID ${id} deleted successfully.`);
       } else {

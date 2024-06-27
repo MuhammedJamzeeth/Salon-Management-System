@@ -1,6 +1,7 @@
 package com.jamsy.shop.service;
 
 import com.jamsy.shop.entity.Employee;
+import com.jamsy.shop.entity.Product;
 import com.jamsy.shop.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,11 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Product> findAllProductsByName(String name) {
+        return null;
     }
 
     @Override

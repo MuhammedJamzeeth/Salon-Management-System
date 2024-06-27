@@ -41,11 +41,16 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
-            <div className="">
+            <div className=" ">
               <h5>Quick Links</h5>
               <p><FontAwesomeIcon icon={faPhoneVolume} /> </p>
               <p><FontAwesomeIcon icon={faEnvelope} /> </p>
               <p><FontAwesomeIcon icon={faPaperPlane} /> </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    
     <footer className="Footer">
       <div className="container">
         <div className="row">
@@ -80,7 +85,8 @@ const Footer = () => {
         <p>R</p>
       </div>
       </div>
-    </footer>
+    </footer >
+    
   );
 }
 

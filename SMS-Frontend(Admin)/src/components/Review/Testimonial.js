@@ -2,6 +2,7 @@ import React from 'react';
 import Profile from './Profile';
 import StarRating from './StarRating';
 import './Testimonial.css';
+import { Update } from '@mui/icons-material';
 
 const Testimonial = ({ testimonial, onDelete }) => {
   const { id, name, username, imageUrl, rating, comment } = testimonial;
@@ -13,7 +14,7 @@ const Testimonial = ({ testimonial, onDelete }) => {
       });
 
       if (response.ok) {
-        onDelete(id); // Call parent onDelete function with the testimonial id
+        onDelete(id);
         console.log(`Testimonial with ID ${id} deleted successfully.`);
       } else {
         throw new Error('Failed to delete testimonial');

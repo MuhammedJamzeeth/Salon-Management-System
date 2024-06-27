@@ -79,7 +79,7 @@ const EmployeeDetails = ({ updateCount }) => {
                             });
                             if (response.ok) {
                                 setEmployees(employees.filter(emp => emp.empId !== empId));
-                                updateCount(); // Update count after successful deletion
+                                updateCount(); 
                                 toast.success(`${empName} has been deleted successfully`, {
                                     position: 'top-right'
                                 });

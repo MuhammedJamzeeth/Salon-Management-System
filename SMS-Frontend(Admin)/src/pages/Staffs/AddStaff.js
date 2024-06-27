@@ -5,7 +5,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import './AddStaff.css';
 
 const AddStaff = ({ updateCount }) => {
-    const [formInput, setFormInput] = useState({
+    const getCurrentDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+        const [formInput, setFormInput] = useState({
         firstName: '',
         lastName: '',
         ic: '',
@@ -13,7 +20,7 @@ const AddStaff = ({ updateCount }) => {
         address: '',
         mNumber: '',
         gender: '',
-        joiningDate: '',
+        joiningDate: getCurrentDate(),
         dateOfBirth: '',
         profilePhoto: null
     });
