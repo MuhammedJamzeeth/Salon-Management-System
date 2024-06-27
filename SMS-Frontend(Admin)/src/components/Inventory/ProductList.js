@@ -46,6 +46,7 @@ const ProductList = ({ products, onDeleteProduct, onEdit }) => {
                 <table className="product-table">
                     <thead>
                         <tr>
+                            <th>Product Image</th>
                             <th>Product ID</th>
                             <th>Product Name</th>
                             <th>Quantity</th>
@@ -59,6 +60,7 @@ const ProductList = ({ products, onDeleteProduct, onEdit }) => {
                     <tbody>
                         {filteredProducts.map((product) => (
                             <tr key={product.productId}>
+                                <td>{product.productImage}</td>
                                 <td>{product.productId}</td>
                                 <td>{product.productName}</td>
                                 <td>{product.productQty}</td>

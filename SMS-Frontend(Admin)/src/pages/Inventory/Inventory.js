@@ -13,6 +13,7 @@ function Inventory() {
         const response = await fetch("http://localhost:8080/getallproducts",
         {
           headers: {
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${access_token}`,
           },
         });
