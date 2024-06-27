@@ -25,5 +25,9 @@ public class Product {
     private String expirationDate;
     private String productStatus;
 
+    @Lob
+    @Column(name = "product_img", columnDefinition = "LONGBLOB")
+    private byte[] productImage;
+
 }
 
