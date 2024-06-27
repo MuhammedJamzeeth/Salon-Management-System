@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { format, setHours, setMinutes } from "date-fns"; // Import setHours and setMinutes from date-fns
+import { format, set, setHours, setMinutes } from "date-fns"; // Import setHours and setMinutes from date-fns
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
@@ -185,6 +185,7 @@ const Appointments = () => {
     if (resError) {
       newErrorState.isBooked =
         "Already booked! please choose Different date and time OR employee";
+      setResError(null);
       hasError = true;
     }
 

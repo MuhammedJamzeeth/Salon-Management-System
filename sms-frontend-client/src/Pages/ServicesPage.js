@@ -73,6 +73,7 @@ import ServiceCard2 from '../Components/ServiceCard2/ServiceCard2';
 import imageSrc from '../Resources/about.jpg';
 import img from '../Resources/haircut.jpg';
 import AllServices from '../Components/Service/AllServices';
+import ServiceSlider from '../Components/Service/ServiceSlider';
 
 export default function ServicesPage() {
     const serviceName = "New Service";
@@ -139,6 +140,7 @@ export default function ServicesPage() {
             <div className='service-card'>
                 <ServiceCard serviceName={serviceName} description={serviceDescription} imageSrc={imageSrc}></ServiceCard>
             </div>
+            <ServiceSlider></ServiceSlider>
             <div className='service-card2'>
                 <ServiceCard2 serviceName={serviceName} description={serviceDescription} imageSrc={img}></ServiceCard2>
             </div>

@@ -51,6 +51,7 @@ const Footer = () => {
         </div>
       </div>
     
+
     <footer className="Footer">
       <div className="container">
         <div className="row">
@@ -80,13 +81,14 @@ const Footer = () => {
         </div>
       </div>
       <div className='Last-footer'>
-        <p>Copyright  2024 Corner Barber.lk. All rights reserved.</p>
-      <div className="Last-footer">
-        <p>R</p>
-      </div>
+        <p>Copyright 2024 Corner Barber.lk. All rights reserved.</p>
       </div>
     </footer >
     
+
+
+  </>
+
   );
 }
 

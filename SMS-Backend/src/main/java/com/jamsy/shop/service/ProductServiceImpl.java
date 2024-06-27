@@ -27,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
         p.setProductQty(product.getProductQty());
         p.setProductCategory(product.getProductCategory());
         p.setExpirationDate(product.getExpirationDate());
+        p.setProductImage(product.getProductImage());
         p.setProductStatus(productState);
 
         return productRepository.save(p);
@@ -75,6 +76,9 @@ public class ProductServiceImpl implements ProductService {
         }
         if (updatedProduct.getExpirationDate() != null) {
             existingProduct.setExpirationDate(updatedProduct.getExpirationDate());
+        }
+        if(updatedProduct.getProductImage() != null){
+            existingProduct.setProductImage(updatedProduct.getProductImage());
         }
         // Set productState based on calculation
         if (updatedProduct.getProductStatus() != null){

@@ -16,5 +16,6 @@ public class ProductModel {
     private String productCategory;
     private String expirationDate;
     private String productStatus;
+    private byte[] productImage;
 
 }

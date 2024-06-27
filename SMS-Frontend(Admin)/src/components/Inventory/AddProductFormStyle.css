@@ -91,9 +91,10 @@ button:hover {
 
 /* Adjust input widths as needed */
 .form-container-1 input[type="text"],
-.form-container-2 input[type="text"],
 .form-container-1 input[type="number"],
-.form-container-2 input[type="number"],
-.form-container-2 input[type="date"] {
+.form-container-1 input[type="number"],
+.form-container-2 input[type="text"],
+.form-container-2 input[type="date"],
+.form-container-2 input[type="file"] {
   width: calc(100% - 20px); /* Subtract padding and borders */
 }
