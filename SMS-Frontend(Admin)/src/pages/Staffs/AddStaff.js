@@ -24,7 +24,7 @@ const AddStaff = ({ updateCount }) => {
         joiningDate: getCurrentDate(),
         dateOfBirth: '',
         profilePhoto: null,
-        service: '' // Added service field
+        service: '' 
     });
 
     const [error, setError] = useState({
@@ -39,10 +39,10 @@ const AddStaff = ({ updateCount }) => {
         dateOfBirth: ''
     });
 
-    const [services, setServices] = useState([]); // Added services state
+    const [services, setServices] = useState([]); 
 
     useEffect(() => {
-        // Fetch services from the backend
+        
         const fetchServices = async () => {
             try {
                 const response = await axios.get('http://localhost:8080/getallservices');
@@ -316,7 +316,7 @@ const AddStaff = ({ updateCount }) => {
                                 >
                                     <option value=''>Select Service</option>
                                     {services.map((service) => (
-                                        <option key={service.id} value={service.id}>
+                                        <option key={service.id} value={service.name}>
                                             {service.name}
                                         </option>
                                     ))}

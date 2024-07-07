@@ -51,7 +51,7 @@ public class EmployeeController {
             employee.setEmpJoiningDate(empJoiningDate);
             employee.setEmpDateOfBirth(empDateOfBirth);
             employee.setEmpProfilePhoto(imageBytes);
-//            employee.setEmpService(empService);
+            employee.setEmpService(empService);
 
 
             Employee savedEmployee = employeeService.saveEmployee(employee);
