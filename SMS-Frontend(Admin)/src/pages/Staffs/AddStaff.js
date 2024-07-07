@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,7 +12,8 @@ const AddStaff = ({ updateCount }) => {
         const day = String(today.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     };
-        const [formInput, setFormInput] = useState({
+
+    const [formInput, setFormInput] = useState({
         firstName: '',
         lastName: '',
         ic: '',
@@ -22,7 +23,8 @@ const AddStaff = ({ updateCount }) => {
         gender: '',
         joiningDate: getCurrentDate(),
         dateOfBirth: '',
-        profilePhoto: null
+        profilePhoto: null,
+        service: '' // Added service field
     });
 
     const [error, setError] = useState({
@@ -36,6 +38,24 @@ const AddStaff = ({ updateCount }) => {
         joiningDate: '',
         dateOfBirth: ''
     });
+
+    const [services, setServices] = useState([]); // Added services state
+
+    useEffect(() => {
+        // Fetch services from the backend
+        const fetchServices = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/getallservices');
+                setServices(response.data);
+            } catch (error) {
+                console.error('Error fetching services:', error);
+                toast.error('Failed to fetch services', {
+                    position: 'top-center'
+                });
+            }
+        };
+        fetchServices();
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -63,7 +83,7 @@ const AddStaff = ({ updateCount }) => {
         const newErrorState = {};
 
         // Validate all required fields
-        const requiredFields = ['firstName', 'lastName', 'ic', 'email', 'address', 'mNumber', 'gender', 'joiningDate', 'dateOfBirth'];
+        const requiredFields = ['firstName', 'lastName', 'ic', 'email', 'address', 'mNumber', 'gender', 'joiningDate', 'dateOfBirth', 'service'];
 
         let hasError = false;
 
@@ -71,7 +91,7 @@ const AddStaff = ({ updateCount }) => {
             if (!formInput[field]) {
                 newErrorState[field] = `Please enter ${field === 'mNumber' ? 'a valid 10-digit' : 'this'} ${field}`;
                 hasError = true;
-                toast.warning(`All field must required`, {
+                toast.warning(`All fields are required`, {
                     position: 'top-center'
                 });
             }
@@ -85,11 +105,11 @@ const AddStaff = ({ updateCount }) => {
         }
 
         // Validate NIC Number
-        const isValidNIC = /^[0-9]{9}[vVxX]$/.test || /^[0-9]{12}$/.test(formInput.ic);
+        const isValidNIC = /^[0-9]{9}[vVxX]$/.test(formInput.ic) || /^[0-9]{12}$/.test(formInput.ic);
         if (!isValidNIC) {
             newErrorState.ic = 'Please enter a valid NIC number (e.g., 123456789V)';
             hasError = true;
-            toast.error(`Please enter a valid NIC number (e.g., 123456789V)`, {
+            toast.error('Please enter a valid NIC number (e.g., 123456789V)', {
                 position: 'top-center'
             });
         }
@@ -99,7 +119,7 @@ const AddStaff = ({ updateCount }) => {
         if (!isValidEmail) {
             newErrorState.email = 'Please enter a valid email address';
             hasError = true;
-            toast.error(`Please enter a valid email address`, {
+            toast.error('Please enter a valid email address', {
                 position: 'top-center'
             });
         }
@@ -122,9 +142,10 @@ const AddStaff = ({ updateCount }) => {
                 address: '',
                 mNumber: '',
                 gender: '',
-                joiningDate: '',
+                joiningDate: getCurrentDate(),
                 dateOfBirth: '',
-                profilePhoto: null
+                profilePhoto: null,
+                service: ''
             });
 
             // Update the count after successful addition
@@ -149,6 +170,7 @@ const AddStaff = ({ updateCount }) => {
         formData.append('empJoiningDate', formInput.joiningDate);
         formData.append('empDateOfBirth', formInput.dateOfBirth);
         formData.append('empProfilePhoto', formInput.profilePhoto);
+        formData.append('empService', formInput.service); 
 
         try {
             const response = await axios.post('http://localhost:8080/employee', formData, {
@@ -156,7 +178,7 @@ const AddStaff = ({ updateCount }) => {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log('Response:', response.data); 
+            console.log('Response:', response.data);
         } catch (error) {
             console.error('Error saving staff:', error);
             throw new Error('Failed to save staff.');
@@ -283,6 +305,25 @@ const AddStaff = ({ updateCount }) => {
                                 />
                                 {error.dateOfBirth && <div className="text-danger">{error.dateOfBirth}</div>}
                             </div>
+                           
+                            <div className='form-group mb-2'>
+                                <label className='form-label'>Service:</label>
+                                <select
+                                    name='service'
+                                    value={formInput.service}
+                                    className='form-control'
+                                    onChange={handleInputChange}
+                                >
+                                    <option value=''>Select Service</option>
+                                    {services.map((service) => (
+                                        <option key={service.id} value={service.id}>
+                                            {service.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                {error.service && <div className="text-danger">{error.service}</div>}
+                            </div>
+
                             <div className='form-group mb-2'>
                                 <label className='form-label'>Profile Photo:</label>
                                 <input

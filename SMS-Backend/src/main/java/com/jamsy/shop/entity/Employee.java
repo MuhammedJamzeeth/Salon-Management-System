@@ -42,6 +42,7 @@ public class Employee {
     private String empDateOfBirth;
     @Lob
     @Column(name = "emp_profile_photo", columnDefinition = "LONGBLOB")
+//    private String empService;
     private byte[] empProfilePhoto;
 
 }

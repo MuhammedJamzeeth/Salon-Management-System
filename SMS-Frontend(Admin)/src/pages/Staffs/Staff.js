@@ -229,9 +229,7 @@ const EmployeeDetails = ({ updateCount }) => {
                                     <input type="text" name="empPhone" value={selectedEmployee.empPhone} onChange={handleChange} />
                                     {errors.phone && <div className="text-danger">{errors.phone}</div>} {/* Display validation error */}
                                 </p>
-                                <p>Profile Photo:
-                                    {/* <img src={`data:image/jpeg;base64,${selectedEmployee.empProfilePhoto}`} alt="" /> */}
-                                </p>
+                             
                                 <p>
                                     Age:
                                     <input type="text" name="empGender" value={selectedEmployee.empDateOfBirth && calculateAge(selectedEmployee.empDateOfBirth)}/>
