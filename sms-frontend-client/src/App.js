@@ -1,9 +1,14 @@
 import React from "react";
-import Home from "./Pages/Home";
+import Home from "./pages/Home";
 import { Route, Routes,Navigate } from "react-router-dom";
+<<<<<<< Updated upstream
 import ServicesPage from "./Pages/ServicesPage";
 import AboutUsPage from "./Pages/AboutUsPage";
 import PersonPage from "./Pages/PersonPage";
+=======
+import ServicesPage from "./pages/ServicesPage";
+import AboutUsPage from "./pages/AboutUsPage";
+>>>>>>> Stashed changes
 
 function App() {
   return (

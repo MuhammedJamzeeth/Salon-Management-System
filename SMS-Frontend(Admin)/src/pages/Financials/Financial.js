@@ -5,8 +5,14 @@ import TableFinance from "../../components/Finances/TableFinances/TableFinance";
 const Financial = () => {
   return (
     <>
-      <Header></Header>
-      <TableFinance />;
+      <div
+        style={{
+          margin: 15,
+        }}
+      >
+        <Header></Header>
+        <TableFinance />
+      </div>
     </>
   );
 };

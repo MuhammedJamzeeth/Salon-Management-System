@@ -19,13 +19,17 @@ const AuthVerify = (props) => {
     console.log(user);
     if (user) {
       const decodedJwt = parseJWT(user.access_token);
+      if (!decodedJwt) {
+        setSessionExpired(true);
+        props.LogOut();
+      }
       console.log(decodedJwt);
 
       // console.log(decodedJwt.exp * 1000);
       console.log(Date.now());
       if (decodedJwt.exp * 1000 < Date.now()) {
         setSessionExpired(true);
-      
+
         props.LogOut();
       } else {
         setSessionExpired(false);

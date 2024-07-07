@@ -66,14 +66,14 @@
 //     );
 // }
 import React from 'react';
-import NavigationBar from '../Components/NavBar/NavigationBar';
-import Footer from '../Components/Footer/Footer';
-import ServiceCard from '../Components/ServiceCard/ServiceCard';
-import ServiceCard2 from '../Components/ServiceCard2/ServiceCard2';
+import NavigationBar from '../components/NavBar/NavigationBar';
+import Footer from '../components/Footer/Footer';
+import ServiceCard from '../components/ServiceCard/ServiceCard';
+import ServiceCard2 from '../components/ServiceCard2/ServiceCard2';
 import imageSrc from '../Resources/about.jpg';
 import img from '../Resources/haircut.jpg';
-import AllServices from '../Components/Service/AllServices';
-import ServiceSlider from '../Components/Service/ServiceSlider';
+import AllServices from '../components/Service/AllServices';
+import ServiceSlider from '../components/Service/ServiceSlider';
 
 export default function ServicesPage() {
     const serviceName = "New Service";

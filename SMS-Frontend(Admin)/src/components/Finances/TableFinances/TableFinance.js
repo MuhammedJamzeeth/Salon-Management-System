@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -7,27 +7,37 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import { TextField } from "@mui/material";
+import Button from "@mui/material/Button";
 
 const columns = [
-  { id: "name", label: "Name", minWidth: 170 },
-  { id: "code", label: "ISO\u00a0Code", minWidth: 100 },
+  { id: "orderID", label: "Order ID", minWidth: 170 },
+  { id: "email", label: "Customer Email", minWidth: 100 },
   {
-    id: "population",
-    label: "Population",
+    id: "paymentMethod",
+    label: "Payment Method",
     minWidth: 170,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "size",
-    label: "Size\u00a0(km\u00b2)",
+    id: "paymentStatus",
+    label: "Payment Status",
     minWidth: 170,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
+
   {
-    id: "density",
-    label: "Density",
+    id: "amount",
+    label: "Amount",
+    minWidth: 170,
+    align: "right",
+    format: (value) => value.toFixed(2),
+  },
+  {
+    id: "moneyReceived",
+    label: "Money Received",
     minWidth: 170,
     align: "right",
     format: (value) => value.toFixed(2),
@@ -38,6 +48,7 @@ function createData(name, code, population, size) {
   const density = population / size;
   return { name, code, population, size, density };
 }
+
 const rows = [
   createData("India", "IN", 1324171354, 3287263),
   createData("China", "CN", 1403500365, 9596961),
@@ -57,8 +68,9 @@ const rows = [
 ];
 
 const TableFinance = () => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -69,9 +81,28 @@ const TableFinance = () => {
     setPage(0);
   };
 
+  const filteredRows = rows.filter((row) =>
+    Object.values(row).some(
+      (value) =>
+        typeof value === "string" &&
+        value.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
+
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer sx={{ maxHeight: 440 }}>
+        <TextField
+          id="search"
+          label="Search"
+          style={{
+            marginBottom: 10,
+          }}
+          color="error"
+          variant="outlined"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -87,7 +118,7 @@ const TableFinance = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
+            {filteredRows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
@@ -111,7 +142,7 @@ const TableFinance = () => {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={filteredRows.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
