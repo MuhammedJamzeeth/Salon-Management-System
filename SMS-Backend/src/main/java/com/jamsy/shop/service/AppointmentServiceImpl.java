@@ -7,6 +7,7 @@ import com.jamsy.shop.repository.AppointmentRepository;
 import com.jamsy.shop.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,6 +48,8 @@ public class AppointmentServiceImpl implements AppointmentService{
         return appointments;
     }
 
+
+
     @Override
     public Optional<Appointment> setApprove(Boolean isApprove, Long id) {
         Optional<Appointment> appointmentOptional = appointmentRepository.findById(id);
@@ -61,4 +64,7 @@ public class AppointmentServiceImpl implements AppointmentService{
             return Optional.empty();
         }
     }
+
+
+
 }

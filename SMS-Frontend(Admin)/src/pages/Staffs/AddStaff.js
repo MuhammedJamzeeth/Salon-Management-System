@@ -50,7 +50,7 @@ const AddStaff = ({ updateCount }) => {
             } catch (error) {
                 console.error('Error fetching services:', error);
                 toast.error('Failed to fetch services', {
-                    position: 'top-center'
+                    position: 'top-right'
                 });
             }
         };
@@ -82,7 +82,7 @@ const AddStaff = ({ updateCount }) => {
 
         const newErrorState = {};
 
-        // Validate all required fields
+        
         const requiredFields = ['firstName', 'lastName', 'ic', 'email', 'address', 'mNumber', 'gender', 'joiningDate', 'dateOfBirth', 'service'];
 
         let hasError = false;
@@ -92,35 +92,35 @@ const AddStaff = ({ updateCount }) => {
                 newErrorState[field] = `Please enter ${field === 'mNumber' ? 'a valid 10-digit' : 'this'} ${field}`;
                 hasError = true;
                 toast.warning(`All fields are required`, {
-                    position: 'top-center'
+                    position: 'top-right'
                 });
             }
         });
 
-        // Validate Mobile Number
+        
         const isValidMobileNumber = /^[0-9]{10}$/.test(formInput.mNumber);
         if (!isValidMobileNumber) {
             newErrorState.mNumber = 'Please enter a valid 10-digit mobile number';
             hasError = true;
         }
 
-        // Validate NIC Number
+     
         const isValidNIC = /^[0-9]{9}[vVxX]$/.test(formInput.ic) || /^[0-9]{12}$/.test(formInput.ic);
         if (!isValidNIC) {
             newErrorState.ic = 'Please enter a valid NIC number (e.g., 123456789V)';
             hasError = true;
             toast.error('Please enter a valid NIC number (e.g., 123456789V)', {
-                position: 'top-center'
+                position: 'top-right'
             });
         }
 
-        // Validate Email
+      
         const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formInput.email);
         if (!isValidEmail) {
             newErrorState.email = 'Please enter a valid email address';
             hasError = true;
             toast.error('Please enter a valid email address', {
-                position: 'top-center'
+                position: 'top-right'
             });
         }
 
@@ -132,7 +132,7 @@ const AddStaff = ({ updateCount }) => {
         try {
             await saveStaff();
             toast.success(`${formInput.firstName} ${formInput.lastName}'s data has been added`, {
-                position: 'top-center'
+                position: 'top-right'
             });
             setFormInput({
                 firstName: '',
@@ -148,12 +148,12 @@ const AddStaff = ({ updateCount }) => {
                 service: ''
             });
 
-            // Update the count after successful addition
+          
             updateCount();
         } catch (error) {
             console.error('Error saving staff:', error);
             toast.error('Failed to save staff', {
-                position: 'top-center'
+                position: 'top-right'
             });
         }
     };
@@ -316,8 +316,8 @@ const AddStaff = ({ updateCount }) => {
                                 >
                                     <option value=''>Select Service</option>
                                     {services.map((service) => (
-                                        <option key={service.id} value={service.name}>
-                                            {service.name}
+                                        <option key={service.id} value={service.serviceName}>
+                                            {service.serviceName}
                                         </option>
                                     ))}
                                 </select>

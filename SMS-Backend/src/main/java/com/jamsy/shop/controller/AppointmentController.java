@@ -6,7 +6,6 @@ import com.jamsy.shop.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,4 +56,10 @@ public class AppointmentController {
                     .body("Error: Appointment with ID " + id + " not found.");
         }
     }
+
+
+
+
+
+
 }
