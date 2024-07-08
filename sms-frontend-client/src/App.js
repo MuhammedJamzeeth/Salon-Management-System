@@ -1,14 +1,10 @@
 import React from "react";
 import Home from "./pages/Home";
 import { Route, Routes,Navigate } from "react-router-dom";
-<<<<<<< Updated upstream
-import ServicesPage from "./Pages/ServicesPage";
-import AboutUsPage from "./Pages/AboutUsPage";
-import PersonPage from "./Pages/PersonPage";
-=======
 import ServicesPage from "./pages/ServicesPage";
 import AboutUsPage from "./pages/AboutUsPage";
->>>>>>> Stashed changes
+import BookingService from "./pages/BookingService/BookingService";
+import {BarberShopServiceDetails} from "./pages/service";
 
 function App() {
   return (
@@ -20,7 +16,6 @@ function App() {
           <Route path="services" element={<ServicesPage/>}/> 
         
         {/* </Route> */}
-        
         <Route path="*" element={<Navigate to="/" />} />
         {/* <Route
           element={!currentUserValue ? <Login /> : <Navigate to="/" />}
@@ -30,7 +25,8 @@ function App() {
           element={!currentUserValue ? <Register /> : <Navigate to="/" />}
           path="register"
         /> */}
-     
+        <Route path={"/service"} element={<BookingService/>} />
+          <Route path="/book" element={<BarberShopServiceDetails/>} />
       </Routes>
     </React.Fragment>
     </div>

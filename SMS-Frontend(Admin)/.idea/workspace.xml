@@ -1,17 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="4da623bd-a12b-4ba0-9dd7-aa1595647d85" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/entity/Financial.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/exception/StorageException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/exception/StorageFileNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/repository/FinancialRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/service/FileSystemStorageService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/service/FinancialService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/utilities/StorageProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Components/BarberShop/BarbershopCard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Components/BarberShop/barber.shop.styles.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Components/BarberShop/barbershop.card.styles.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Components/BarberShop/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Components/Booking/AddToCart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Components/Booking/BookingCart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Components/MaterialUIComponent/Calender.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Components/MaterialUIComponent/Country.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Components/MaterialUIComponent/MultiInputs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Components/MaterialUIComponent/TimeControll.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Components/NotFound/Empty.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Components/NotFound/NotFound.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Components/NotFound/emptycart.styles.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Components/SalonPopular/Popular.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Pages/BarberShop/BarberShop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Pages/BarberShop/barber.styles.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Pages/BookingForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Pages/BookingService/BookingService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Pages/auth.styles.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Pages/service/BarberShopService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Pages/service/BarberShopServiceDetails.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Pages/service/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/actions/cart.action.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/assets/notfound.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/constants/cart.type.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/hooks/BarberShop/getStylist.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/hooks/InputHandler.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/hooks/use.auth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/reducers/cart.reducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/reducers/root.reducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/selector/cart.selector.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/store/store.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms-frontend-client/src/styles/colors.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/controller/FinancialController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/controller/FinancialController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SMS-Backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Finances/TableFinances/TableFinance.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Finances/TableFinances/TableFinance.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Financials/Financial.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Financials/Financial.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../sms-frontend-client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../sms-frontend-client/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../sms-frontend-client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../sms-frontend-client/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../sms-frontend-client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sms-frontend-client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sms-frontend-client/src/Pages/AboutUsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Pages/AboutUsPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sms-frontend-client/src/Pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Pages/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sms-frontend-client/src/Pages/ServicesPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Pages/ServicesPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sms-frontend-client/src/Components/NavBar/NavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Components/NavBar/NavigationBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sms-frontend-client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sms-frontend-client/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,23 +66,47 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2hh7DcI7tt8jE3n7dwBOiwnbFdb" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "kotlin-language-version-configured": "true",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="ReactBuddySettings">
+    <option name="extensionsIgnore" value="true" />
+  </component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.intellij.reactbuddy.reactComponents" value="false" />
+        <entry key="com.intellij.reactbuddy.reactInspector" value="false" />
+        <entry key="com.intellij.reactbuddy.storybook" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.18034.50" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -50,7 +116,13 @@
       <option name="presentableId" value="Default" />
       <updated>1718034341950</updated>
       <workItem from="1718034347577" duration="22000" />
+      <workItem from="1720320814741" duration="318000" />
+      <workItem from="1720321157948" duration="2266000" />
+      <workItem from="1720413444256" duration="936000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

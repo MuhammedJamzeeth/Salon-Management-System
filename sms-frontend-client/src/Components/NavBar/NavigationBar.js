@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../../Resources/logo.png';
 import './NavigationBar.css';
 import { Button } from 'react-bootstrap';
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {
     Image,
     NavContainer,
@@ -11,6 +11,8 @@ import {
 } from './NavBar.styles';
 
 function NavigationBar() {
+    const navigate = useNavigate();
+
     return (
         <NavContainer> 
             <NavLeft>
@@ -54,6 +56,7 @@ function NavigationBar() {
                         e.target.style.backgroundColor = '#000';
                         e.target.style.color = '#fff';
                     }}
+                    onClick={() => navigate("/service")}
                 >
                     <h1 style={{  }}> BookNow </h1>
                 </Button>
