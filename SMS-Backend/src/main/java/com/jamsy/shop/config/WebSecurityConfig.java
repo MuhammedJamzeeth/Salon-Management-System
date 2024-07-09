@@ -60,6 +60,7 @@ public class WebSecurityConfig{
             "/appointment/view/{id}",
             "contact",
             "/bookings"
+            "/contacts",
 
 
     };

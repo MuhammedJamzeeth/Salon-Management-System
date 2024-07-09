@@ -9,11 +9,12 @@
 }
 
 .contact-info {
-    text-align: center;
+    /* text-align: center; */
     margin-bottom: 50px;
 }
 
 .contact-info h2 {
+    padding-right: px;
     font-size: 2.5rem;
     color: #f8f6f6;
     align-items: center;
@@ -21,9 +22,10 @@
 
 .contact-info p {
     font-size: 1.2rem;
+    padding-left:1000 px;
     color: #f6f2f2;
     margin-bottom: 30px;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .contact-methods {
@@ -34,7 +36,7 @@
 
 .contact-method {
     display: flex;
-    align-items:flex-start;
+    align-items:end;
     margin: 10px 0;
     font-size: 1.1rem;
 
