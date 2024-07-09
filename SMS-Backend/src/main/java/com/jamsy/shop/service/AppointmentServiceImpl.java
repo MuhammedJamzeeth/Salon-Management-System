@@ -5,6 +5,7 @@ import com.jamsy.shop.entity.Appointment;
 import com.jamsy.shop.entity.Employee;
 import com.jamsy.shop.repository.AppointmentRepository;
 import com.jamsy.shop.repository.EmployeeRepository;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -65,6 +66,12 @@ public class AppointmentServiceImpl implements AppointmentService{
         }
     }
 
+    @Override
+    public List<Appointment> getAllAppointmentByEmployeeId(@NonNull Long id) {
+        final Optional<Employee> employeeGet = employeeRepository.findById(id);
+        final var appointments = appointmentRepository.findByEmployee(employeeGet);
+        return appointments;
+    }
 
 
 }

@@ -1,0 +1,78 @@
+/* ServicesPage.css */
+.toggle-button {
+    position: fixed;
+    top: 50px;
+    right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: currentColor;
+    transition: color 0.3s;
+}
+
+.title {
+    animation: fadeIn 2s ease-in-out;
+    transition: transform 0.3s, color 0.3s;
+    text-align: center;
+    margin: 10px;
+}
+
+.title:hover {
+    transform: scale(1.05);
+    color: #007BFF;
+}
+
+.title h1 {
+    color: #8000ff;
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: color 0.3s;
+}
+
+.title p {
+    font-size: 1.1em;
+    color: #555;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.title h1:hover {
+    color: #666699;
+}
+
+.service-card, .service-card2 {
+    animation: fadeIn 2.5s ease-in-out;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 1200px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.service-card:hover, .service-card2:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode .title h1, .dark-mode .title p {
+    color: #e0e0e0;
+}
+
+.light-mode {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.light-mode .title h1, .light-mode .title p {
+    color: #000000;
+}

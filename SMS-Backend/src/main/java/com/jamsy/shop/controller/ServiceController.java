@@ -1,24 +1,30 @@
 package com.jamsy.shop.controller;
 
 import com.jamsy.shop.entity.ServiceEntity;
-import com.jamsy.shop.model.ServiceModel;
 import com.jamsy.shop.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
-@CrossOrigin
+
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ServiceController {
     @Autowired
      ServiceService serviceService;
 
-    @PostMapping("/addservice")
-    public ServiceEntity saveService(@RequestBody ServiceEntity service){
-//        System.out.println(service);
-        return serviceService.addService(service);
+    @PostMapping( "/addservice")
+    public ResponseEntity<ServiceEntity> saveService(@RequestBody ServiceEntity service) {
+        try {
+            ServiceEntity savedService = serviceService.saveService(service);
+            return ResponseEntity.ok(savedService);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/getallservices")

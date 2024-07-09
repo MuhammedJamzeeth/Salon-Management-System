@@ -57,11 +57,10 @@ public class WebSecurityConfig{
             "/review/{id}",
             "/employees/{empId}",
             "/employeeUpdate/{empId}",
-            "/bookings",
-            "/api/financial",
-            "/api/financial/total-amount",
-            "/api/financial/{orderId}",
-            "/api/financial/report"
+            "/appointment/view/{id}",
+            "contact",
+            "/bookings"
+            "/contacts",
 
 
     };
@@ -76,6 +75,7 @@ public class WebSecurityConfig{
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(WHITE_LIST_URLS).permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/api/financial/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().authenticated()
                 ).sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

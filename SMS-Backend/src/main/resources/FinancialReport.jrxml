@@ -45,10 +45,7 @@
                 <reportElement x="400" y="0" width="100" height="20"/>
                 <text><![CDATA[Amount]]></text>
             </staticText>
-            <staticText>
-                <reportElement x="500" y="0" width="55" height="20"/>
-                <text><![CDATA[Received]]></text>
-            </staticText>
+
         </band>
     </columnHeader>
     <detail>
@@ -72,10 +69,6 @@
             <textField>
                 <reportElement x="400" y="0" width="100" height="20"/>
                 <textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="500" y="0" width="55" height="20"/>
-                <textFieldExpression><![CDATA[$F{moneyReceived}]]></textFieldExpression>
             </textField>
         </band>
     </detail>

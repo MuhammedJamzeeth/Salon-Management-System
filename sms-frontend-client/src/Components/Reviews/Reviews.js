@@ -4,8 +4,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Review.css';
+import { FaTimes } from 'react-icons/fa'; 
 
-const Reviews = () => {
+const Reviews = ({ onClose }) => {
     const [number, setNumber] = useState(0);
     const [hoverStar, setHoverStar] = useState(undefined);
     const [comment, setComment] = useState('');
@@ -67,6 +68,7 @@ const Reviews = () => {
                 setHoverStar(undefined);
                 setComment('');
                 setReviewerName('');
+                onClose(); // Close the review component after successful submission
             } else {
                 toast.error('Failed to submit review', {
                     position: 'top-right'
@@ -109,6 +111,7 @@ const Reviews = () => {
                     <div className="content">
                         <div className="product">
                             <h1>Reviews</h1>
+                            <button className="close-icon" onClick={onClose}><FaTimes /></button>
                         </div>
                         <form onSubmit={handleSubmit}>
                             <div>
@@ -146,6 +149,7 @@ const Reviews = () => {
                                 className="nameInput"
                             />
                             <button
+                                id='submitbtn'
                                 className={!number ? "disabled" : ""}
                                 disabled={!number}
                             >
