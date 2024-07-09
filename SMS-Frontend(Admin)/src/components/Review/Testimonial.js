@@ -5,7 +5,7 @@ import './Testimonial.css';
 import { Update } from '@mui/icons-material';
 
 const Testimonial = ({ testimonial, onDelete }) => {
-  const { id, name, username, imageUrl, rating, comment } = testimonial;
+  const { id, name, username, imageUrl, rating, comment, date } = testimonial;
 
   const handleDelete = async () => {
     try {
@@ -27,7 +27,8 @@ const Testimonial = ({ testimonial, onDelete }) => {
   return (
     <div className="testimonial-box">
       <div className="box-top">
-        <Profile name={name} username={username} imageUrl={imageUrl} />
+        <Profile name={name} date={new Date(date).toLocaleDateString()}  imageUrl={imageUrl} />
+        {/* <div className="date">{new Date(date).toLocaleDateString()}</div>  */}
         <StarRating rating={rating} />
         <button className="delete-button" onClick={handleDelete}>
           Delete
