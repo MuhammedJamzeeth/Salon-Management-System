@@ -57,6 +57,8 @@ public class WebSecurityConfig{
             "/review/{id}",
             "/employees/{empId}",
             "/employeeUpdate/{empId}",
+            "/appointment/view/{id}",
+            "contact",
 
 
     };

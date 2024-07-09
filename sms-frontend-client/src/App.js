@@ -5,17 +5,7 @@ import ServicesPage from "./pages/ServicesPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import BookingService from "./pages/BookingService/BookingService";
 import {BarberShopServiceDetails} from "./pages/service";
-
-
-import BookingService from "./pages/BookingService/BookingService";
-import {BarberShopServiceDetails} from "./pages/service";
-
-import ServicesPage from "./pages/ServicesPage";
-import AboutUsPage from "./pages/AboutUsPage";
-import PersonPage from "./pages/PersonPage";
-
-
-
+import ContactPage from "./pages/ContactPage";
 
 
 function App() {
@@ -25,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} /> 
           <Route path="services" element={<ServicesPage/>}/> 
+          <Route path="contact" element={<ContactPage/>} />
         
         {/* </Route> */}
         <Route path="*" element={<Navigate to="/" />} />

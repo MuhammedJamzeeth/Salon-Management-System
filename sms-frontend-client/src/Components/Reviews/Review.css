@@ -48,7 +48,7 @@
   }
 
 
-  button {
+  #submitbtn {
     background: rgb(92, 92, 185);
     color: #fff;
     margin-top: 10px;
@@ -63,4 +63,20 @@
     opacity: 0.5;
     pointer-events: none;
   }
+
+  button.close-icon {
+    position: relative;
+    top: -10px;
+    right: -130px; 
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    outline: none;
+   
+}
+
+/* .close-icon:hover {
+    color: #ff6347; 
+} */
   

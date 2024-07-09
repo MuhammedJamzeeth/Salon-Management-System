@@ -55,10 +55,16 @@ public class AppointmentController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Error: Appointment with ID " + id + " not found.");
         }
+
+
     }
 
+    @GetMapping("/view/{id}")
+    public ResponseEntity<List<Appointment>> getAllAppointmentByEmployeeId(@PathVariable("id") Long id){
+        List<Appointment> appointment = appointmentService.getAllAppointmentByEmployeeId(id);
 
-
+        return ResponseEntity.ok((appointment));
+    }
 
 
 

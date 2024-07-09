@@ -1,6 +1,7 @@
 package com.jamsy.shop.service;
 
 import com.jamsy.shop.entity.Appointment;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface AppointmentService {
 
 
     Optional<Appointment> setApprove(Boolean isApprove, Long id);
+
+    List<Appointment> getAllAppointmentByEmployeeId(@NotNull Long id);
 }

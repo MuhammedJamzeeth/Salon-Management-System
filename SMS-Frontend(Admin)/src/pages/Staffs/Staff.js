@@ -64,9 +64,21 @@ const EmployeeDetails = ({ updateCount }) => {
     const handleSeeMore = async (selectedEmp) => {
         setSelectedEmployee(selectedEmp);
         try {
-            const response = await fetch(`http://localhost:8080/appointments/${selectedEmp.empId}`);
+            const response = await fetch(`http://localhost:8080/appointment/view/${selectedEmp.empId}`);
             const data = await response.json();
-            setSelectedEmployeeAppointments(data);
+            
+            const filteredAppointments = data.filter(appointment => {
+                const appointmentDateTime = new Date(`${appointment.date} ${appointment.time}`);
+                return appointmentDateTime >= new Date();
+            
+            });
+            
+            filteredAppointments.sort((a, b) => {
+                if (a.time < b.time) return -1;
+                if (a.time > b.time) return 1;
+                return 0;
+            });
+            setSelectedEmployeeAppointments(filteredAppointments);
         } catch (error) {
             console.error('Error fetching employee appointments:', error);
         }
@@ -158,7 +170,7 @@ const EmployeeDetails = ({ updateCount }) => {
                     updateCount();
                     setShowModal(false);
                     setSelectedEmployee(null);
-                    setErrors({}); // Clear errors after successful update
+                    setErrors({});
                     toast.success(`${selectedEmployee.empFirstName} ${selectedEmployee.empLastName}'s data has been updated`, {
                         position: 'top-right'
                     });
@@ -212,7 +224,7 @@ const EmployeeDetails = ({ updateCount }) => {
                 <Modal.Body>
                     {selectedEmployee && (
                         <div className="employee-modal">
-                            <div className="employee-details">
+                            <div className="employee-detailss">
                                 <b>
                                     <p>Name:
                                         <input type="text" name="empFirstName" value={selectedEmployee.empFirstName} onChange={handleChange} />
@@ -235,22 +247,24 @@ const EmployeeDetails = ({ updateCount }) => {
                                         <input type="text" name="empAge" value={selectedEmployee.empDateOfBirth && calculateAge(selectedEmployee.empDateOfBirth)} readOnly />
                                     </p>
                                     <p>Gender:
-                                        <input type="text" name="empGender" value={selectedEmployee.empGender}  />
+                                        <input type="text" name="empGender" value={selectedEmployee.empGender} />
                                     </p>
                                     <p>NIC:
-                                        <input type="text" name="empIc" value={selectedEmployee.empIc}  />
+                                        <input type="text" name="empIc" value={selectedEmployee.empIc} />
                                     </p>
                                 </b>
-                                
                             </div>
                             <div className="employee-appointments">
                                 <h5>Appointments</h5>
                                 {selectedEmployeeAppointments.length > 0 ? (
                                     selectedEmployeeAppointments.map((appointment) => (
                                         <div key={appointment.id} className="appointment-item">
-                                            <p>Date: {appointment.date}</p>
-                                            <p>Time: {appointment.time}</p>
-                                            <p>Service: {appointment.service}</p>
+                                            <p>Customer Name: <span>{appointment.customerName}</span></p>
+                                            <p>Customer Email: <span>{appointment.customerEmail}</span></p>
+                                            <p>Date: <span>{appointment.date}</span></p>
+                                            <p>Time: <span>{appointment.time}</span></p>
+                                            <p>Service Category: <span>{appointment.category}</span></p>
+                                            <p>Phone Number: <span>{appointment.pno}</span></p>
                                         </div>
                                     ))
                                 ) : (
@@ -267,56 +281,10 @@ const EmployeeDetails = ({ updateCount }) => {
                     <Button variant="primary" onClick={handleUpdateEmployee}>
                         Update
                     </Button>
-                    {/* <Button className="closeButton" onClick={() => setShowModal(false)}>
-                    Close
-                    </Button> */}
-                    
                 </Modal.Footer>
             </Modal>
         </div>
     );
 };
 
-const Staff = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [updateCount, setUpdateCount] = useState(false);
-
-    const setOpen = () => {
-        setIsOpen(!isOpen);
-    };
-
-    const handleUpdateCount = () => {
-        setUpdateCount(!updateCount);
-    };
-
-    return (
-        <div>
-            {!isOpen ? (
-                <React.Fragment>
-                    <div className='employee-details-container'>
-                        <div className='employee-details'>
-                            <EmployeeCount updateCount={updateCount} /><h1>Staff</h1>
-                        </div>
-                        <div className='employee-add'>
-                            <Button className='button' onClick={setOpen}>+ Add Staff</Button>
-                        </div>
-                    </div>
-                    <div className='employee-card-details'><EmployeeDetails updateCount={handleUpdateCount} /></div>
-                </React.Fragment>
-            ) : (
-                <React.Fragment>
-                    <div className='employee-details-container'>
-                        <div className='employee-details'>
-                        </div>
-                        <div className='employee-add'>
-                            <Button style={{ background: "red" }} className='button' onClick={setOpen}>Close</Button>
-                        </div>
-                    </div>
-                    <AddStaff updateCount={handleUpdateCount} />
-                </React.Fragment>
-            )}
-        </div>
-    );
-};
-
-export default Staff;
+export default EmployeeDetails;
