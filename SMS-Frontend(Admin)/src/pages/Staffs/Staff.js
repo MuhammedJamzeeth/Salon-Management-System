@@ -235,10 +235,10 @@ const EmployeeDetails = ({ updateCount }) => {
                                         <input type="text" name="empAge" value={selectedEmployee.empDateOfBirth && calculateAge(selectedEmployee.empDateOfBirth)} readOnly />
                                     </p>
                                     <p>Gender:
-                                        <input type="text" name="empGender" value={selectedEmployee.empGender} onChange={handleChange} />
+                                        <input type="text" name="empGender" value={selectedEmployee.empGender}  />
                                     </p>
                                     <p>NIC:
-                                        <input type="text" name="empIc" value={selectedEmployee.empIc} onChange={handleChange} />
+                                        <input type="text" name="empIc" value={selectedEmployee.empIc}  />
                                     </p>
                                 </b>
                                 
