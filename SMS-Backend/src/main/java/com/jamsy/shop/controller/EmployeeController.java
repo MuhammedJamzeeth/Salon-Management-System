@@ -33,7 +33,9 @@ public class EmployeeController {
             @RequestParam("empPhone") String empPhone,
             @RequestParam("empJoiningDate") String empJoiningDate,
             @RequestParam("empDateOfBirth") String empDateOfBirth,
-            @RequestParam("empProfilePhoto") MultipartFile empProfilePhoto) {
+            @RequestParam("empProfilePhoto") MultipartFile empProfilePhoto,
+             @RequestParam("empService") String empService
+             ){
 
         try {
             byte[] imageBytes = empProfilePhoto.getBytes();
@@ -49,6 +51,8 @@ public class EmployeeController {
             employee.setEmpJoiningDate(empJoiningDate);
             employee.setEmpDateOfBirth(empDateOfBirth);
             employee.setEmpProfilePhoto(imageBytes);
+            employee.setEmpService(empService);
+
 
             Employee savedEmployee = employeeService.saveEmployee(employee);
             return ResponseEntity.ok(savedEmployee);

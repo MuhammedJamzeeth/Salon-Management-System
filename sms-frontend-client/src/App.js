@@ -12,7 +12,8 @@ function App() {
       <React.Fragment>
       <Routes>
         <Route path="/" element={<Home />} /> 
-          <Route path="aboutus" element={<AboutUsPage/>}/> 
+        
+         */}
           <Route path="services" element={<ServicesPage/>}/> 
         
         {/* </Route> */}

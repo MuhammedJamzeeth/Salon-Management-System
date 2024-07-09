@@ -22,7 +22,7 @@ const EmployeeCount = ({ updateCount }) => {
         };
 
         fetchEmployeeCount();
-    }, [updateCount]); // Update count when updateCount changes
+    }, [updateCount]); 
 
     return (
         <h1 style={{ color: "red" }}>{employeeCount}</h1>
@@ -44,7 +44,7 @@ const EmployeeDetails = ({ updateCount }) => {
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [showModal, setShowModal] = useState(false);
-    const [errors, setErrors] = useState({}); // State for validation errors
+    const [errors, setErrors] = useState({}); 
 
     useEffect(() => {
         const fetchEmployeeDetails = async () => {
@@ -58,7 +58,7 @@ const EmployeeDetails = ({ updateCount }) => {
         };
 
         fetchEmployeeDetails();
-    }, [updateCount]); // Update employee details when updateCount changes
+    }, [updateCount]); 
 
     const handleSeeMore = (selectedEmp) => {
         setSelectedEmployee(selectedEmp);
@@ -98,7 +98,7 @@ const EmployeeDetails = ({ updateCount }) => {
     };
 
     const handleUpdateEmployee = async () => {
-        // Validation
+        
         const validationErrors = {};
         if (!selectedEmployee.empFirstName) {
             validationErrors.firstName = "First name is required";
@@ -150,9 +150,9 @@ const EmployeeDetails = ({ updateCount }) => {
                 });
                 if (response.ok) {
                     console.log("Employee details updated successfully!");
-                    updateCount(); // Update count after successful update
+                    updateCount(); 
                     setShowModal(false);
-                    // Clear the selectedEmployee state after successful update
+                    
                     setSelectedEmployee(null);
                     
                     toast.success(`${selectedEmployee.empFirstName} ${selectedEmployee.empLastName}'s data has been updated`, {
@@ -163,7 +163,7 @@ const EmployeeDetails = ({ updateCount }) => {
                 console.error('Error updating employee details:', error);
             }
         } else {
-            // If there are validation errors, set them in state
+            
             setErrors(validationErrors);
         }
     };
@@ -174,7 +174,7 @@ const EmployeeDetails = ({ updateCount }) => {
             ...prevEmployee,
             [name]: value
         }));
-        // Clear validation error when user starts typing again
+      
         setErrors(prevErrors => ({
             ...prevErrors,
             [name]: ''
@@ -203,7 +203,7 @@ const EmployeeDetails = ({ updateCount }) => {
             ) : (
                 <p>No employee details available</p>
             )}
-            {/* Modal to display employee details */}
+            
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Employee Details</Modal.Title>
@@ -214,24 +214,22 @@ const EmployeeDetails = ({ updateCount }) => {
                             <b>
                                 <p>Name: 
                                     <input type="text" name="empFirstName" value={selectedEmployee.empFirstName} onChange={handleChange} />
-                                    {errors.firstName && <div className="text-danger">{errors.firstName}</div>} {/* Display validation error */}
+                                    {errors.firstName && <div className="text-danger">{errors.firstName}</div>} 
                                     <input type="text" name="empLastName" value={selectedEmployee.empLastName} onChange={handleChange} />
-                                    {errors.lastName && <div className="text-danger">{errors.lastName}</div>} {/* Display validation error */}
+                                    {errors.lastName && <div className="text-danger">{errors.lastName}</div>}
                                 </p>
                                 <p>Email: 
                                     <input type="text" name="empEmail" value={selectedEmployee.empEmail} onChange={handleChange} />
-                                    {errors.email && <div className="text-danger">{errors.email}</div>} {/* Display validation error */}
+                                    {errors.email && <div className="text-danger">{errors.email}</div>}
                                 </p>
                                 <p>Address: 
                                     <input type="text" name="empAddress" value={selectedEmployee.empAddress} onChange={handleChange} />
                                 </p>
                                 <p>Phone Number:
                                     <input type="text" name="empPhone" value={selectedEmployee.empPhone} onChange={handleChange} />
-                                    {errors.phone && <div className="text-danger">{errors.phone}</div>} {/* Display validation error */}
+                                    {errors.phone && <div className="text-danger">{errors.phone}</div>} 
                                 </p>
-                                <p>Profile Photo:
-                                    {/* <img src={`data:image/jpeg;base64,${selectedEmployee.empProfilePhoto}`} alt="" /> */}
-                                </p>
+                             
                                 <p>
                                     Age:
                                     <input type="text" name="empGender" value={selectedEmployee.empDateOfBirth && calculateAge(selectedEmployee.empDateOfBirth)}/>
@@ -264,14 +262,14 @@ const EmployeeDetails = ({ updateCount }) => {
 
 const Staff = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [updateCount, setUpdateCount] = useState(false); // State to trigger count update
+    const [updateCount, setUpdateCount] = useState(false); 
 
     const setOpen = () => {
         setIsOpen(!isOpen);
     };
 
     const handleUpdateCount = () => {
-        setUpdateCount(!updateCount); // Toggle updateCount to trigger count update
+        setUpdateCount(!updateCount); 
     };
 
     return (
@@ -292,7 +290,7 @@ const Staff = () => {
                 <React.Fragment>
                     <div className='employee-details-container'>
                         <div className='employee-details'>
-                            {/* <EmployeeCount /> <h1>Staff</h1> */}
+                            
                         </div>
                         <div className='employee-add'>
                             <Button style={{ background: "red" }} className='button' onClick={setOpen}>Close</Button>
