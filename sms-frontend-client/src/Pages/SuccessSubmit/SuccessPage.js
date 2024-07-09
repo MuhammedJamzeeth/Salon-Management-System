@@ -12,6 +12,7 @@ import {
     Description,
     Title,
 } from "./not_found.style";
+import NavigationBar from "../../components/NavBar/NavigationBar";
 
 const SuccessPage = () => {
     useEffect(() => {
@@ -22,6 +23,7 @@ const SuccessPage = () => {
     }, []);
     return (
         <Body>
+            <NavigationBar></NavigationBar>
             <Container>
                 <Content>
                     <Window data-tilt>
@@ -44,11 +46,6 @@ const SuccessPage = () => {
               <br />
                 We will send you a message with the details of your booking.
             </span>
-                        {/* <span data-lang="de">
-              Anscheinend existiert diese Seite nicht.
-              <br />
-              Überprüfe deine Netzwerkverbindung und versuche es später erneut.
-            </span> */}
                     </Description>
                 </Content>
             </Container>

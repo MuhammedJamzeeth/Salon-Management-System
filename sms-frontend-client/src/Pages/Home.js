@@ -6,6 +6,7 @@ import AboutUs from '../components/AboutUs/About';
 import Footer from '../components/Footer/Footer';
 import Reviews from '../components/Reviews/Reviews';
 import FloatingButton from '../components/Reviews/FloatingButton';
+import GoogleMap from '../components/Googlemap';
 
 
 
@@ -20,7 +21,7 @@ function Home() {
             <FloatingButton></FloatingButton>
             {/* <Reviews></Reviews> */}
             
-
+            <GoogleMap />
             <Footer></Footer>
         </>
     )
