@@ -19,6 +19,7 @@ public class Appointment {
     private Long id;
     private String customerName;
     private String customerEmail;
+
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
