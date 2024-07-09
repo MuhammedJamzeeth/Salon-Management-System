@@ -1,15 +1,16 @@
 import React from 'react';
 import './Testimonial.css';
+import profileImage from './profile.jpg'; 
 
-const Profile = ({ name, username, imageUrl }) => {
+const Profile = ({ name, date, imageUrl }) => {
   return (
     <div className="profile">
       <div className="profile-img">
-        <img src={imageUrl} alt="Profile" />
+        <img src={imageUrl || profileImage} alt="Profile" />
       </div>
       <div className="name-user">
         <strong>{name}</strong>
-        <span>@{username}</span>
+        <span>{date}</span>
       </div>
     </div>
   );

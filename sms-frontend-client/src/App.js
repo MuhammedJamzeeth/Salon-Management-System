@@ -1,6 +1,11 @@
 import React from "react";
 import Home from "./pages/Home";
 import { Route, Routes,Navigate } from "react-router-dom";
+import ServicesPage from "./pages/ServicesPage";
+import AboutUsPage from "./pages/AboutUsPage";
+import BookingService from "./pages/BookingService/BookingService";
+import {BarberShopServiceDetails} from "./pages/service";
+
 
 import BookingService from "./pages/BookingService/BookingService";
 import {BarberShopServiceDetails} from "./pages/service";

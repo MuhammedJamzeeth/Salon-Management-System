@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import './Review.css';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './Review.css';
 
 const Reviews = () => {
     const [number, setNumber] = useState(0);
     const [hoverStar, setHoverStar] = useState(undefined);
     const [comment, setComment] = useState('');
+    const [reviewerName, setReviewerName] = useState('');
 
     const handleText = () => {
         switch (number || hoverStar) {
@@ -43,11 +46,38 @@ const Reviews = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+    
+        if (!reviewerName.trim()) {
+            toast.error('Name field is required', {
+                position: 'top-right'
+            });
+            return;
+        }
+
         try {
-            await saveReview();
+            const response = await saveReview();
+            if (response.status === 200) {
+                toast.success('Review submitted successfully', {
+                    position: 'top-right',
+                    autoClose: 3000, 
+                    hideProgressBar: true 
+                });
+                
+                setNumber(0);
+                setHoverStar(undefined);
+                setComment('');
+                setReviewerName('');
+            } else {
+                toast.error('Failed to submit review', {
+                    position: 'top-right'
+                });
+            }
             console.log('Review submitted successfully');
         } catch (error) {
             console.error('Error submitting review:', error);
+            toast.error('Error submitting review', {
+                position: 'top-right'
+            });
         }
     };
 
@@ -55,6 +85,8 @@ const Reviews = () => {
         const formData = new FormData();
         formData.append('rating', number);
         formData.append('comment', comment);
+        formData.append('name', reviewerName);
+        formData.append('date', new Date().toISOString()); 
 
         try {
             const response = await axios.post('http://localhost:8080/addReview', formData, {
@@ -62,7 +94,8 @@ const Reviews = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log('Response:', response.data); 
+            console.log('Response:', response.data);
+            return response;
         } catch (error) {
             console.error('Error saving review:', error);
             throw new Error('Failed to save review.');
@@ -105,6 +138,13 @@ const Reviews = () => {
                                 onChange={(e) => setComment(e.target.value)}
                                 placeholder={handlePlaceHolder()}
                             ></textarea>
+                            <input
+                                type="text"
+                                value={reviewerName}
+                                onChange={(e) => setReviewerName(e.target.value)}
+                                placeholder="Your Name"
+                                className="nameInput"
+                            />
                             <button
                                 className={!number ? "disabled" : ""}
                                 disabled={!number}
