@@ -15,10 +15,12 @@ function Home() {
             <NavigationBar></NavigationBar>
             <ImageSlider></ImageSlider>
             <AboutUs> </AboutUs>
+
             <Services> </Services>
             <FloatingButton></FloatingButton>
             {/* <Reviews></Reviews> */}
             
+
             <Footer></Footer>
         </>
     )

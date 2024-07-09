@@ -5,8 +5,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/salon_management
     username: root
-    password: 12345
-
+    password: jamzee
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -21,6 +20,7 @@ spring:
 
   servlet:
     multipart:
+      enabled: true
       max-file-size: 2MB
       max-request-size: 2MB
 

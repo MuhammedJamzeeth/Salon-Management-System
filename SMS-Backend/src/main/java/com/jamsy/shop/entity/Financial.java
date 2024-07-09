@@ -16,7 +16,7 @@ public class Financial {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String orderID;
+    private Long orderID;
     private String email;
     private String paymentMethod;
     private String paymentStatus;

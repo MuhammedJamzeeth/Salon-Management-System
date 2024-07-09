@@ -1,22 +1,31 @@
 package com.jamsy.shop.controller;
 
 import com.jamsy.shop.entity.Financial;
+import com.jamsy.shop.service.FinancialReportService;
 import com.jamsy.shop.service.FinancialService;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/financial")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FinancialController {
 
     
         @Autowired
         private FinancialService financialService;
+
+        @Autowired
+        private FinancialReportService reportService;
 
         @GetMapping
         public ResponseEntity<List<Financial>> getAllFinancials() {
@@ -24,11 +33,11 @@ public class FinancialController {
             return new ResponseEntity<>(financials, HttpStatus.OK);
         }
 
-        @GetMapping("/{id}")
-        public ResponseEntity<Financial> getFinancialById(@PathVariable Long id) {
-            Optional<Financial> financial = financialService.getFinancialById(id);
-            return financial.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        @GetMapping("/total-amount")
+        public ResponseEntity<Double> getFinancial() {
+            Double financial = financialService.getTotalAmount();
+
+            return new ResponseEntity<>(financial, HttpStatus.OK);
         }
 
         @PostMapping
@@ -38,23 +47,8 @@ public class FinancialController {
         }
 
         @PutMapping("/{id}")
-        public ResponseEntity<Financial> updateFinancial(@PathVariable Long id, @RequestBody Financial financialDetails) {
-            Optional<Financial> existingFinancial = financialService.getFinancialById(id);
-
-            if (existingFinancial.isPresent()) {
-                Financial financial = existingFinancial.get();
-                financial.setOrderID(financialDetails.getOrderID());
-                financial.setEmail(financialDetails.getEmail());
-                financial.setPaymentMethod(financialDetails.getPaymentMethod());
-                financial.setPaymentStatus(financialDetails.getPaymentStatus());
-                financial.setAmount(financialDetails.getAmount());
-                financial.setMoneyReceived(financialDetails.getMoneyReceived());
-
-                Financial updatedFinancial = financialService.saveFinancial(financial);
-                return new ResponseEntity<>(updatedFinancial, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
+        public Financial updateFinancial(@PathVariable Long id, @RequestBody Financial financialDetail) {
+            return financialService.updateMoneyReceived(id, financialDetail.getMoneyReceived(), financialDetail.getPaymentStatus());
         }
 
         @DeleteMapping("/{id}")
@@ -68,5 +62,22 @@ public class FinancialController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         }
+
+    @GetMapping("/report")
+    public ResponseEntity<byte[]> getFinancialReport() {
+        try {
+            List<Financial> records = financialService.getAllFinancials();
+            byte[] report = reportService.generateReport(records);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDispositionFormData("attachment", "financial_report.pdf");
+
+            return ResponseEntity.ok().headers(headers).body(report);
+        } catch (JRException | FileNotFoundException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
+    }
 
 }

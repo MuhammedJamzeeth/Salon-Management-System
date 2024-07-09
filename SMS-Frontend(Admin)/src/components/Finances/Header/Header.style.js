@@ -3,7 +3,7 @@ import { colors } from "../../../styles/colors";
 
 export const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin: 10px 10px 10px 10px;
 
   div {

@@ -9,7 +9,6 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { TextField } from "@mui/material";
-import Button from "@mui/material/Button";
 
 const columns = [
   { id: "orderID", label: "Order ID", minWidth: 170 },
@@ -19,14 +18,12 @@ const columns = [
     label: "Payment Method",
     minWidth: 170,
     align: "right",
-    format: (value) => value.toLocaleString("en-US"),
   },
   {
     id: "paymentStatus",
     label: "Payment Status",
     minWidth: 170,
     align: "right",
-    format: (value) => value.toLocaleString("en-US"),
   },
   {
     id: "amount",
@@ -40,7 +37,6 @@ const columns = [
     label: "Money Received",
     minWidth: 170,
     align: "right",
-    format: (value) => value.toFixed(2),
   },
 ];
 
@@ -51,18 +47,48 @@ const TableFinance = () => {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/finance");
+        const response = await axios.get("http://localhost:8080/api/financial");
         setRows(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-    
-    fetchData().then(r => console.log("Data fetched"));
+    fetchData();
   }, []);
+
+  const handleGenerateReport = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/financial/report", {
+        responseType: "blob",
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "financial_report.pdf");
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error("Error generating report:", error);
+    }
+  };
+
+  const handleToggleMoneyReceived = async (row) => {
+    try {
+      const updatedRow = {
+        ...row,
+        moneyReceived: !row.moneyReceived,
+        paymentStatus: !row.moneyReceived ? "PENDING" : "PAID",
+      };
+      await axios.put(`http://localhost:8080/api/financial/${row.id}`, updatedRow);
+      // Assuming successful update, update the local state with the updated row
+      const updatedRows = rows.map((r) => (r.id === row.id ? updatedRow : r));
+      setRows(updatedRows);
+    } catch (error) {
+      console.error("Error toggling money received:", error);
+    }
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -74,19 +100,15 @@ const TableFinance = () => {
   };
 
   const filteredRows = rows.filter((row) =>
-      Object.values(row).some(
-          (value) =>
-              typeof value === "string" &&
-              value.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      row.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <TableContainer sx={{ maxHeight: 440 }}>
+        <TableContainer sx={{maxHeight: 440}}>
           <TextField
               id="search"
-              label="Search"
+              label="Customer Email"
               style={{
                 marginBottom: 10,
               }}
@@ -95,15 +117,26 @@ const TableFinance = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
           />
+          <button
+              style={{
+                backgroundColor: "blue",
+                color: "white",
+                border: "none",
+                padding: "5px 10px",
+                marginLeft: 10,
+                cursor: "pointer",
+                marginBottom: 10,
+                borderRadius: 5,
+              }}
+              onClick={handleGenerateReport}
+          >
+            Generate Financial Report
+          </button>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
-                    <TableCell
-                        key={column.id}
-                        align={column.align}
-                        style={{ minWidth: column.minWidth }}
-                    >
+                    <TableCell key={column.id} align={column.align} style={{minWidth: column.minWidth}}>
                       {column.label}
                     </TableCell>
                 ))}
@@ -112,22 +145,32 @@ const TableFinance = () => {
             <TableBody>
               {filteredRows
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    return (
-                        <TableRow hover role="checkbox" tabIndex={-1} key={row.orderID}>
-                          {columns.map((column) => {
-                            const value = row[column.id];
-                            return (
-                                <TableCell key={column.id} align={column.align}>
-                                  {column.format && typeof value === "number"
-                                      ? column.format(value)
-                                      : value}
-                                </TableCell>
-                            );
-                          })}
-                        </TableRow>
-                    );
-                  })}
+                  .map((row) => (
+                      <TableRow hover role="checkbox" tabIndex={-1} key={row.orderID}>
+                        {columns.map((column) => (
+                            <TableCell key={column.id} align={column.align}>
+                              {column.id === "moneyReceived" ? (
+                                  <button
+                                      style={{
+                                        backgroundColor: row.moneyReceived ? "green" : "red",
+                                        color: "white",
+                                        border: "none",
+                                        padding: "5px 10px",
+                                        cursor: "pointer",
+                                      }}
+                                      onClick={() => handleToggleMoneyReceived(row)}
+                                  >
+                                    {row.moneyReceived ? "Received" : "Not Received"}
+                                  </button>
+                              ) : column.format && typeof row[column.id] === "number" ? (
+                                  column.format(row[column.id])
+                              ) : (
+                                  row[column.id]
+                              )}
+                            </TableCell>
+                        ))}
+                      </TableRow>
+                  ))}
             </TableBody>
           </Table>
         </TableContainer>

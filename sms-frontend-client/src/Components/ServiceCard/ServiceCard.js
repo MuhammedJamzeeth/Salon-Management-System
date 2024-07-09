@@ -1,7 +1,9 @@
 import React from 'react';
 import './ServiceCard.css';
+import { useNavigate } from 'react-router-dom';
 
-const ServiceCard = ({ imageSrc, serviceName, description }) => {
+const ServiceCard = ({ imageSrc }) => {
+    const navigate = useNavigate();
     return (
         <div className="container">
             <div className="service-card">
@@ -9,19 +11,11 @@ const ServiceCard = ({ imageSrc, serviceName, description }) => {
             </div>
             <div className="service-details">
                 <div className="service-section">
-                    <h1>{serviceName}</h1>
-                    <p>{description}</p>
-                    <button>Book Now</button>
+                    <h1>Beard Related Services</h1>
+                    <button onClick={() => navigate("/service")}>Book Now</button>
                 </div>
                 <div className="service-section">
-                    <h1>{serviceName}</h1>
-                    <p>{description}</p>
-                    <button>Book Now</button>
-                </div>
-                <div className="service-section">
-                    <h1>{serviceName}</h1>
-                    <p>{description}</p>
-                    <button>Book Now</button>
+                    
                 </div>
             </div>
         </div>
