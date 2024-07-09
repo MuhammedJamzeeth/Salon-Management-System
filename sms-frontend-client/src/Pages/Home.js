@@ -1,9 +1,11 @@
 import React from 'react'
-import NavigationBar from "../Components/NavBar/NavigationBar";
-import ImageSlider from "../Components/ImageSlider/ImageSlider";
-import Services from "../Components/Service/Services";
-import AboutUs from '../Components/AboutUs/About';
-import Footer from '../Components/Footer/Footer';
+import NavigationBar from "../components/NavBar/NavigationBar";
+import ImageSlider from "../components/ImageSlider/ImageSlider";
+import Services from "../components/Service/Services";
+import AboutUs from '../components/AboutUs/About';
+import Footer from '../components/Footer/Footer';
+import Reviews from '../components/Reviews/Reviews';
+
 
 function Home() {
     return (
@@ -12,6 +14,7 @@ function Home() {
             <ImageSlider></ImageSlider>
             <AboutUs> </AboutUs>
             <Services> </Services>
+            <Reviews></Reviews>
             <Footer></Footer>
         </>
     )

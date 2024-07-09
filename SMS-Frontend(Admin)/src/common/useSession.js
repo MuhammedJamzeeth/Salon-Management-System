@@ -18,7 +18,10 @@ const useSession = () => {
     console.log(user);
     if (user) {
       const decodedJwt = parseJWT(user.access_token);
-      // console.log(decodedJwt);
+      console.log(decodedJwt);
+      if (!decodedJwt) {
+        setSessionExpired(true);
+      }
       // console.log(decodedJwt.exp * 1000);
       console.log(Date.now());
       if (decodedJwt.exp * 1000 < Date.now()) {

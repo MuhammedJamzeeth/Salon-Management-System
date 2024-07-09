@@ -8,11 +8,12 @@ function Inventory() {
   const [selectedProduct, setSelectedProduct] = useState([]); // State variable to hold selected product
 
   useEffect(() => {
-    async function fetchServices() {
+    async function fetchProducts() {
       try {
         const response = await fetch("http://localhost:8080/getallproducts",
         {
           headers: {
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${access_token}`,
           },
         });
@@ -25,7 +26,7 @@ function Inventory() {
         console.error('Error fetching products:', error);
       }
     }
-    fetchServices();
+    fetchProducts();
   }, []);
 
   const user = localStorage.getItem("user");

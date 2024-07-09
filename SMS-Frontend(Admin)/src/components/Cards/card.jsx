@@ -1,13 +1,12 @@
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Avatar, Box, IconButton, Skeleton, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { confirmAlert } from "react-confirm-alert"; // Import react-confirm-alert module
 import "react-confirm-alert/src/react-confirm-alert.css";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { APPOINTMENT_ACTION_TYPES } from "../../constants/appointment.type";
 import { toast } from "react-toastify";
-import { format, setHours, setMinutes } from "date-fns"; // Import setHours and setMinutes from date-fns
 
 import {
   CardContainerWrapper,
@@ -34,7 +33,7 @@ const Card = ({
   const { access_token } = JSON.parse(user);
   const dispatch = useDispatch();
 
-  const checkStatus = (date, time) => {
+  const checkStatus = (date, time, isApproved) => {
     const dateAndTime = `${date} ${time}`;
     const dateTimeObj = new Date(dateAndTime);
 
@@ -45,13 +44,18 @@ const Card = ({
       currentDate.getMonth() === dateTimeObj.getMonth() &&
       currentDate.getDate() === dateTimeObj.getDate() &&
       currentDate.getHours() === dateTimeObj.getHours() &&
-      currentDate.getMinutes() >= dateTimeObj.getMinutes() + 30
+      currentDate.getMinutes() >= dateTimeObj.getMinutes() + 30 &&
+      isApproved
     ) {
       return "On Going";
-    } else if (currentDate < dateTimeObj) {
+    } else if (currentDate < dateTimeObj && isApproved) {
       return "Pending";
-    } else {
+    } else if (currentDate > dateTimeObj && isApproved) {
       return "Completed";
+    } else if (currentDate < dateTimeObj && !isApproved) {
+      return "Need to approved";
+    } else {
+      return "Expired";
     }
   };
 
@@ -210,14 +214,47 @@ const Card = ({
                   </span>
                 )}
                 <span style={{ fontSize: "11px", fontWeight: "500" }}>
-                  Status: {checkStatus(employee.date, employee.time)}
+                  Status:{" "}
+                  {checkStatus(employee.date, employee.time, employee.approved)}
                 </span>
               </CardDetails>
             )}
           </CardContainer>
           <ButtonContainer>
             {!employee.approved ? (
-              <Button onClick={() => setApprove(true, employee.id)}>
+              <Button
+                style={{
+                  cursor:
+                    checkStatus(
+                      employee.date,
+                      employee.time,
+                      employee.approved
+                    ) === "Expired"
+                      ? "not-allowed"
+                      : "pointer",
+                  opacity:
+                    checkStatus(
+                      employee.date,
+                      employee.time,
+                      employee.approved
+                    ) === "Expired"
+                      ? 0.5
+                      : 1,
+                }}
+                onClick={() => {
+                  if (
+                    checkStatus(
+                      employee.date,
+                      employee.time,
+                      employee.approved
+                    ) === "Expired"
+                  ) {
+                    // Handle the case when status is expired
+                    return; // Do nothing or show a message
+                  }
+                  setApprove(true, employee.id);
+                }}
+              >
                 Approve
               </Button>
             ) : (

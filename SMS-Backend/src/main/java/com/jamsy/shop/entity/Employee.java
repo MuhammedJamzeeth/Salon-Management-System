@@ -7,9 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-
 
 @Entity
 @Data
@@ -42,6 +39,7 @@ public class Employee {
     private String empDateOfBirth;
     @Lob
     @Column(name = "emp_profile_photo", columnDefinition = "LONGBLOB")
-    private byte[] empProfilePhoto;
 
+    private byte[] empProfilePhoto;
+    private String empService;
 }

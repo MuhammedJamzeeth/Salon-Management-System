@@ -542,10 +542,10 @@ function ServiceComponent() {
       setServiceDateError('Service date is required');
       return;
     }else{
-      setServiceDateError('Service state is required');
+      setServiceDateError('');
     }
 
-    const service = {serviceName, serviceDesc, servicePrice,serviceDate,serviceState,categoryId: selectedCategory }
+    const service = {serviceName, serviceDesc, servicePrice,serviceDate,serviceState }
     
     //Hide form
     setShowForm(false);
@@ -592,23 +592,6 @@ function ServiceComponent() {
   const user = localStorage.getItem("user");
 
   const { access_token } = JSON.parse(user);
-
-  // const fetchCategories = async () => {
-  //   try {
-  //     const response = await fetch('http://localhost:8080/getallcategories', {
-  //       headers: {
-  //         Authorization: `Bearer ${access_token}`,
-  //       },
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error('Failed to fetch categories');
-  //     }
-  //     const data = await response.json();
-  //     setCategories(data);
-  //   } catch (error) {
-  //     console.error('Error fetching categories:', error);
-  //   }
-  // }
 
   useEffect(() => {
     async function fetchServices() {
@@ -699,16 +682,6 @@ function ServiceComponent() {
                   /> 
                   {serviceDescError && <p style={{ color: 'red' }}>{serviceDescError}</p>}
               </div>
-              {/* <div>
-                <label htmlFor="servicectegory" className="inputLabel">Service Category</label>
-                <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-                  <option value="">Select Category</option>
-                  {categories.map(category => (
-                    <option key={category.id} value={category.id}>{category.name}</option>
-                  ))}
-                </select>
-                {servicePriceError && <p style={{ color: 'red' }}>{servicePriceError}</p>}
-              </div> */}
               <div>
                 <label htmlFor="servicePrice" className="inputLabel">Service Price</label>
                 <input 

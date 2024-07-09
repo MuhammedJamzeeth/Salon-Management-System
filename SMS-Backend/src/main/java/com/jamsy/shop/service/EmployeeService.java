@@ -18,6 +18,8 @@ public interface EmployeeService {
 
     //List<Product> findAllProductsByName(String name);
 
+    List<Product> findAllProductsByName(String name);
+
     Employee updateEmployee(Long id, Employee employee);
 
 

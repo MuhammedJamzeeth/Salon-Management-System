@@ -38,9 +38,11 @@ public class WebSecurityConfig{
             "/employees",
             "/employees/count",
             "/employee/{empId}",
-            "/addproduct",
+            "/addProducts",
             "/getallproducts",
             "/updateproduct/*",
+            "/updateproduct*",
+            "/updateproduct/{productId}",
             "/deleteproduct/*",
             "/getproductbyid*",
             "/deleteservice*",
@@ -54,7 +56,13 @@ public class WebSecurityConfig{
             "/addReview",
             "/review/{id}",
             "/employees/{empId}",
-            "/employeeUpdate/{empId}"
+            "/employeeUpdate/{empId}",
+            "/bookings",
+            "/api/financial",
+            "/api/financial/total-amount",
+            "/api/financial/{orderId}",
+            "/api/financial/report"
+
 
     };
     private final JwtAuthenticationFilter jwtAuthFilter;

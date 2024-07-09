@@ -23,7 +23,10 @@ public class Product {
     private double productPrice;
     private String productCategory;
     private String expirationDate;
-    private String productStatus;
+
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] productImage;
 
 }
 

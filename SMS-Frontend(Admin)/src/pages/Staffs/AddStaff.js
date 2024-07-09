@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './AddStaff.css';
 
 const AddStaff = ({ updateCount }) => {
+    const getCurrentDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
     const [formInput, setFormInput] = useState({
         firstName: '',
         lastName: '',
@@ -13,9 +21,10 @@ const AddStaff = ({ updateCount }) => {
         address: '',
         mNumber: '',
         gender: '',
-        joiningDate: '',
+        joiningDate: getCurrentDate(),
         dateOfBirth: '',
-        profilePhoto: null
+        profilePhoto: null,
+        service: '' 
     });
 
     const [error, setError] = useState({
@@ -29,6 +38,24 @@ const AddStaff = ({ updateCount }) => {
         joiningDate: '',
         dateOfBirth: ''
     });
+
+    const [services, setServices] = useState([]); 
+
+    useEffect(() => {
+        
+        const fetchServices = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/getallservices');
+                setServices(response.data);
+            } catch (error) {
+                console.error('Error fetching services:', error);
+                toast.error('Failed to fetch services', {
+                    position: 'top-right'
+                });
+            }
+        };
+        fetchServices();
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -55,8 +82,8 @@ const AddStaff = ({ updateCount }) => {
 
         const newErrorState = {};
 
-        // Validate all required fields
-        const requiredFields = ['firstName', 'lastName', 'ic', 'email', 'address', 'mNumber', 'gender', 'joiningDate', 'dateOfBirth'];
+        
+        const requiredFields = ['firstName', 'lastName', 'ic', 'email', 'address', 'mNumber', 'gender', 'joiningDate', 'dateOfBirth', 'service'];
 
         let hasError = false;
 
@@ -64,36 +91,36 @@ const AddStaff = ({ updateCount }) => {
             if (!formInput[field]) {
                 newErrorState[field] = `Please enter ${field === 'mNumber' ? 'a valid 10-digit' : 'this'} ${field}`;
                 hasError = true;
-                toast.warning(`All field must required`, {
-                    position: 'top-center'
+                toast.warning(`All fields are required`, {
+                    position: 'top-right'
                 });
             }
         });
 
-        // Validate Mobile Number
+        
         const isValidMobileNumber = /^[0-9]{10}$/.test(formInput.mNumber);
         if (!isValidMobileNumber) {
             newErrorState.mNumber = 'Please enter a valid 10-digit mobile number';
             hasError = true;
         }
 
-        // Validate NIC Number
-        const isValidNIC = /^[0-9]{9}[vVxX]$/.test || /^[0-9]{12}$/.test(formInput.ic);
+     
+        const isValidNIC = /^[0-9]{9}[vVxX]$/.test(formInput.ic) || /^[0-9]{12}$/.test(formInput.ic);
         if (!isValidNIC) {
             newErrorState.ic = 'Please enter a valid NIC number (e.g., 123456789V)';
             hasError = true;
-            toast.error(`Please enter a valid NIC number (e.g., 123456789V)`, {
-                position: 'top-center'
+            toast.error('Please enter a valid NIC number (e.g., 123456789V)', {
+                position: 'top-right'
             });
         }
 
-        // Validate Email
+      
         const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formInput.email);
         if (!isValidEmail) {
             newErrorState.email = 'Please enter a valid email address';
             hasError = true;
-            toast.error(`Please enter a valid email address`, {
-                position: 'top-center'
+            toast.error('Please enter a valid email address', {
+                position: 'top-right'
             });
         }
 
@@ -105,7 +132,7 @@ const AddStaff = ({ updateCount }) => {
         try {
             await saveStaff();
             toast.success(`${formInput.firstName} ${formInput.lastName}'s data has been added`, {
-                position: 'top-center'
+                position: 'top-right'
             });
             setFormInput({
                 firstName: '',
@@ -115,17 +142,18 @@ const AddStaff = ({ updateCount }) => {
                 address: '',
                 mNumber: '',
                 gender: '',
-                joiningDate: '',
+                joiningDate: getCurrentDate(),
                 dateOfBirth: '',
-                profilePhoto: null
+                profilePhoto: null,
+                service: ''
             });
 
-            // Update the count after successful addition
+          
             updateCount();
         } catch (error) {
             console.error('Error saving staff:', error);
             toast.error('Failed to save staff', {
-                position: 'top-center'
+                position: 'top-right'
             });
         }
     };
@@ -142,6 +170,7 @@ const AddStaff = ({ updateCount }) => {
         formData.append('empJoiningDate', formInput.joiningDate);
         formData.append('empDateOfBirth', formInput.dateOfBirth);
         formData.append('empProfilePhoto', formInput.profilePhoto);
+        formData.append('empService', formInput.service); 
 
         try {
             const response = await axios.post('http://localhost:8080/employee', formData, {
@@ -149,7 +178,7 @@ const AddStaff = ({ updateCount }) => {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log('Response:', response.data); 
+            console.log('Response:', response.data);
         } catch (error) {
             console.error('Error saving staff:', error);
             throw new Error('Failed to save staff.');
@@ -276,6 +305,25 @@ const AddStaff = ({ updateCount }) => {
                                 />
                                 {error.dateOfBirth && <div className="text-danger">{error.dateOfBirth}</div>}
                             </div>
+                           
+                            <div className='form-group mb-2'>
+                                <label className='form-label'>Service:</label>
+                                <select
+                                    name='service'
+                                    value={formInput.service}
+                                    className='form-control'
+                                    onChange={handleInputChange}
+                                >
+                                    <option value=''>Select Service</option>
+                                    {services.map((service) => (
+                                        <option key={service.id} value={service.serviceName}>
+                                            {service.serviceName}
+                                        </option>
+                                    ))}
+                                </select>
+                                {error.service && <div className="text-danger">{error.service}</div>}
+                            </div>
+
                             <div className='form-group mb-2'>
                                 <label className='form-label'>Profile Photo:</label>
                                 <input
