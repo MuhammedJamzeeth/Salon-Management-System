@@ -9,8 +9,8 @@ const Profile = ({ name, date, imageUrl }) => {
         <img src={imageUrl || profileImage} alt="Profile" />
       </div>
       <div className="name-user">
-        <strong>{name}</strong>
-        <span>{date}</span>
+        <strong>{name} </strong>
+        <span>{date} </span>
       </div>
     </div>
   );

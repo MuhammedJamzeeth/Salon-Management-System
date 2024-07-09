@@ -48,7 +48,7 @@ const ContactPage = () => {
         };
 
         try {
-            await axios.post('http://localhost:8080/api/contact', contactDetails);
+            await axios.post('http://localhost:8080/contact', contactDetails);
             alert('Message sent successfully!');
             setName('');
             setEmail('');
