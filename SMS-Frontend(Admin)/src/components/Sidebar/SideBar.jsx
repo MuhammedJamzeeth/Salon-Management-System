@@ -73,7 +73,7 @@ const SideBar = ({ isOpen, toggleSideBar }) => {
         />
         <SideBarItems
           to={"settings"}
-          title={"Settings"}
+          title={"Contact"}
           Icon={<SettingsIcon />}
         />
       </SideBarItemWrapper>

@@ -1,0 +1,180 @@
+/* Container styles */
+.form-containerss {
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(255, 156, 250, 0.5);
+    background-color: #e5eaff37;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 8px;
+}
+.form-containerss form {
+    width: 100%;
+}
+.form-container-11,
+.form-container-2 {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 5px;
+    flex: 1; /* Each div will take equal space */
+    padding: 10px; /* Add padding for spacing */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Button container */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    /* width: 100%; */
+    margin-top: 20px;
+}
+
+.button-container button {
+    margin-left: 10px; /* Add spacing between buttons */
+}
+
+/* Add button style */
+.Addbtn1 {
+    background-color: #48C9B0 ;
+    color: white;
+    width: 300px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Cancel button style */
+.Cancelbtn1 {
+    background-color: #E74C3C;
+    color: white;
+    width: 300px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.Updatebtn1{
+    background-color: #283747;
+    color: white;
+    width: 300px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+/* Button hover effect */
+button:hover {
+    opacity: 0.8;
+}
+
+/* Additional styling for labels and inputs */
+.form-containerss label {
+    padding-right: 15px;
+    padding-left: 10px;
+}
+
+.form-containerss input {
+    width: auto;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Adjust input widths as needed */
+.form-container-11 input[type="text"],
+.form-container-11 input[type="number"] {
+    width: calc(100% - 20px); /* Subtract padding and borders */
+}
+
+
+.select1 {
+    /* Set width of the dropdown list */
+    width: 200px;
+    /* Set height of the dropdown list */
+    height: 40px;
+    /* Set font size of the options */
+    font-size: 16px;
+    /* Set border style */
+    border: 1px solid #ccc;
+    /* Add padding */
+    padding: 5px;
+    /* Add some space around the text */
+    margin: 5px;
+}
+
+/* Style for the dropdown arrow */
+select1::-ms-expand {
+    display: none;
+}
+
+/* Style for the options */
+option {
+    /* Set background color */
+    background-color: #fff;
+    /* Set text color */
+    color: #333;
+}
+
+/* Style for the selected option */
+option:checked {
+    /* Change background color of selected option */
+    background-color: #f0f0f0;
+}
+
+.ide {
+    width: 100px; /* Adjust the width as needed */
+}
+
+
+.smallSelect {
+    min-width: 100px; /* Adjust the width as needed */
+}
+
+
+/* jwdwdwd */
+
+
+.form-container-11 {
+    display: flex; /* Use flexbox for layout */
+    flex-wrap: wrap; /* Allow wrapping of form elements */
+}
+
+.form-group11 {
+    display: flex; /* Use flexbox for layout */
+    margin-bottom: 5px; /* Add space between form groups */
+}
+
+.form-group11 > .div23 {
+    margin-right: 200px;
+    /* Add space between form elements */
+}
+
+/* Adjust the width of the select box */
+#demo-simple-select {
+    width: 250px;
+}
+
+/* Adjust the width and height of the input field for the employee ID */
+input[type="text"] {
+    width: 450px;
+    height: 43px;
+}
+@media screen and (max-width: 768px) {
+    .form-group11 > div {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+        width: 100%;
+    }
+}

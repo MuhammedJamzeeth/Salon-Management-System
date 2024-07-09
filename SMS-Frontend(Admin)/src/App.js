@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+  import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import Register from "./pages/auth/Register";
@@ -20,6 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import TestimonialsPage from "./pages/Reviews/TestimonialsPage";
 import Financial from "./pages/Financials/Financial";
 import Attendance from "./pages/Attendence/Attendance";
+import Contact from "./pages/Contact/Contact";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ function App() {
           <Route path="reviews" element={<TestimonialsPage />} />
           <Route path="finances" element={<Financial />} />
           <Route path="attendance" element={<Attendance />} />
+          <Route path="settings" element={<Contact />} />
         </Route>
 
         <Route

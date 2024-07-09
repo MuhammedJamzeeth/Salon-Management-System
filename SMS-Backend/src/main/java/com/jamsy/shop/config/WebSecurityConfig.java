@@ -59,8 +59,12 @@ public class WebSecurityConfig{
             "/employeeUpdate/{empId}",
             "/appointment/view/{id}",
             "contact",
-            "/bookings"
+            "/bookings",
             "/contacts",
+            "/addattendance",
+            "/viewattendance",
+            "/deleteattendance/{AttId}",
+            "/updateattendance",
 
 
     };

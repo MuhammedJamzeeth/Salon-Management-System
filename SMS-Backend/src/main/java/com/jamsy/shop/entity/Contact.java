@@ -24,6 +24,7 @@ public class Contact {
     private String email;
     private String phoneNumber;
     private String message;
+    private String date;
 
 
 }
