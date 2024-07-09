@@ -87,7 +87,7 @@
 }
 
 .container .card_item .gitDetail {
-	font-size: 14px;
+	font-size: 18px;
 	line-height: 24px;
 	color: #7b8ca0;
 	display: flex;
@@ -106,7 +106,7 @@
 	/* border: 2px solid #c7e6fa; */
 	background-color: #f0ebfa;
 	border-radius: 50px;
-	font-size: 10px;
+	font-size: 15px;
 	font-weight: 600;
 	color: #788697;
 }
@@ -169,7 +169,7 @@
 
 }
 
-/* Staff.css */
+
 
 /* .deleteBtn {
     background-color: red;
@@ -198,7 +198,7 @@
 	box-shadow: 0 10px 10px hsl(225, 100%, 94%);
 }
 
-/* Modal styles */
+
 .modal-content {
     border-radius: 10px;
 	
@@ -230,7 +230,7 @@
 }
 
 
-/* Input styles */
+
 input[type="text"] {
     width: 100%;
     padding: 8px;
@@ -246,7 +246,7 @@ input[type="text"]:focus {
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-/* Button styles */
+
 .btn-secondary {
     background-color: #6c757d;
     color: white;
@@ -256,6 +256,68 @@ input[type="text"]:focus {
     background-color: #5a6268;
 }
 
+.employee-modal {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.employee-details,
+.employee-appointments {
+    flex: 1;
+    /* background: #f8f9fa; */
+    padding: 20px;
+    border-radius: 10px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+}
+
+.employee-details b,
+.employee-appointments b {
+    font-size: 1.2em;
+    color: #333;
+}
+
+.employee-details p,
+.employee-appointments p {
+    margin-bottom: 10px;
+    font-size: 1em;
+    color: #555;
+
+}
+
+.employee-appointments .appointment-item {
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.employee-appointments .appointment-item p {
+    margin: 0;
+}
+
+/* .modal-footer {
+    justify-content: flex-start;
+    padding: 15px;
+	
+}
+
+.modal-footer .updateBtn {
+    margin-right: 10px;
+
+} */
+
+.modal-footer.closeButton {
+    background-color: #6c757d; /* Gray color */
+    color: #fff; /* Text color */
+    border-color: #6c757d; /* Border color */
+}
+
+.closeButton:hover {
+    background-color: #495057; /* Darker gray on hover */
+    border-color: #495057; /* Darker gray border on hover */
+}
 
 
 

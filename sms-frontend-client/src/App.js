@@ -1,10 +1,10 @@
 import React from "react";
-import Home from "./pages/Home";
+import Home from "./Pages/Home";
 import { Route, Routes,Navigate } from "react-router-dom";
-import ServicesPage from "./pages/ServicesPage";
-import AboutUsPage from "./pages/AboutUsPage";
-import BookingService from "./pages/BookingService/BookingService";
-import {BarberShopServiceDetails} from "./pages/service";
+import ServicesPage from "./Pages/ServicesPage";
+import AboutUsPage from "./Pages/AboutUsPage";
+import BookingService from "./Pages/BookingService/BookingService";
+import {BarberShopServiceDetails} from "./Pages/service";
 
 function App() {
   return (

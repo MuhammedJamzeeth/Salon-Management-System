@@ -22,7 +22,7 @@ const EmployeeCount = ({ updateCount }) => {
         };
 
         fetchEmployeeCount();
-    }, [updateCount]); 
+    }, [updateCount]);
 
     return (
         <h1 style={{ color: "red" }}>{employeeCount}</h1>
@@ -43,8 +43,9 @@ const calculateAge = (dob) => {
 const EmployeeDetails = ({ updateCount }) => {
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
+    const [selectedEmployeeAppointments, setSelectedEmployeeAppointments] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const [errors, setErrors] = useState({}); 
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         const fetchEmployeeDetails = async () => {
@@ -58,10 +59,17 @@ const EmployeeDetails = ({ updateCount }) => {
         };
 
         fetchEmployeeDetails();
-    }, [updateCount]); 
+    }, [updateCount]);
 
-    const handleSeeMore = (selectedEmp) => {
+    const handleSeeMore = async (selectedEmp) => {
         setSelectedEmployee(selectedEmp);
+        try {
+            const response = await fetch(`http://localhost:8080/appointments/${selectedEmp.empId}`);
+            const data = await response.json();
+            setSelectedEmployeeAppointments(data);
+        } catch (error) {
+            console.error('Error fetching employee appointments:', error);
+        }
         setShowModal(true);
     };
 
@@ -79,7 +87,7 @@ const EmployeeDetails = ({ updateCount }) => {
                             });
                             if (response.ok) {
                                 setEmployees(employees.filter(emp => emp.empId !== empId));
-                                updateCount(); 
+                                updateCount();
                                 toast.success(`${empName} has been deleted successfully`, {
                                     position: 'top-right'
                                 });
@@ -98,7 +106,6 @@ const EmployeeDetails = ({ updateCount }) => {
     };
 
     const handleUpdateEmployee = async () => {
-        
         const validationErrors = {};
         if (!selectedEmployee.empFirstName) {
             validationErrors.firstName = "First name is required";
@@ -119,7 +126,6 @@ const EmployeeDetails = ({ updateCount }) => {
             toast.error(`Email is required`, {
                 position: 'top-right'
             });
-
         } else if (!/\S+@\S+\.\S+/.test(selectedEmployee.empEmail)) {
             validationErrors.email = "Email is invalid";
             toast.error(`Email is invalid`, {
@@ -149,12 +155,10 @@ const EmployeeDetails = ({ updateCount }) => {
                     body: JSON.stringify(selectedEmployee)
                 });
                 if (response.ok) {
-                    console.log("Employee details updated successfully!");
-                    updateCount(); 
+                    updateCount();
                     setShowModal(false);
-                    
                     setSelectedEmployee(null);
-                    
+                    setErrors({}); // Clear errors after successful update
                     toast.success(`${selectedEmployee.empFirstName} ${selectedEmployee.empLastName}'s data has been updated`, {
                         position: 'top-right'
                     });
@@ -163,7 +167,6 @@ const EmployeeDetails = ({ updateCount }) => {
                 console.error('Error updating employee details:', error);
             }
         } else {
-            
             setErrors(validationErrors);
         }
     };
@@ -174,7 +177,7 @@ const EmployeeDetails = ({ updateCount }) => {
             ...prevEmployee,
             [name]: value
         }));
-      
+
         setErrors(prevErrors => ({
             ...prevErrors,
             [name]: ''
@@ -191,9 +194,7 @@ const EmployeeDetails = ({ updateCount }) => {
                             <div className="userName">{curEmployee.empFirstName}</div>
                             <div className="userUrl">{curEmployee.empLastName}</div>
                             <div className="detail-box">
-                                <div className="gitDetail"><span>Task</span>12</div>
-                                <div className="gitDetail"><span>Finished</span>12</div>
-                                <div className="gitDetail"><span>Remainder</span>12</div>
+                                <div className="gitDetail"><span>Specialist</span>{curEmployee.empService}</div>
                             </div>
                             <button className="seeMore" onClick={() => handleSeeMore(curEmployee)}>See More</button>
                             <button className="deleteBtn" onClick={() => handleDeleteEmployee(curEmployee.empId, `${curEmployee.empFirstName} ${curEmployee.empLastName}`)}>Delete</button>
@@ -203,57 +204,73 @@ const EmployeeDetails = ({ updateCount }) => {
             ) : (
                 <p>No employee details available</p>
             )}
-            
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
+
+            <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title>Employee Details</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {selectedEmployee && (
-                        <div>
-                            <b>
-                                <p>Name: 
-                                    <input type="text" name="empFirstName" value={selectedEmployee.empFirstName} onChange={handleChange} />
-                                    {errors.firstName && <div className="text-danger">{errors.firstName}</div>} 
-                                    <input type="text" name="empLastName" value={selectedEmployee.empLastName} onChange={handleChange} />
-                                    {errors.lastName && <div className="text-danger">{errors.lastName}</div>}
-                                </p>
-                                <p>Email: 
-                                    <input type="text" name="empEmail" value={selectedEmployee.empEmail} onChange={handleChange} />
-                                    {errors.email && <div className="text-danger">{errors.email}</div>}
-                                </p>
-                                <p>Address: 
-                                    <input type="text" name="empAddress" value={selectedEmployee.empAddress} onChange={handleChange} />
-                                </p>
-                                <p>Phone Number:
-                                    <input type="text" name="empPhone" value={selectedEmployee.empPhone} onChange={handleChange} />
-                                    {errors.phone && <div className="text-danger">{errors.phone}</div>} 
-                                </p>
-                             
-                                <p>
-                                    Age:
-                                    <input type="text" name="empGender" value={selectedEmployee.empDateOfBirth && calculateAge(selectedEmployee.empDateOfBirth)}/>
-                                     
-                                </p>
-                                <p>
-                                    Gender:
-                                    <input type="text" name="empGender" value={selectedEmployee.empGender} />
-                                </p>
-                                <p>
-                                    NIC:
-                                    <input type="text" name="empIc" value={selectedEmployee.empIc} />
-                                </p>
-                            </b>
+                        <div className="employee-modal">
+                            <div className="employee-details">
+                                <b>
+                                    <p>Name:
+                                        <input type="text" name="empFirstName" value={selectedEmployee.empFirstName} onChange={handleChange} />
+                                        {errors.firstName && <div className="text-danger">{errors.firstName}</div>}
+                                        <input type="text" name="empLastName" value={selectedEmployee.empLastName} onChange={handleChange} />
+                                        {errors.lastName && <div className="text-danger">{errors.lastName}</div>}
+                                    </p>
+                                    <p>Email:
+                                        <input type="text" name="empEmail" value={selectedEmployee.empEmail} onChange={handleChange} />
+                                        {errors.email && <div className="text-danger">{errors.email}</div>}
+                                    </p>
+                                    <p>Address:
+                                        <input type="text" name="empAddress" value={selectedEmployee.empAddress} onChange={handleChange} />
+                                    </p>
+                                    <p>Phone Number:
+                                        <input type="text" name="empPhone" value={selectedEmployee.empPhone} onChange={handleChange} />
+                                        {errors.phone && <div className="text-danger">{errors.phone}</div>}
+                                    </p>
+                                    <p>Age:
+                                        <input type="text" name="empAge" value={selectedEmployee.empDateOfBirth && calculateAge(selectedEmployee.empDateOfBirth)} readOnly />
+                                    </p>
+                                    <p>Gender:
+                                        <input type="text" name="empGender" value={selectedEmployee.empGender} onChange={handleChange} />
+                                    </p>
+                                    <p>NIC:
+                                        <input type="text" name="empIc" value={selectedEmployee.empIc} onChange={handleChange} />
+                                    </p>
+                                </b>
+                                
+                            </div>
+                            <div className="employee-appointments">
+                                <h5>Appointments</h5>
+                                {selectedEmployeeAppointments.length > 0 ? (
+                                    selectedEmployeeAppointments.map((appointment) => (
+                                        <div key={appointment.id} className="appointment-item">
+                                            <p>Date: {appointment.date}</p>
+                                            <p>Time: {appointment.time}</p>
+                                            <p>Service: {appointment.service}</p>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p>No appointments available</p>
+                                )}
+                            </div>
                         </div>
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowModal(false)} name='but'>
+                    <Button variant="secondary" onClick={() => setShowModal(false)} >
                         Close
                     </Button>
                     <Button variant="primary" onClick={handleUpdateEmployee}>
                         Update
                     </Button>
+                    {/* <Button className="closeButton" onClick={() => setShowModal(false)}>
+                    Close
+                    </Button> */}
+                    
                 </Modal.Footer>
             </Modal>
         </div>
@@ -262,14 +279,14 @@ const EmployeeDetails = ({ updateCount }) => {
 
 const Staff = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [updateCount, setUpdateCount] = useState(false); 
+    const [updateCount, setUpdateCount] = useState(false);
 
     const setOpen = () => {
         setIsOpen(!isOpen);
     };
 
     const handleUpdateCount = () => {
-        setUpdateCount(!updateCount); 
+        setUpdateCount(!updateCount);
     };
 
     return (
@@ -290,7 +307,6 @@ const Staff = () => {
                 <React.Fragment>
                     <div className='employee-details-container'>
                         <div className='employee-details'>
-                            
                         </div>
                         <div className='employee-add'>
                             <Button style={{ background: "red" }} className='button' onClick={setOpen}>Close</Button>
