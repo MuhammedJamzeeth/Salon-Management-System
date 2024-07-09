@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -24,12 +24,8 @@ public class ServiceEntity {
 
     private String serviceName;
     private String serviceDesc;
-    private double servicePrice;
+    private Double servicePrice;
     private String serviceState;
-    private Date serviceDate;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "category_id", nullable = false)
-//    private ServiceCategory serviceCategory;
+    private LocalDate serviceDate;
 }
 
