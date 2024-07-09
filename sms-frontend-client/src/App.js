@@ -1,5 +1,5 @@
 import React from "react";
-import Home from "./pages/Home";
+import Home from "./Pages/Home";
 import { Route, Routes,Navigate } from "react-router-dom";
 
 import BookingService from "./pages/BookingService/BookingService";
