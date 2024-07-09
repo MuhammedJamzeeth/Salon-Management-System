@@ -5,32 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4da623bd-a12b-4ba0-9dd7-aa1595647d85" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/config/CorsConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/controller/BookingController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/model/BookingDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/service/BookingService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/service/FinancialReportService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/resources/FinancialReport.jrxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SMS-Backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SMS-Backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/controller/FinancialController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/controller/FinancialController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/entity/Financial.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/entity/Financial.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/service/FinancialService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/service/FinancialService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SMS-Backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Finances/Header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Finances/Header/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Finances/Header/Header.style.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Finances/Header/Header.style.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Finances/TableFinances/TableFinance.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Finances/TableFinances/TableFinance.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Appoinments/Appoinment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Appoinments/Appoinment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Financials/Financial.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Financials/Financial.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../sms-frontend-client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sms-frontend-client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sms-frontend-client/src/Pages/BookingService/BookingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Pages/BookingService/BookingService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../sms-frontend-client/src/hooks/use.auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sms-frontend-client/src/hooks/use.auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sms-frontend-client/src/pages/BookingService/BookingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sms-frontend-client/src/pages/BookingService/BookingService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,22 +29,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "development",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.3.4\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.3.4\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactBuddySettings">
     <option name="extensionsIgnore" value="true" />
   </component>
@@ -78,6 +56,13 @@
         <entry key="com.intellij.reactbuddy.storybook" value="false" />
       </map>
     </option>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.18034.50" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -92,6 +77,7 @@
       <workItem from="1720321157948" duration="2266000" />
       <workItem from="1720413444256" duration="936000" />
       <workItem from="1720512492144" duration="12508000" />
+      <workItem from="1720541545839" duration="1788000" />
     </task>
     <servers />
   </component>

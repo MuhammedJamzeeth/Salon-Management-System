@@ -182,7 +182,7 @@ const BookService = () => {
                         />
                         <TextField
                             fullWidth
-                            type="email"
+                            type="text"
                             size="small"
                             label="Email"
                             name="email"

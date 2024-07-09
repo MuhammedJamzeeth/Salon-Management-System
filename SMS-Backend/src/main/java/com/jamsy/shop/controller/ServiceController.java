@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@CrossOrigin
+
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ServiceController {
     @Autowired
      ServiceService serviceService;
