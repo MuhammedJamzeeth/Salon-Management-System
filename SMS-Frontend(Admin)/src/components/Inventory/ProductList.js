@@ -53,21 +53,25 @@ const ProductList = ({ products, onDeleteProduct, onEdit }) => {
                             <th>Price</th>
                             <th>Category</th>
                             <th>Expiration Date</th>
-                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {filteredProducts.map((product) => (
                             <tr key={product.productId}>
-                                <td>{product.productImage}</td>
+                                <td>
+                                    <img
+                                        src={`data:image/jpeg;base64,${product.productImage}`}
+                                        alt='abc'
+                                        style={{ width: '70px', height: '70px', borderRadius: '30px' }}
+                                    />
+                                </td>
                                 <td>{product.productId}</td>
                                 <td>{product.productName}</td>
                                 <td>{product.productQty}</td>
                                 <td>Rs. {product.productPrice}</td>
                                 <td>{product.productCategory}</td>
                                 <td>{product.expirationDate}</td>
-                                <td>{product.productStatus}</td>
                                 <td>
                                     <button className="edit-btn" onClick={() => onEdit(product.productId)}>Edit</button>
                                     <button className="delete-btn" onClick={() => handleDeleteProduct(product.productId)}>Delete</button>

@@ -6,14 +6,24 @@ import AboutUsPage from "./pages/AboutUsPage";
 import BookingService from "./pages/BookingService/BookingService";
 import {BarberShopServiceDetails} from "./pages/service";
 
+
+import BookingService from "./pages/BookingService/BookingService";
+import {BarberShopServiceDetails} from "./pages/service";
+
+import ServicesPage from "./pages/ServicesPage";
+import AboutUsPage from "./pages/AboutUsPage";
+import PersonPage from "./pages/PersonPage";
+
+
+
+
+
 function App() {
   return (
     <div className="App">
       <React.Fragment>
       <Routes>
         <Route path="/" element={<Home />} /> 
-        
-         */}
           <Route path="services" element={<ServicesPage/>}/> 
         
         {/* </Route> */}

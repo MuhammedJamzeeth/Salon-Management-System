@@ -81,7 +81,6 @@ public class EmployeeController {
     @DeleteMapping("/employees/{empId}")
     public void deleteEmployee(@PathVariable("empId") Long id){
         employeeRepository.deleteById(id);
-
     }
 
     @PutMapping("/employeeUpdate/{empId}")
@@ -89,6 +88,4 @@ public class EmployeeController {
         System.out.println("Successfully Updated..!!!");
         return employeeService.updateEmployee(id,employee);
     }
-
-
 }

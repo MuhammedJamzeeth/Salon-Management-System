@@ -5,6 +5,8 @@ import com.jamsy.shop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -19,32 +21,47 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product saveProduct(Product product) {
+    public Product saveProduct(String productName, Double productPrice, Integer productQty, String productCategory, String expirationDate, byte[] productImage) {
         Product p = new Product();
-        String productState = calculateProductState(product.getProductQty());
-        p.setProductName(product.getProductName());
-        p.setProductPrice(product.getProductPrice());
-        p.setProductQty(product.getProductQty());
-        p.setProductCategory(product.getProductCategory());
-        p.setExpirationDate(product.getExpirationDate());
-        p.setProductImage(product.getProductImage());
-        p.setProductStatus(productState);
+        p.setProductName(productName);
+        p.setProductPrice(productPrice);
+        p.setProductQty(productQty);
+        p.setProductCategory(productCategory);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(expirationDate, formatter);
+        p.setExpirationDate(String.valueOf(date));
+        p.setProductImage(productImage);
 
         return productRepository.save(p);
     }
 
-    // Helper method to calculate productState based on productQuantity
-    private String calculateProductState(int productQuantity) {
-        // Logic to determine productState based on productQuantity
-        if (productQuantity >= 0 && productQuantity <= 5) {
-            return "Out of Stock";
-        } else if (productQuantity >= 6 && productQuantity <= 15) {
-            return "Running Low";
-        } else if (productQuantity >= 16 && productQuantity <= 25) {
-            return "Full";
-        }else {
-            return "Over Stock";
+    @Override
+    public Product updateProduct(Long id, String productName, Double productPrice, Integer productQty, String productCategory, String expirationDate, byte[] productImage) {
+        Product existingProduct = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Product with id " + id + " not found"));
+
+        if (productName != null) {
+            existingProduct.setProductName(productName);
         }
+        if (productCategory != null) {
+            existingProduct.setProductCategory(productCategory);
+        }
+        if (productQty != null) {
+            existingProduct.setProductQty(productQty);
+        }
+        if (productPrice != null) {
+            existingProduct.setProductPrice(productPrice);
+        }
+        if (expirationDate != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date = LocalDate.parse(expirationDate, formatter);
+            existingProduct.setExpirationDate(String.valueOf(date));
+        }
+        if (productImage != null) {
+            existingProduct.setProductImage(productImage);
+        }
+
+        return productRepository.save(existingProduct);
     }
 
     @Override
@@ -54,37 +71,5 @@ public class ProductServiceImpl implements ProductService {
         }else {
             throw new IllegalArgumentException("Product not found");
         }
-    }
-
-    @Override
-    public Product updateProduct(Long id, Product updatedProduct) {
-        Product existingProduct = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("service with id " + id + " not found"));
-        // Calculate productState based on updated productQuantity
-        //String productState = calculateProductState(updatedProduct.getProductQty());
-
-        if (updatedProduct.getProductName() != null) {
-            existingProduct.setProductName(updatedProduct.getProductName());
-        }
-        if (updatedProduct.getProductCategory() != null) {
-            existingProduct.setProductCategory(updatedProduct.getProductCategory());
-        }
-        if (updatedProduct.getProductQty() != 0) {
-            existingProduct.setProductQty(updatedProduct.getProductQty());
-        }
-        if (updatedProduct.getProductPrice() != 0) {
-            existingProduct.setProductPrice(updatedProduct.getProductPrice());
-        }
-        if (updatedProduct.getExpirationDate() != null) {
-            existingProduct.setExpirationDate(updatedProduct.getExpirationDate());
-        }
-        if(updatedProduct.getProductImage() != null){
-            existingProduct.setProductImage(updatedProduct.getProductImage());
-        }
-        // Set productState based on calculation
-        if (updatedProduct.getProductStatus() != null){
-            existingProduct.setProductStatus(calculateProductState(updatedProduct.getProductQty()));
-        }
-
-        return productRepository.save(existingProduct);
     }
 }
