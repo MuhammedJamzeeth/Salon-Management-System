@@ -47,19 +47,19 @@ const BookService = () => {
     const navigate = useNavigate();
     const [selectedStylist, setSelectedStylist] = useState("");
     const [paymentMethod, setPaymentMethod] = useState("");
+    const [serviceList, setServiceList] = useState([]);
+    const [totalAmount, setTotalAmount] = useState(0);
 
     const { handleInput, formInput, setFormInput } = useInputHandler(InitialState);
 
-    const { booking, error, setError } = useAuthHandler(formInput, selectedStylist, paymentMethod);
+    const { success, setSuccess, booking, error, setError } = useAuthHandler(formInput, selectedStylist, paymentMethod, serviceList, totalAmount);
 
     // Define dummy cart items
     const [CartItems, setCartItems] = useState([]);
-    const [totalAmount, setTotalAmount] = useState(0);
-    const [serviceList, setServiceList] = useState([]);
 
     useEffect(() => {
 
-        formInput.date = value.format("YYYY-MM-DD HH:mm:ss");
+        formInput.date = value.format("MMMM D, YYYY h:mm A");
         // Use dummy data for testing
         const fetchStylist = async () => {
             try {
@@ -86,7 +86,7 @@ const BookService = () => {
     }, []);
 
     const handleDateChange = (date) => {
-        formInput.date = date.format("YYYY-MM-DD HH:mm:ss");
+        formInput.date = date.format("MMMM D, YYYY h:mm A");
         console.log(formInput.date)
     };
 
@@ -158,6 +158,15 @@ const BookService = () => {
                             severity="error"
                         >
                             {error}
+                        </Alert>
+                    )}
+                    {success && (
+                        <Alert
+                            onClose={() => setSuccess("")}
+                            sx={{ margin: "10px", width: "100%" }}
+                            severity="success"
+                        >
+                            {success}
                         </Alert>
                     )}
                     <Form onSubmit={booking}>

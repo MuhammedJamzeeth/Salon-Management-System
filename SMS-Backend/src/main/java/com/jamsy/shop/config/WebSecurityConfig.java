@@ -57,6 +57,11 @@ public class WebSecurityConfig{
             "/review/{id}",
             "/employees/{empId}",
             "/employeeUpdate/{empId}",
+            "/bookings",
+            "/api/financial",
+            "/api/financial/total-amount",
+            "/api/financial/{orderId}",
+            "/api/financial/report"
 
 
     };

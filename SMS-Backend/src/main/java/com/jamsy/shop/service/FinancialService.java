@@ -29,4 +29,16 @@ public class FinancialService {
     public void deleteFinancial(Long id) {
         financialRepository.deleteById(id);
     }
+
+    public Double getTotalAmount() {
+        List<Financial> financials = financialRepository.findAll();
+        return financials.stream().mapToDouble(Financial::getAmount).sum();
+    }
+
+    public Financial updateMoneyReceived(Long orderID, boolean moneyReceived, String paymentStatus) {
+        Financial record = financialRepository.findById(orderID).orElseThrow(() -> new RuntimeException("Record not found"));
+        record.setMoneyReceived(moneyReceived);
+        record.setPaymentStatus(paymentStatus);
+        return financialRepository.save(record);
+    }
 }

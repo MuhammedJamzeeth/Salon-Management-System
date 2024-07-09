@@ -2,76 +2,105 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-const useAuthHandler = (formInput, selectedStylist, paymentMethod) => {
+const useAuthHandler = (formInput, selectedStylist, paymentMethod, serviceList, totalAmount) => {
     const dispatch = useDispatch();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState("");
+    const [listOfService, setListOfService] = useState([]);
 
-    const { name, email, phone, date } =
-        formInput;
+    const { name, email, phone, date } = formInput;
 
     const booking = async (event) => {
         event.preventDefault();
 
-        console.log(formInput);
+        let emptyFields = [];
+        let emptyList = [];
 
-        let emptyFileds = [];
+        if (!name) emptyFields.push("Name");
+        if (!email) emptyFields.push("Email");
+        if (!phone) emptyFields.push("Phone");
+        if (!paymentMethod) emptyFields.push("Payment Method");
+        if (!selectedStylist) emptyFields.push("Stylist");
+        if (!date) emptyFields.push("Date");
+        if (serviceList.length === 0) emptyFields.push("Please select a service");
+        if (!totalAmount) emptyFields.push("Total Amount");
 
-        if (!name) emptyFileds.push("Name");
-        if (!email) emptyFileds.push("Email");
-        if (!phone) emptyFileds.push("Phone");
-        if (!paymentMethod) emptyFileds.push("Payment Method");
-        if (!selectedStylist) emptyFileds.push("Stylist")
-        if (!date) emptyFileds.push("Date");
+        if (serviceList.length > 0) {
+            serviceList.forEach((service) => {
+                emptyList.push(service.serviceName);
+            });
+        }
 
+        if (emptyList.length > 0) {
+            setListOfService([...emptyList]);
+        }
 
-        if (emptyFileds.length > 0) {
-            setError(`${[...emptyFileds]} can't be empty`);
+        if (emptyFields.length > 0) {
+            setError(`${emptyFields.join(", ")} can't be empty`);
             return;
         } else {
             setError("");
         }
 
+        const dateTime = new Date(date);
 
-        const formDataAppointment = new FormData();
-        formDataAppointment.append("customerEmail", email);
-        formDataAppointment.append("customerName", name);
-        formDataAppointment.append("employee", selectedStylist);
-        formDataAppointment.append("pno", phone);
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        };
+        const formattedDate = dateTime.toLocaleDateString('en-US', options);
 
+        const formattedTime = dateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // "2:47 PM"
+
+
+        const bookingDetails = {
+            customerEmail: email,
+            customerName: name,
+            employee: selectedStylist,
+            pno: phone,
+            date: formattedDate,
+            time: formattedTime,
+            paymentMethod: paymentMethod,
+            services: emptyList.join(", "),
+            amount: totalAmount
+        };
 
         try {
             setLoading(true);
             const response = await axios.post(
-                "http://localhost:8080/api/v1/auth/register_shop",
-                formDataAppointment
+                "http://localhost:8080/bookings",
+                bookingDetails,
+                {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }
             );
 
-            if (
-                response.status === 201 ||
-                response.status === 200 ||
-                response.statusText === "OK"
-            ) {
-                localStorage.setItem("user", JSON.stringify(response.data));
+            if (response.status === 201 || response.status === 200) {
+                setError("");
+                console.log("Booking successful");
+                setSuccess("Booked successful");
+            } else {
+                setError("Failed to book appointment");
             }
-            const user = localStorage.getItem("user");
-            console.log(user);
-            console.log("user registered");
+
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            // console.log(error);
-            setError(error.response.data);
+            setError(error?.response?.data || "Failed to book appointment");
         }
     };
-
-
 
     return {
         booking,
         loading,
         error,
         setError,
+        setSuccess,
+        success
     };
 };
 
