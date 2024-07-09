@@ -1,7 +1,3 @@
-
-  
-  
- 
   .M-Container {
     grid-area: main;
     overflow-y: auto;
@@ -79,50 +75,13 @@
   .card:nth-child(8) {
     background-color: #4c8cf0;
   }
-
- 
-
   
   .inner-card {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    height: 65px;
-   
+    justify-content: space-between;    height: 65px;
   }
 
-  
-  
   .inner-card > .inner-card {
     font-size: 25px;
   }
-  
-  .charts {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-top: 60px;
-    height: 300px;
-  }
-
-  
-  .chart{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 1px 15px;
-    border-radius: 5px;
-  }
-
-
-.inco{
-    color: rgb(98, 98, 98);
-    text-align: center;
-}
-  
-
-.line{
-    padding: 45px;
-}
-
-  
