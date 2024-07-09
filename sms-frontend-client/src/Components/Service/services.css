@@ -1,10 +1,12 @@
 .services-container {
-    margin: 0px;
+    margin-top: 10px;
+    margin-bottom: 5px;
     padding-top: 10px;
     background: linear-gradient(180deg, #f4f4f4 0%, #699effb9 100%);
-    /* background-image: url(../Resources/servicebg.jpg); */
-    /* border-radius: 100px; */
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .service-list {
@@ -13,7 +15,7 @@
     justify-content: space-around;
     transition: max-height 0.4s ease;
     overflow: hidden;
-    padding-top: 15px;
+    padding-top: 10px;
 }
 
 .service-icon {
@@ -32,23 +34,23 @@
     margin-bottom: 20px;
     font-size: medium;
     font-weight: bold;
-    animation: colorAnimation 4s infinite alternate; /* Add animation */
+    animation: colorAnimation 4s infinite alternate; 
 }
 
 @keyframes colorAnimation {
     0% {
-        background: linear-gradient(45deg, #fa69e2, #3498db); /* Start color: green to blue */
-        color: #ffb134; /* Orange text color */
+        background: linear-gradient(45deg, #fa69e2, #3498db); 
+        color: #ffb134; 
         transform: scale(1);
     }
     50% {
-        background: linear-gradient(45deg, #9b59b6, #7fbfff); /* Middle color: purple to dark gray */
-        color: #ecf0f1; /* Light gray text color */
+        background: linear-gradient(45deg, #9b59b6, #7fbfff); 
+        color: #ecf0f1; 
         transform: scale(1.1);
     }
     100% {
-        background: linear-gradient(45deg, #61ffdf, #fcf2f2); /* End color: turquoise to dark blue */
-        color: #ffb134; /* Orange text color */
+        background: linear-gradient(45deg, #61ffdf, #fcf2f2); 
+        color: #ffb134; 
         transform: scale(1);
     }
 }
@@ -79,6 +81,7 @@
     cursor: pointer;
     text-align: center;
     margin-top: 5px;
+    font-weight: bold;
 }
 
 h2{

@@ -30,10 +30,9 @@ export default function ServiceSlider() {
                 <div className="slider-content">
                     {services.slice(currentIndex, currentIndex + 3).map((service) => (
                         <div key={service.serviceId} className="service-item">
-                            <h3>{service.serviceName}</h3>
-                            <p>{service.serviceDesc}</p>
-                            <p className="service-price">${service.servicePrice}</p>
-                            <button className="book-now-button">Book Now</button>
+                            <h3 className='h3-sname'>{service.serviceName}</h3>
+                            <p className='p-sdesc'>{service.serviceDesc}</p>
+                            <p className="service-price">Rs. {service.servicePrice}</p>
                         </div>
                     ))}
                 </div>

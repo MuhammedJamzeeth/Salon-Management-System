@@ -23,18 +23,26 @@
     overflow: hidden;
     width: 100%;
     justify-content: space-between;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
 }
 
 .service-item {
     flex: 1;
     padding: 20px;
     text-align: center;
-    background-color: #fff;
+    background-color: rgb(202, 213, 209);
     border: 2px solid #e9ecef;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin: 10px;
     transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.h3-sname , .p-sdesc, .service-price {
+    color: #2f1192;
+    background-color: antiquewhite;
+    border-radius: 25px;
 }
 
 .service-item:hover {
