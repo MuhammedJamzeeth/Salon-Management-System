@@ -5,7 +5,13 @@ import ServicesPage from "./pages/ServicesPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import BookingService from "./pages/BookingService/BookingService";
 import {BarberShopServiceDetails} from "./pages/service";
+<<<<<<< Updated upstream
 import ContactPage from "./pages/ContactPage";
+=======
+import SuccessPage from "./pages/SuccessSubmit/SuccessPage";
+
+
+>>>>>>> Stashed changes
 
 
 function App() {
@@ -29,6 +35,7 @@ function App() {
         /> */}
         <Route path={"/service"} element={<BookingService/>} />
           <Route path="/book" element={<BarberShopServiceDetails/>} />
+          <Route path="/success" element={<SuccessPage/>} />
       </Routes>
     </React.Fragment>
     </div>
