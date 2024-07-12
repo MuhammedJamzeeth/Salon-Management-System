@@ -82,3 +82,11 @@
     }
   }
   
+  /* const calculateAgeFromNIC = (nic) => {
+    const year = parseInt(nic.substring(0, 4), 10); 
+
+    const today = new Date();
+    let age = today.getFullYear() - year; 
+
+    return age;
+}; */
