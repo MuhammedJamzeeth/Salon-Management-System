@@ -61,6 +61,10 @@ public class WebSecurityConfig{
             "contact",
             "/bookings",
             "/contacts",
+            "/addattendance",
+            "/viewattendance",
+            "/deleteattendance/{AttId}",
+            "/updateattendance",
 
 
     };

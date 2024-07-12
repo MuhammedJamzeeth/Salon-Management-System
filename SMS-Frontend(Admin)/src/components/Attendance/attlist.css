@@ -1,0 +1,105 @@
+.att-list-container1 {
+    display: block;
+    justify-content: center;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    max-height: 300px; /* Adjust max height as needed */
+    overflow-y: auto;
+}
+
+.att-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.att-table th,
+.att-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+    transition: background-color 0.3s ease;
+}
+
+.att-table th {
+    position: sticky;
+    top: 0;
+    background-color: #2E4053;
+    z-index: 1;
+    color: #ddd;
+}
+
+/* Hover effect for table rows */
+.att-table tbody tr:hover {
+    background-color: #b6b5b566;
+}
+
+/* Animation for table rows */
+.att-table tbody tr {
+    transition: background-color 0.4s ease;
+}
+
+.edit-btn1,
+.delete-btn1 {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #283747;
+    color: #fff;
+    font-size: 14px;
+}
+
+.delete-btn1 {
+    background-color: #85C1E9;
+}
+
+.searchbar {
+    display: flex;
+    align-items: center;
+    margin: 10px 10px 10px 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(113, 181, 255, 0.5);
+    width: 440px;
+}
+
+.searchbar h4 {
+    margin-right: 25px;
+    padding-left: 20px;
+}
+
+.search-bar {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    font-size: 16px;
+    outline: none;
+    width: 300px;
+    transition: all 0.3s ease;
+}
+
+/* Placeholder style */
+.search-bar::placeholder {
+    color: #999;
+}
+
+/* Animation for focus */
+.search-bar:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(0, 107, 128, 0.5);
+}
+
+/* Hover effect */
+.search-bar:hover {
+    background-color: #f4f4f4;
+}
+
+/* Animation for placeholder */
+.search-bar:focus::placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
