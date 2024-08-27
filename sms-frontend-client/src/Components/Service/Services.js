@@ -38,7 +38,7 @@ function Services() {
     return (
         <>
             <div className="services-container">
-                <h2>Our Services</h2>
+                <h2>Our Services </h2>
                 <div className={`service-list ${isExpanded ? 'expanded' : ''}`}>
                     {services.slice(0, isExpanded ? services.length : 10).map((service) => (
                         <div key={service.serviceId} className="service-item">
