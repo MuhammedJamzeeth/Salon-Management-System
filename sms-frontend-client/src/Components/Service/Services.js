@@ -48,9 +48,6 @@ function Services() {
                         </div>
                     ))}
                 </div>
-                <div className="toggle-button" onClick={toggleExpand}>
-                    {isExpanded ? 'Minimize' : 'Maximize'}
-                </div>
             </div>
         </>
     );
