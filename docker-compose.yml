@@ -1,0 +1,93 @@
+version: "3.8"
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: salon-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: jamzee
+      MYSQL_DATABASE: salon_management
+      MYSQL_USER: salon_user
+      MYSQL_PASSWORD: salon_pass
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init-db:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      - salon-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Backend Application
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: salon-backend
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:mysql://mysql:3306/salon_management?useSSL=false&serverTimezone=UTC
+      DB_USERNAME: salon_user
+      DB_PASSWORD: salon_pass
+      JWT_SECRET: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      FILE_UPLOAD_DIR: /app/uploads
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - salon-network
+    volumes:
+      - backend_uploads:/app/uploads
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Admin Frontend (Optional - can be built and served separately)
+  frontend-admin:
+    build:
+      context: ./frontend-admin
+      dockerfile: Dockerfile
+    container_name: salon-admin
+    restart: unless-stopped
+    environment:
+      REACT_APP_API_URL: http://localhost:8080/api/v1
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - salon-network
+
+  # Client Frontend (Optional - can be built and served separately)
+  frontend-client:
+    build:
+      context: ./frontend-client
+      dockerfile: Dockerfile
+    container_name: salon-client
+    restart: unless-stopped
+    environment:
+      REACT_APP_API_URL: http://localhost:8080/api/v1
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend
+    networks:
+      - salon-network
+
+networks:
+  salon-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  backend_uploads:

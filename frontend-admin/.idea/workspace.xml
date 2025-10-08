@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4da623bd-a12b-4ba0-9dd7-aa1595647d85" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/exception/NotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/controller/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/controller/EmployeeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/repository/AppointmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/repository/AppointmentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/service/AppointmentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/service/AppointmentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/service/BookingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/service/BookingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/service/EmployeeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/service/EmployeeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/service/EmployeeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SMS-Backend/src/main/java/com/jamsy/shop/service/EmployeeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Attendance/Addattform.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Attendance/Addattform.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Attendance/AttendanceList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Attendance/AttendanceList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/MyDashboard/MyDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/MyDashboard/MyDashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/auth/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/auth/Register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sms-frontend-client/src/Components/Service/Services.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sms-frontend-client/src/Components/Service/Services.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sms-frontend-client/src/hooks/use.auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sms-frontend-client/src/hooks/use.auth.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2hh7DcI7tt8jE3n7dwBOiwnbFdb" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;J:/GitHub Projects/Salon-Management-System/SMS-Frontend(Admin)/src/assets&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.1.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="ReactBuddySettings">
+    <option name="extensionsIgnore" value="true" />
+  </component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.intellij.reactbuddy.reactComponents" value="false" />
+        <entry key="com.intellij.reactbuddy.reactInspector" value="false" />
+        <entry key="com.intellij.reactbuddy.storybook" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="J:\GitHub Projects\Salon-Management-System\SMS-Frontend(Admin)\src\assets" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.222" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4da623bd-a12b-4ba0-9dd7-aa1595647d85" name="Changes" comment="" />
+      <created>1718034341950</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1718034341950</updated>
+      <workItem from="1718034347577" duration="22000" />
+      <workItem from="1720320814741" duration="318000" />
+      <workItem from="1720321157948" duration="2266000" />
+      <workItem from="1720413444256" duration="936000" />
+      <workItem from="1720512492144" duration="12508000" />
+      <workItem from="1720541545839" duration="4899000" />
+      <workItem from="1720672889214" duration="598000" />
+      <workItem from="1727892729267" duration="920000" />
+      <workItem from="1730915744435" duration="101000" />
+      <workItem from="1737622632124" duration="47000" />
+      <workItem from="1737625137496" duration="129000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
