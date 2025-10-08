@@ -66,19 +66,9 @@ const EmployeeDetails = ({ updateCount }) => {
         try {
             const response = await fetch(`http://localhost:8080/appointment/view/${selectedEmp.empId}`);
             const data = await response.json();
-            
-            const filteredAppointments = data.filter(appointment => {
-                const appointmentDateTime = new Date(`${appointment.date} ${appointment.time}`);
-                return appointmentDateTime >= new Date();
-            
-            });
-            
-            filteredAppointments.sort((a, b) => {
-                if (a.time < b.time) return -1;
-                if (a.time > b.time) return 1;
-                return 0;
-            });
-            setSelectedEmployeeAppointments(filteredAppointments);
+            const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+            const todayAppointments = data.filter(appointment => appointment.date === today && appointment.status === 'approve'); // Filter today's and approved appointments
+            setSelectedEmployeeAppointments(todayAppointments);
         } catch (error) {
             console.error('Error fetching employee appointments:', error);
         }
@@ -259,7 +249,7 @@ const EmployeeDetails = ({ updateCount }) => {
                                 {selectedEmployeeAppointments.length > 0 ? (
                                     selectedEmployeeAppointments.map((appointment) => (
                                         <div key={appointment.id} className="appointment-item">
-                                            <p>Customer Name: <span>{appointment.customerName}</span></p>
+                                            <p>Customer Name:<span>{appointment.customerName}</span></p>
                                             <p>Customer Email: <span>{appointment.customerEmail}</span></p>
                                             <p>Date: <span>{appointment.date}</span></p>
                                             <p>Time: <span>{appointment.time}</span></p>
@@ -275,7 +265,7 @@ const EmployeeDetails = ({ updateCount }) => {
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowModal(false)} >
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>
                         Close
                     </Button>
                     <Button variant="primary" onClick={handleUpdateEmployee}>
@@ -287,4 +277,46 @@ const EmployeeDetails = ({ updateCount }) => {
     );
 };
 
-export default EmployeeDetails;
+const Staff = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [updateCount, setUpdateCount] = useState(false);
+
+    const setOpen = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const handleUpdateCount = () => {
+        setUpdateCount(!updateCount);
+    };
+
+    return (
+        <div>
+            {!isOpen ? (
+                <React.Fragment>
+                    <div className='employee-details-container'>
+                        <div className='employee-details'>
+                            <EmployeeCount updateCount={updateCount} /><h1>Staff</h1>
+                        </div>
+                        <div className='employee-add'>
+                            <Button className='button' onClick={setOpen}>+ Add Staff</Button>
+                        </div>
+                    </div>
+                    <div className='employee-card-details'><EmployeeDetails updateCount={handleUpdateCount} /></div>
+                </React.Fragment>
+            ) : (
+                <React.Fragment>
+                    <div className='employee-details-container'>
+                        <div className='employee-details'>
+                        </div>
+                        <div className='employee-add'>
+                            <Button style={{ background: "red" }} className='button' onClick={setOpen}>Close</Button>
+                        </div>
+                    </div>
+                    <AddStaff updateCount={handleUpdateCount} />
+                </React.Fragment>
+            )}
+        </div>
+    );
+};
+
+export default Staff;

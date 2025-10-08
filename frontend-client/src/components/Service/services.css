@@ -1,12 +1,16 @@
 .services-container {
     margin-top: 10px;
     margin-bottom: 5px;
+    width: 99%;
+    margin-left: auto;
+    margin-right: auto;
     padding-top: 10px;
-    background: linear-gradient(180deg, #f4f4f4 0%, #699effb9 100%);
+    background: rgba(209, 209, 209, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    border-radius: 10px;
 }
 
 .service-list {
@@ -16,12 +20,14 @@
     transition: max-height 0.4s ease;
     overflow: hidden;
     padding-top: 10px;
+    background-color: white;
+    border-radius: 10px;
 }
 
 .service-icon {
     width: 120px;
     height: 120px;
-    background-color: #ffffff;
+    background-color: #ffffffbc;
     border-radius: 65px;
     display: flex;
     justify-content: center;
@@ -34,7 +40,7 @@
     margin-bottom: 20px;
     font-size: medium;
     font-weight: bold;
-    animation: colorAnimation 4s infinite alternate; 
+    animation: colorAnimation 4s alternate; 
 }
 
 @keyframes colorAnimation {
@@ -85,5 +91,5 @@
 }
 
 h2{
-    text-align: center;
+    padding-right: 25px;
 }

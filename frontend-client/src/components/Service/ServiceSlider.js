@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import './ServiceSlider.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,28 +15,32 @@ export default function ServiceSlider() {
     }, []);
 
     const nextSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 3) % services.length);
+        setCurrentIndex((prevIndex) => (prevIndex + 3) % activeServices.length);
     };
 
     const prevSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex - 3 + services.length) % services.length);
+        setCurrentIndex((prevIndex) => (prevIndex - 3 + activeServices.length) % activeServices.length);
     };
 
+    const activeServices = services.filter(service => service.serviceState === 'Active');
+
     return (
-        <div className="all-services-container">
-            <div className="slider">
-                <FontAwesomeIcon icon={faChevronLeft} size="2x" className="slider-icon left" onClick={prevSlide} />
-                <div className="slider-content">
-                    {services.slice(currentIndex, currentIndex + 3).map((service) => (
-                        <div key={service.serviceId} className="service-item">
-                            <h3 className='h3-sname'>{service.serviceName}</h3>
-                            <p className='p-sdesc'>{service.serviceDesc}</p>
-                            <p className="service-price">Rs. {service.servicePrice}</p>
-                        </div>
-                    ))}
+        <>
+            <div className="all-services-container">
+                <div className="slider">
+                    <FontAwesomeIcon icon={faChevronLeft} size="2x" className="slider-icon left" onClick={prevSlide} />
+                    <div className="slider-content">
+                        {activeServices.slice(currentIndex, currentIndex + 3).map((service) => (
+                            <div key={service.serviceId} className="service-item">
+                                <h3 className='h3-sname'>{service.serviceName}</h3>
+                                <p className='p-sdesc'>{service.serviceDesc}</p>
+                                <p className="service-price">Rs. {service.servicePrice}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <FontAwesomeIcon icon={faChevronRight} size="2x" className="slider-icon right" onClick={nextSlide} />
                 </div>
-                <FontAwesomeIcon icon={faChevronRight} size="2x" className="slider-icon right" onClick={nextSlide} />
             </div>
-        </div>
+        </>
     );
 }

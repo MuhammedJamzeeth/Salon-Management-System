@@ -19,7 +19,7 @@ function Home() {
 
             <Services> </Services>
             <FloatingButton></FloatingButton>
-            {/* <Reviews></Reviews> */}
+            {/* <Reviews></Reviews> */} 
             
             <GoogleMap />
             <Footer></Footer>
